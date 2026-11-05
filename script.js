@@ -1,185 +1,341 @@
 /**
- * AHMEDKO - Core Application Controller, Document Reader, Annotations, Translator & AI Suite
+ * AHMEDKO — Complete Frontend Controller (Matched 100% to index.html, style.css & ai.js)
+ * Compact Tabs & Shortcuts Edition
  * File: script.js
  */
 
 (function () {
   'use strict';
 
-  // Configure PDF.js worker
+  // Configure PDF.js Worker
   if (window.pdfjsLib) {
     window.pdfjsLib.GlobalWorkerOptions.workerSrc =
       'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
   }
 
-  // Bilingual I18N Dictionary (English LTR & Arabic RTL)
+  // =========================================================================
+  // 1. COMPACT BILINGUAL DICTIONARY (SHORT LABELS & TABS ONLY)
+  // =========================================================================
   const I18N = {
     en: {
-      tagline: 'Your Knowledge. Your Workspace. Your AI.',
-      uploadBtn: 'Open File',
+      tagline: 'Smart AI Workspace',
+      uploadBtn: 'Open',
       readerView: 'Workspace',
-      dashboardView: 'Dashboard',
-      projectorBtn: 'Projector',
-      welcomeTitle: 'Welcome to Ahmedko – Your Smart Workspace.',
-      welcomeSub:
-        'Open, annotate, translate, study, and present PDF, DOCX, PPTX, TXT & Images with 20 integrated AI study tools.',
-      uploadFilesCta: 'Upload Documents',
-      loadSampleBtn: 'Load Interactive Sample Guide',
-      allFilesTab: 'Recent Documents',
-      favoritesTab: '★ Favorites',
-      clearHistoryBtn: 'Clear History',
-      storageNotice:
-        'ℹ️ Files are cached locally in your browser IndexedDB for instant reopening.',
-      thumbsTab: 'Pages',
-      outlineTab: 'Outline',
-      bookmarksTab: 'Bookmarks',
-      bookmarkPageBtn: '+ Bookmark Current Page',
-      tabAiChat: '🤖 AI Chat',
-      tabStudyTools: '🎓 Study (20)',
+      dashboardBtnLabel: 'Dashboard',
+      projectorBtn: 'Present',
+      welcomeTitle: '⚡ Quick Launch',
+      uploadFilesCta: 'Open File',
+      loadSampleBtn: 'Sample Guide',
+      qaAiTitle: 'AI Chat',
+      qaAiDesc: 'Ask & Analyze',
+      qaTransTitle: 'Translator',
+      qaTransDesc: 'Instant Dict',
+      qaNotesTitle: 'Notes',
+      qaNotesDesc: 'Page-Linked',
+      qaProjTitle: 'Projector',
+      qaProjDesc: 'Laser & Timer',
+      allFilesTab: '📂 Recent',
+      favoritesTab: '★ Saved',
+      clearHistoryBtn: '🗑️ Clear',
+      thumbsTab: '📄 Pages',
+      outlineTab: '📑 Index',
+      bookmarksTab: '🔖 Marks',
+      bookmarkPageBtn: '+ Bookmark',
+      tabAiChat: '🤖 Chat',
+      tabStudyTools: '🎓 Tools (20)',
       tabTranslator: '🌐 Translate',
       tabNotes: '📝 Notes',
+      configureKeysBtn: '🔑 API Keys',
+      contextLabel: 'Scope:',
+      ctxCurrentPage: 'Page',
+      ctxSelectedText: 'Selection',
+      ctxPageRange: 'Range',
+      ctxFullDoc: 'Full Doc',
+      ctxGeneral: 'General',
       sendBtn: 'Send',
-      translateNowBtn: 'Translate Now',
-      translatePageBtn: 'Translate Current Page',
-      addNoteBtn: 'Save Note',
-      exportNotesBtn: 'Export Notes',
-      exportPdfBtn: 'Export Annotated PDF',
-      ocrBtn: 'Run OCR on Page',
-      ttsPlayBtn: 'Read Aloud',
-      ttsStopBtn: 'Stop Reading',
-      noFilesMsg: 'No documents in history yet. Upload a file or load the sample guide to begin.',
-      noBookmarksMsg: 'No bookmarks saved for this document.',
-      noOutlineMsg: 'No table of contents available for this file.',
-      pageLabel: 'Page',
-      ofLabel: 'of',
-      translatingMsg: 'Translating text...',
-      ocrRunningMsg: 'Running Tesseract OCR on current page...',
-      savedNoteMsg: 'Note saved successfully!',
-      bookmarkAddedMsg: 'Page bookmarked!',
-      historyClearedMsg: 'Document history cleared.'
+      difficultyLabel: 'Level:',
+      outputLangLabel: 'Lang:',
+      transSelBtn: 'Selection',
+      transPageBtn: 'Page',
+      transDocBtn: 'Doc',
+      translateNowBtn: '⚡ Translate',
+      translationResult: 'Result',
+      transHistoryTitle: 'History',
+      noDocOpenTitle: 'No File Open',
+      toolSelect: '',
+      toolHighlight: '',
+      toolUnderline: '',
+      toolStrike: '',
+      toolPen: '',
+      toolPencil: '',
+      toolFreehand: '',
+      toolEraser: '',
+      toolText: '',
+      toolSticky: '',
+      toolRect: '',
+      toolCircle: '',
+      toolArrow: '',
+      toolLine: '',
+      searchFilesPlaceholder: 'Filter files...',
+      findInDoc: 'Find...',
+      chatPlaceholder: 'Ask AI...'
     },
     ar: {
-      tagline: 'معرفتك. مساحتك الخاصة. ذكاؤك الاصطناعي.',
-      uploadBtn: 'فتح ملف',
+      tagline: 'مساحة العمل الذكية',
+      uploadBtn: 'فتح',
       readerView: 'مساحة العمل',
-      dashboardView: 'الرئيسية',
-      projectorBtn: 'وضع العرض',
-      welcomeTitle: 'مرحباً بك في أحمدكو – مساحة عملك الذكية.',
-      welcomeSub:
-        'افتح، علّق، ترجم، ادرس، واعرض ملفات PDF وDOCX وPPTX والنصوص مع 20 أداة ذكاء اصطناعي للدراسة.',
-      uploadFilesCta: 'رفع المستندات',
-      loadSampleBtn: 'تحميل الدليل التفاعلي التجريبي',
-      allFilesTab: 'المستندات الأخيرة',
+      dashboardBtnLabel: 'الرئيسية',
+      projectorBtn: 'عرض',
+      welcomeTitle: '⚡ وصول سريع',
+      uploadFilesCta: 'رفع ملف',
+      loadSampleBtn: 'ملف تجريبي',
+      qaAiTitle: 'المساعد الذكي',
+      qaAiDesc: 'اسأل وحلل',
+      qaTransTitle: 'المترجم',
+      qaTransDesc: 'قاموس فوري',
+      qaNotesTitle: 'الملاحظات',
+      qaNotesDesc: 'مرتبطة بالصفحات',
+      qaProjTitle: 'وضع العرض',
+      qaProjDesc: 'ليزر ومؤقت',
+      allFilesTab: '📂 الأخيرة',
       favoritesTab: '★ المفضلة',
-      clearHistoryBtn: 'مسح السجل',
-      storageNotice:
-        'ℹ️ يتم حفظ الملفات محلياً في متصفحك عبر IndexedDB لفتحها فوراً في أي وقت.',
-      thumbsTab: 'الصفحات',
-      outlineTab: 'الفهرس',
-      bookmarksTab: 'الإشارات',
-      bookmarkPageBtn: '+ حفظ إشارة للصفحة الحالية',
-      tabAiChat: '🤖 المساعد الذكي',
-      tabStudyTools: '🎓 أدوات الدراسة (20)',
-      tabTranslator: '🌐 المترجم',
-      tabNotes: '📝 الملاحظات',
+      clearHistoryBtn: '🗑️ مسح',
+      thumbsTab: '📄 الصفحات',
+      outlineTab: '📑 الفهرس',
+      bookmarksTab: '🔖 الإشارات',
+      bookmarkPageBtn: '+ حفظ إشارة',
+      tabAiChat: '🤖 محادثة',
+      tabStudyTools: '🎓 أدوات (20)',
+      tabTranslator: '🌐 ترجمة',
+      tabNotes: '📝 ملاحظات',
+      configureKeysBtn: '🔑 المفاتيح',
+      contextLabel: 'النطاق:',
+      ctxCurrentPage: 'الصفحة',
+      ctxSelectedText: 'المحدد',
+      ctxPageRange: 'نطاق',
+      ctxFullDoc: 'المستند',
+      ctxGeneral: 'عام',
       sendBtn: 'إرسال',
-      translateNowBtn: 'ترجم الآن',
-      translatePageBtn: 'ترجمة الصفحة الحالية',
-      addNoteBtn: 'حفظ الملاحظة',
-      exportNotesBtn: 'تصدير الملاحظات',
-      exportPdfBtn: 'تصدير PDF مع التعليقات',
-      ocrBtn: 'استخراج النص (OCR)',
-      ttsPlayBtn: 'قراءة صوتية',
-      ttsStopBtn: 'إيقاف القراءة',
-      noFilesMsg: 'لا توجد مستندات محفوظة بعد. ارفع ملفاً أو افتح الدليل التجريبي للبدء.',
-      noBookmarksMsg: 'لا توجد إشارات مرجعية محفوظة لهذا المستند.',
-      noOutlineMsg: 'لا يتوفر فهرس محتويات لهذا الملف.',
-      pageLabel: 'صفحة',
-      ofLabel: 'من',
-      translatingMsg: 'جاري الترجمة...',
-      ocrRunningMsg: 'جاري استخراج النص عبر Tesseract OCR...',
-      savedNoteMsg: 'تم حفظ الملاحظة بنجاح!',
-      bookmarkAddedMsg: 'تمت إضافة الصفحة إلى الإشارات المرجعية!',
-      historyClearedMsg: 'تم مسح سجل المستندات.'
+      difficultyLabel: 'المستوى:',
+      outputLangLabel: 'اللغة:',
+      transSelBtn: 'المحدد',
+      transPageBtn: 'الصفحة',
+      transDocBtn: 'المستند',
+      translateNowBtn: '⚡ ترجم',
+      translationResult: 'النتيجة',
+      transHistoryTitle: 'السجل',
+      noDocOpenTitle: 'لا يوجد ملف مفتوح',
+      toolSelect: '',
+      toolHighlight: '',
+      toolUnderline: '',
+      toolStrike: '',
+      toolPen: '',
+      toolPencil: '',
+      toolFreehand: '',
+      toolEraser: '',
+      toolText: '',
+      toolSticky: '',
+      toolRect: '',
+      toolCircle: '',
+      toolArrow: '',
+      toolLine: '',
+      searchFilesPlaceholder: 'بحث في الملفات...',
+      findInDoc: 'بحث...',
+      chatPlaceholder: 'اسأل الذكاء الاصطناعي...'
+    }
+  };
+
+  // Short labels for the 20 study tools
+  const COMPACT_STUDY_LABELS = {
+    en: {
+      explain_page: '📖 Explain Page',
+      explain_beginner: '🌱 Simple Explain',
+      summarize_doc: '📚 Doc Summary',
+      summarize_page: '📄 Page Summary',
+      key_points: '🎯 Key Points',
+      mcq: '✅ MCQ Quiz',
+      true_false: '⚖️ True / False',
+      essay: '✍️ Essay Qs',
+      flashcards: '🗂️ Flashcards',
+      glossary: '📘 Glossary',
+      terminology: '🔬 Terms',
+      study_guide: '🧭 Study Guide',
+      quiz: '🏆 Full Quiz',
+      compare_concepts: '🔄 Compare',
+      revision_notes: '📝 Revision',
+      extract_formulas: '∑ Formulas',
+      explain_diagrams: '🖼️ Diagrams',
+      qa_with_answers: '💡 Q & A',
+      qa_without_answers: '❓ Self-Test',
+      lecture_outline: '🎓 Lecture Plan'
+    },
+    ar: {
+      explain_page: '📖 شرح الصفحة',
+      explain_beginner: '🌱 شرح مبسط',
+      summarize_doc: '📚 ملخص كامل',
+      summarize_page: '📄 ملخص الصفحة',
+      key_points: '🎯 أهم النقاط',
+      mcq: '✅ اختياري MCQ',
+      true_false: '⚖️ صح وخطأ',
+      essay: '✍️ أسئلة مقالية',
+      flashcards: '🗂️ بطاقات استذكار',
+      glossary: '📘 قاموس مصطلحات',
+      terminology: '🔬 شرح المصطلحات',
+      study_guide: '🧭 دليل مذاكرة',
+      quiz: '🏆 اختبار شامل',
+      compare_concepts: '🔄 مقارنة مفاهيم',
+      revision_notes: '📝 برشامة مراجعة',
+      extract_formulas: '∑ القوانين والمعادلات',
+      explain_diagrams: '🖼️ شرح الرسوم',
+      qa_with_answers: '💡 س وج محلول',
+      qa_without_answers: '❓ اختبر نفسك',
+      lecture_outline: '🎓 خطة محاضرة'
     }
   };
 
   // =========================================================================
-  // 1. APPLICATION STATE
+  // 2. APPLICATION STATE
   // =========================================================================
   const state = {
-    lang: localStorage.getItem('ahmedko_lang') || 'en',
+    lang: localStorage.getItem('ahmedko_lang') || 'ar',
     theme: localStorage.getItem('ahmedko_theme') || 'dark',
-    currentView: 'dashboard', // 'dashboard' | 'reader'
-    activeFilter: 'all', // 'all' | 'favorites'
+    paperTint: localStorage.getItem('ahmedko_tint') || 'default',
+    defaultZoom: localStorage.getItem('ahmedko_zoom') || '1',
+    currentView: 'dashboard', // 'dashboard' | 'workspace'
+    fileFilter: 'all',
+    fileSearch: '',
+    fileSort: 'date-desc',
+
+    openDocs: [], // Array of { id, name, type, size }
     currentDocId: null,
     currentDocMeta: null,
     docType: null, // 'pdf' | 'docx' | 'pptx' | 'txt' | 'image'
     pdfDoc: null,
-    virtualPages: [], // HTML content array for non-PDF documents
-    pageTexts: {}, // { pageNum: "extracted string" }
+    virtualPages: [],
+    pageTexts: [], // 0-indexed array of strings per page
     currentPage: 1,
     totalPages: 1,
-    scale: 1.25,
+    scale: 1.0,
     rotation: 0,
-    viewMode: 'single', // 'single' | 'scroll' | 'spread'
-    pageFilter: 'normal', // 'normal' | 'sepia' | 'night' | 'grayscale'
+    layoutMode: 'single', // 'single' | 'continuous' | 'two-page'
 
-    // 14-Tool Annotation Engine State
-    activeTool: 'select', // select, pen, highlighter, marker, eraser, line, arrow, rect, circle, text, sticky, stamp, redact, laser
-    strokeColor: '#ff3b30',
-    strokeWidth: 3,
+    // 14-Tool Annotation Engine
+    activeTool: 'select',
+    strokeColor: '#6366f1',
+    hlColor: '#FFEB3B',
+    strokeSize: 3,
     strokeOpacity: 1.0,
-    activeStamp: '✓ APPROVED',
     isDrawing: false,
     startX: 0,
     startY: 0,
     currentPath: [],
-    annotationsByPage: {}, // { [pageNum]: Array<AnnotationObject> }
-    undoStackByPage: {}, // { [pageNum]: Array<Array<AnnotationObject>> }
-    redoStackByPage: {}, // { [pageNum]: Array<Array<AnnotationObject>> }
-    laserTrail: [],
+    annotationsByPage: {},
+    undoStackByPage: {},
+    redoStackByPage: {},
 
-    // Bookmarks & Notes
-    bookmarks: [], // Array<{ page, label, timestamp }>
-    notes: [], // Array<{ id, page, text, timestamp }>
+    // Bookmarks, Notes, Translations, Chat Sessions
+    bookmarks: [],
+    notes: JSON.parse(localStorage.getItem('ahmedko_notes') || '[]'),
+    transHistory: JSON.parse(localStorage.getItem('ahmedko_trans_hist') || '[]'),
+    chatSessions: JSON.parse(
+      localStorage.getItem('ahmedko_chats') ||
+        '[{"id":"default","title":"Main Chat","messages":[]}]'
+    ),
+    activeChatId: 'default',
+    selectedTextContext: '',
 
-    // Projector Mode & Timer
-    projectorActive: false,
-    projectorBlackout: false,
-    projectorLaser: true,
-    timerSeconds: 0,
-    timerRunning: false,
-    timerInterval: null,
-
-    // TTS State
-    ttsActive: false,
-    ttsUtterance: null,
-
-    // Search State
-    searchQuery: '',
+    // In-Doc Search
     searchMatches: [],
-    searchMatchIdx: -1
+    searchIdx: -1,
+
+    // Projector
+    projectorActive: false,
+    laserActive: false,
+    curtainMode: null, // null | 'black' | 'white'
+    timerSeconds: 0,
+    timerInterval: null
   };
 
-  // Expose state globally for external AI modules
-  window.AhmedkoState = state;
+  const $ = (id) => document.getElementById(id);
 
   // =========================================================================
-  // 2. INDEXEDDB BINARY FILE & METADATA CACHE
+  // 3. COMPACT UI STYLING (NO CLUTTER, TABS & SHORTCUTS)
+  // =========================================================================
+  function injectCompactUIStyles() {
+    const style = document.createElement('style');
+    style.textContent = `
+      /* Hide verbose paragraphs & clutter */
+      .hero-content p, .hero-badge, .storage-notice, .study-hint, .settings-note {
+        display: none !important;
+      }
+      .hero-card {
+        padding: 14px 18px !important;
+        margin-bottom: 16px !important;
+        grid-template-columns: auto 1fr !important;
+        gap: 16px !important;
+      }
+      .hero-content h1 {
+        font-size: 1.05rem !important;
+        margin-bottom: 8px !important;
+      }
+      .quick-actions-grid {
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 8px !important;
+      }
+      .quick-card {
+        padding: 8px 10px !important;
+      }
+      .quick-card p {
+        display: none !important;
+      }
+      /* 2-Column Compact Grid for 20 Study Tools */
+      .study-tools-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 6px !important;
+      }
+      .study-tool-btn {
+        padding: 8px 10px !important;
+        font-size: 0.76rem !important;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      /* Icon-only compact Annotation Toolbar */
+      .anno-btn span {
+        display: none !important;
+      }
+      .anno-btn {
+        padding: 5px 9px !important;
+        font-size: 0.88rem !important;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  function showToast(msg, isError = false) {
+    const container = $('toastContainer');
+    if (!container) return;
+    const t = document.createElement('div');
+    t.className = 'toast';
+    if (isError) t.style.borderLeftColor = '#ef4444';
+    t.textContent = msg;
+    container.appendChild(t);
+    setTimeout(() => t.remove(), 2600);
+  }
+
+  // =========================================================================
+  // 4. INDEXEDDB STORAGE ENGINE
   // =========================================================================
   const DB_NAME = 'AhmedkoWorkspaceDB';
-  const DB_VERSION = 1;
-  const STORE_FILES = 'files';
+  const STORE_NAME = 'files';
 
-  function openDatabase() {
+  function openDB() {
     return new Promise((resolve, reject) => {
-      const req = indexedDB.open(DB_NAME, DB_VERSION);
+      const req = indexedDB.open(DB_NAME, 1);
       req.onupgradeneeded = (e) => {
         const db = e.target.result;
-        if (!db.objectStoreNames.contains(STORE_FILES)) {
-          const store = db.createObjectStore(STORE_FILES, { keyPath: 'id' });
-          store.createIndex('lastOpened', 'lastOpened', { unique: false });
+        if (!db.objectStoreNames.contains(STORE_NAME)) {
+          db.createObjectStore(STORE_NAME, { keyPath: 'id' });
         }
       };
       req.onsuccess = () => resolve(req.result);
@@ -187,1606 +343,1479 @@
     });
   }
 
-  async function saveDocumentToDB(docRecord) {
-    const db = await openDatabase();
+  async function saveDocToDB(record) {
+    const db = await openDB();
     return new Promise((resolve, reject) => {
-      const tx = db.transaction(STORE_FILES, 'readwrite');
-      tx.objectStore(STORE_FILES).put(docRecord);
-      tx.oncomplete = () => resolve(docRecord);
+      const tx = db.transaction(STORE_NAME, 'readwrite');
+      tx.objectStore(STORE_NAME).put(record);
+      tx.oncomplete = () => resolve(record);
       tx.onerror = () => reject(tx.error);
     });
   }
 
-  async function getDocumentFromDB(id) {
-    const db = await openDatabase();
+  async function getDocFromDB(id) {
+    const db = await openDB();
     return new Promise((resolve, reject) => {
-      const tx = db.transaction(STORE_FILES, 'readonly');
-      const req = tx.objectStore(STORE_FILES).get(id);
+      const tx = db.transaction(STORE_NAME, 'readonly');
+      const req = tx.objectStore(STORE_NAME).get(id);
       req.onsuccess = () => resolve(req.result);
       req.onerror = () => reject(req.error);
     });
   }
 
-  async function getAllDocumentsFromDB() {
-    const db = await openDatabase();
+  async function getAllDocsFromDB() {
+    const db = await openDB();
     return new Promise((resolve, reject) => {
-      const tx = db.transaction(STORE_FILES, 'readonly');
-      const req = tx.objectStore(STORE_FILES).getAll();
-      req.onsuccess = () => {
-        const list = (req.result || []).sort((a, b) => (b.lastOpened || 0) - (a.lastOpened || 0));
-        resolve(list);
-      };
+      const tx = db.transaction(STORE_NAME, 'readonly');
+      const req = tx.objectStore(STORE_NAME).getAll();
+      req.onsuccess = () => resolve(req.result || []);
       req.onerror = () => reject(req.error);
     });
   }
 
-  async function deleteDocumentFromDB(id) {
-    const db = await openDatabase();
+  async function deleteDocFromDB(id) {
+    const db = await openDB();
     return new Promise((resolve, reject) => {
-      const tx = db.transaction(STORE_FILES, 'readwrite');
-      tx.objectStore(STORE_FILES).delete(id);
+      const tx = db.transaction(STORE_NAME, 'readwrite');
+      tx.objectStore(STORE_NAME).delete(id);
       tx.oncomplete = () => resolve();
       tx.onerror = () => reject(tx.error);
     });
   }
 
-  async function clearAllDocumentsFromDB() {
-    const db = await openDatabase();
+  async function clearAllDocsFromDB() {
+    const db = await openDB();
     return new Promise((resolve, reject) => {
-      const tx = db.transaction(STORE_FILES, 'readwrite');
-      tx.objectStore(STORE_FILES).clear();
+      const tx = db.transaction(STORE_NAME, 'readwrite');
+      tx.objectStore(STORE_NAME).clear();
       tx.oncomplete = () => resolve();
       tx.onerror = () => reject(tx.error);
     });
   }
 
-  async function persistCurrentDocState() {
+  async function syncDocMetadataToDB() {
     if (!state.currentDocId) return;
-    try {
-      const rec = await getDocumentFromDB(state.currentDocId);
-      if (!rec) return;
-      rec.currentPage = state.currentPage;
-      rec.totalPages = state.totalPages;
-      rec.annotationsByPage = state.annotationsByPage;
-      rec.bookmarks = state.bookmarks;
-      rec.notes = state.notes;
-      rec.lastOpened = Date.now();
-      await saveDocumentToDB(rec);
-    } catch (err) {
-      console.warn('Could not persist state to IndexedDB:', err);
-    }
+    const rec = await getDocFromDB(state.currentDocId);
+    if (!rec) return;
+    rec.currentPage = state.currentPage;
+    rec.totalPages = state.totalPages;
+    rec.annotationsByPage = state.annotationsByPage;
+    rec.bookmarks = state.bookmarks;
+    rec.lastOpened = Date.now();
+    await saveDocToDB(rec);
   }
 
   // =========================================================================
-  // 3. DOM HELPERS & TOAST NOTIFICATIONS
+  // 5. LOCALIZATION & THEME (SAFE ATTRIBUTE-ONLY UPDATES)
   // =========================================================================
-  function $(id) {
-    return document.getElementById(id);
-  }
-
-  function showToast(message, type = 'info') {
-    let container = $('toastContainer');
-    if (!container) {
-      container = document.createElement('div');
-      container.id = 'toastContainer';
-      Object.assign(container.style, {
-        position: 'fixed',
-        bottom: '24px',
-        right: '24px',
-        zIndex: '99999',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '10px'
-      });
-      document.body.appendChild(container);
-    }
-    const toast = document.createElement('div');
-    toast.className = `toast toast-${type}`;
-    Object.assign(toast.style, {
-      background: type === 'error' ? '#dc2626' : type === 'success' ? '#16a34a' : '#2563eb',
-      color: '#ffffff',
-      padding: '12px 18px',
-      borderRadius: '10px',
-      boxShadow: '0 8px 24px rgba(0,0,0,0.35)',
-      fontSize: '14px',
-      fontWeight: '500',
-      transition: 'all 0.3s ease'
-    });
-    toast.textContent = message;
-    container.appendChild(toast);
-    setTimeout(() => {
-      toast.style.opacity = '0';
-      toast.style.transform = 'translateY(10px)';
-      setTimeout(() => toast.remove(), 300);
-    }, 3000);
-  }
-
-  function formatBytes(bytes) {
-    if (!bytes || bytes === 0) return '0 KB';
-    const k = 1024;
-    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-    const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
-  }
-
-  // =========================================================================
-  // 4. LOCALIZATION (AR / EN) & THEME MANAGEMENT
-  // =========================================================================
-  function t(key) {
-    const dict = I18N[state.lang] || I18N.en;
-    return dict[key] || I18N.en[key] || key;
-  }
-
   function applyLanguage(lang) {
     state.lang = lang === 'ar' ? 'ar' : 'en';
     localStorage.setItem('ahmedko_lang', state.lang);
-
     document.documentElement.lang = state.lang;
     document.documentElement.dir = state.lang === 'ar' ? 'rtl' : 'ltr';
-    document.body.classList.toggle('rtl', state.lang === 'ar');
 
     const dict = I18N[state.lang];
-    Object.keys(dict).forEach((key) => {
-      // Update by ID if matching element exists
-      const elById = document.getElementById(key);
-      if (elById && elById.tagName !== 'INPUT' && elById.tagName !== 'TEXTAREA') {
-        elById.textContent = dict[key];
+    // ONLY update elements with explicit [data-i18n] or [data-i18n-placeholder]
+    document.querySelectorAll('[data-i18n]').forEach((el) => {
+      const key = el.getAttribute('data-i18n');
+      if (dict[key] !== undefined) {
+        el.textContent = dict[key];
       }
-      // Update by data-i18n attribute
-      document.querySelectorAll(`[data-i18n="${key}"]`).forEach((el) => {
-        if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-          el.placeholder = dict[key];
-        } else {
-          el.textContent = dict[key];
-        }
-      });
     });
 
-    const langBtn = $('langToggle') || $('langBtn');
-    if (langBtn) {
-      langBtn.textContent = state.lang === 'ar' ? 'EN' : 'عربي';
-    }
+    document.querySelectorAll('[data-i18n-placeholder]').forEach((el) => {
+      const key = el.getAttribute('data-i18n-placeholder');
+      if (dict[key] !== undefined) {
+        el.placeholder = dict[key];
+      }
+    });
 
-    renderDashboardFiles();
-    updatePageCounterUI();
+    // Update compact 20 study tools labels
+    const studyLabels = COMPACT_STUDY_LABELS[state.lang];
+    document.querySelectorAll('.study-tool-btn[data-study]').forEach((btn) => {
+      const key = btn.getAttribute('data-study');
+      if (studyLabels[key]) btn.textContent = studyLabels[key];
+    });
+
+    const badge = $('langBadge');
+    if (badge) badge.textContent = state.lang === 'ar' ? 'EN' : 'عربي';
+
+    const settingLang = $('settingLangSelect');
+    if (settingLang) settingLang.value = state.lang;
+
+    updateViewSwitchLabel();
+    renderRecentFilesGrid();
   }
 
   function applyTheme(theme) {
     state.theme = theme === 'light' ? 'light' : 'dark';
     localStorage.setItem('ahmedko_theme', state.theme);
     document.documentElement.setAttribute('data-theme', state.theme);
-    document.body.classList.toggle('light-theme', state.theme === 'light');
-    document.body.classList.toggle('dark-theme', state.theme === 'dark');
+    const settingTheme = $('settingThemeSelect');
+    if (settingTheme) settingTheme.value = state.theme;
+  }
 
-    const themeBtn = $('themeToggle') || $('themeBtn');
-    if (themeBtn) {
-      themeBtn.textContent = state.theme === 'dark' ? '☀️' : '🌙';
+  function applyPaperTint(tint) {
+    state.paperTint = tint || 'default';
+    localStorage.setItem('ahmedko_tint', state.paperTint);
+    const stage = $('documentStage');
+    if (stage) {
+      stage.classList.remove('paper-sepia', 'paper-night');
+      if (state.paperTint === 'sepia') stage.classList.add('paper-sepia');
+      if (state.paperTint === 'night') stage.classList.add('paper-night');
     }
   }
 
   // =========================================================================
-  // 5. VIEW SWITCHING (DASHBOARD <-> WORKSPACE READER)
+  // 6. VIEW & TAB NAVIGATION
   // =========================================================================
-  function switchView(viewName) {
-    state.currentView = viewName;
-    const dashEl = $('dashboardSection') || $('dashboardViewPanel') || document.querySelector('.dashboard-section');
-    const readerEl = $('readerSection') || $('readerViewPanel') || document.querySelector('.reader-section');
+  function switchView(targetView) {
+    state.currentView = targetView === 'workspace' ? 'workspace' : 'dashboard';
+    const dash = $('dashboardView');
+    const work = $('workspaceView');
+    if (dash && work) {
+      dash.classList.toggle('hidden', state.currentView !== 'dashboard');
+      work.classList.toggle('hidden', state.currentView !== 'workspace');
+    }
+    updateViewSwitchLabel();
+    if (state.currentView === 'dashboard') {
+      renderRecentFilesGrid();
+    }
+  }
 
-    if (dashEl && readerEl) {
-      if (viewName === 'dashboard') {
-        dashEl.style.display = '';
-        dashEl.classList.remove('hidden');
-        readerEl.style.display = 'none';
-        readerEl.classList.add('hidden');
-        renderDashboardFiles();
-      } else {
-        dashEl.style.display = 'none';
-        dashEl.classList.add('hidden');
-        readerEl.style.display = '';
-        readerEl.classList.remove('hidden');
+  function updateViewSwitchLabel() {
+    const lbl = $('viewSwitchLabel');
+    if (!lbl) return;
+    const dict = I18N[state.lang];
+    lbl.textContent =
+      state.currentView === 'dashboard' ? dict.readerView : dict.dashboardBtnLabel;
+  }
+
+  function activateRightTab(tabName) {
+    document.querySelectorAll('.rp-tab').forEach((b) => {
+      b.classList.toggle('active', b.dataset.rpTab === tabName);
+    });
+    const map = {
+      aiChat: 'rpTabAiChat',
+      studyTools: 'rpTabStudyTools',
+      translator: 'rpTabTranslator',
+      notes: 'rpTabNotes'
+    };
+    Object.entries(map).forEach(([k, id]) => {
+      const el = $(id);
+      if (el) {
+        el.classList.toggle('hidden', k !== tabName);
+        el.classList.toggle('active', k === tabName);
       }
-    }
+    });
+  }
 
-    const dashBtn = $('dashboardView') || $('dashboardBtn');
-    const readerBtn = $('readerView') || $('readerBtn');
-    if (dashBtn) dashBtn.classList.toggle('active', viewName === 'dashboard');
-    if (readerBtn) readerBtn.classList.toggle('active', viewName === 'reader');
+  function activateLeftTab(tabName) {
+    document.querySelectorAll('.sidebar-tab').forEach((b) => {
+      b.classList.toggle('active', b.dataset.leftTab === tabName);
+    });
+    const map = {
+      thumbnails: 'leftTabThumbnails',
+      outline: 'leftTabOutline',
+      bookmarks: 'leftTabBookmarks'
+    };
+    Object.entries(map).forEach(([k, id]) => {
+      const el = $(id);
+      if (el) {
+        el.classList.toggle('hidden', k !== tabName);
+        el.classList.toggle('active', k === tabName);
+      }
+    });
   }
 
   // =========================================================================
-  // 6. DASHBOARD FILE CARDS & INTERACTIVE SAMPLE GUIDE
+  // 7. DASHBOARD FILE MANAGER & MULTI-DOC TABS BAR
   // =========================================================================
-  async function renderDashboardFiles() {
-    const grid =
-      $('filesGrid') ||
-      $('recentFilesGrid') ||
-      $('documentsGrid') ||
-      $('fileList') ||
-      document.querySelector('.files-grid');
+  function formatSize(bytes) {
+    if (!bytes) return '0 KB';
+    const kb = bytes / 1024;
+    return kb > 1024 ? (kb / 1024).toFixed(1) + ' MB' : Math.round(kb) + ' KB';
+  }
+
+  async function renderRecentFilesGrid() {
+    const grid = $('recentFilesGrid');
     if (!grid) return;
 
-    const allDocs = await getAllDocumentsFromDB();
-    const filtered =
-      state.activeFilter === 'favorites' ? allDocs.filter((d) => d.favorite) : allDocs;
+    let docs = await getAllDocsFromDB();
+    if (state.fileFilter === 'favorites') {
+      docs = docs.filter((d) => d.favorite);
+    }
+    if (state.fileSearch) {
+      const q = state.fileSearch.toLowerCase();
+      docs = docs.filter((d) => d.name.toLowerCase().includes(q));
+    }
 
-    // Update dashboard stats if elements exist
-    const totalFilesStat = $('statTotalFiles') || $('totalFilesCount');
-    if (totalFilesStat) totalFilesStat.textContent = allDocs.length;
+    docs.sort((a, b) => {
+      if (state.fileSort === 'name-asc') return a.name.localeCompare(b.name);
+      if (state.fileSort === 'size-desc') return (b.size || 0) - (a.size || 0);
+      if (state.fileSort === 'type-asc') return (a.type || '').localeCompare(b.type || '');
+      return (b.lastOpened || 0) - (a.lastOpened || 0);
+    });
 
-    if (filtered.length === 0) {
-      grid.innerHTML = `<div class="empty-state" style="padding:32px;text-align:center;opacity:0.75;">${t('noFilesMsg')}</div>`;
+    if (docs.length === 0) {
+      grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:32px;color:var(--text-muted);">
+        ${state.lang === 'ar' ? 'لا توجد ملفات بعد — اضغط "رفع ملف" أو "ملف تجريبي"' : 'No files yet — click Open File or Sample Guide'}
+      </div>`;
       return;
     }
 
     grid.innerHTML = '';
-    filtered.forEach((doc) => {
+    docs.forEach((doc) => {
+      const ext = (doc.name.split('.').pop() || 'FILE').toUpperCase();
       const card = document.createElement('div');
-      card.className = 'file-card doc-card';
-      card.style.cssText =
-        'position:relative;padding:18px;border-radius:12px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);cursor:pointer;display:flex;flex-direction:column;gap:8px;transition:transform 0.2s;';
-
-      const ext = (doc.name.split('.').pop() || 'doc').toUpperCase();
-      const dateStr = new Date(doc.lastOpened || Date.now()).toLocaleDateString(
-        state.lang === 'ar' ? 'ar-EG' : 'en-US'
-      );
-      const progressPct =
-        doc.totalPages > 0 ? Math.min(100, Math.round(((doc.currentPage || 1) / doc.totalPages) * 100)) : 100;
-
+      card.className = 'file-card';
+      card.style.cursor = 'pointer';
       card.innerHTML = `
-        <div style="display:flex;justify-content:space-between;align-items:center;">
-          <span style="font-size:11px;font-weight:700;padding:4px 8px;border-radius:6px;background:#2563eb;color:#fff;">${ext}</span>
-          <div style="display:flex;gap:8px;">
-            <button class="fav-btn" title="Favorite" style="background:none;border:none;cursor:pointer;font-size:16px;color:${doc.favorite ? '#facc15' : '#9ca3af'};">★</button>
-            <button class="del-btn" title="Delete" style="background:none;border:none;cursor:pointer;font-size:14px;color:#ef4444;">✕</button>
+        <div>
+          <div class="file-card-top">
+            <span class="file-type-badge">${ext}</span>
+            <div style="display:flex;gap:6px;">
+              <button class="icon-btn btn-xs fav-toggle" title="Favorite">${doc.favorite ? '★' : '☆'}</button>
+              <button class="icon-btn btn-xs del-doc" title="Delete">✕</button>
+            </div>
           </div>
+          <div class="file-title">${doc.name}</div>
         </div>
-        <h4 style="margin:4px 0;font-size:15px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${doc.name}</h4>
-        <div style="font-size:12px;opacity:0.7;display:flex;justify-content:space-between;">
-          <span>${formatBytes(doc.size)} • ${doc.totalPages || 1} ${t('thumbsTab')}</span>
-          <span>${dateStr}</span>
-        </div>
-        <div style="height:4px;background:rgba(255,255,255,0.1);border-radius:2px;overflow:hidden;margin-top:4px;">
-          <div style="height:100%;width:${progressPct}%;background:#3b82f6;"></div>
+        <div class="file-card-actions">
+          <span class="file-meta">${formatSize(doc.size)} • ${doc.totalPages || 1}p</span>
+          <span class="file-meta">${doc.currentPage || 1}/${doc.totalPages || 1}</span>
         </div>
       `;
 
       card.addEventListener('click', (e) => {
-        if (e.target.closest('.fav-btn') || e.target.closest('.del-btn')) return;
-        openCachedDocument(doc.id);
+        if (e.target.closest('.fav-toggle') || e.target.closest('.del-doc')) return;
+        openDocumentById(doc.id);
       });
 
-      card.querySelector('.fav-btn').addEventListener('click', async (e) => {
+      card.querySelector('.fav-toggle').addEventListener('click', async (e) => {
         e.stopPropagation();
         doc.favorite = !doc.favorite;
-        await saveDocumentToDB(doc);
-        renderDashboardFiles();
+        await saveDocToDB(doc);
+        renderRecentFilesGrid();
       });
 
-      card.querySelector('.del-btn').addEventListener('click', async (e) => {
+      card.querySelector('.del-doc').addEventListener('click', async (e) => {
         e.stopPropagation();
-        await deleteDocumentFromDB(doc.id);
-        renderDashboardFiles();
+        await deleteDocFromDB(doc.id);
+        state.openDocs = state.openDocs.filter((d) => d.id !== doc.id);
+        renderDocTabsBar();
+        renderRecentFilesGrid();
       });
 
       grid.appendChild(card);
     });
   }
 
-  async function loadInteractiveSampleGuide() {
-    const samplePages = [
-      `# Ahmedko Smart Workspace – Interactive Guide (Page 1)\n\nWelcome to **Ahmedko**, your all-in-one document reader, 14-tool canvas annotation studio, bilingual translator, and 20-tool AI study companion.\n\n### Key Capabilities:\n1. **Multi-Format Engine**: Open PDF, Word (DOCX), PowerPoint (PPTX), Markdown, TXT, and Images.\n2. **14-Tool Annotation Canvas**: Draw with Pen, Highlighter, Marker, Shapes, Arrows, Sticky Notes, Stamps, Redaction, and Laser Pointer.\n3. **Smart AI Study Suite**: Generate summaries, flashcards, quizzes, mind maps, Cornell notes, and exam predictions directly from your document.`,
-      `# Artificial Intelligence & Cognitive Learning (Page 2)\n\nSpaced repetition and active recall are two of the most effective evidence-based learning techniques in cognitive psychology.\n\n* **Active Recall**: Testing yourself on key concepts strengthens neural pathways far more effectively than passive re-reading.\n* **Feynman Technique**: Explaining a complex topic in simple terms reveals gaps in your understanding.\n* **Cornell Note-Taking**: Dividing notes into Cues, Notes, and Summary accelerates exam revision.`,
-      `# Presentation & Projector Mode (Page 3)\n\nUse **Projector Mode** at the top bar to present your slides or PDF pages in fullscreen.\n\n* Press **L** or move your mouse to use the live **Laser Pointer**.\n* Use the built-in **Presentation Timer** to track your talk duration.\n* Select any sentence on the page to trigger instant **Bilingual Translation** or **Text-to-Speech (TTS)**.`
+  function renderDocTabsBar() {
+    const bar = $('docTabsBar');
+    if (!bar) return;
+    bar.innerHTML = '';
+    state.openDocs.forEach((doc) => {
+      const tab = document.createElement('div');
+      tab.className = 'doc-tab' + (doc.id === state.currentDocId ? ' active' : '');
+      tab.innerHTML = `
+        <span class="doc-tab-title">${doc.name}</span>
+        <span class="doc-tab-close" title="Close">✕</span>
+      `;
+      tab.addEventListener('click', (e) => {
+        if (e.target.classList.contains('doc-tab-close')) {
+          e.stopPropagation();
+          closeDocTab(doc.id);
+          return;
+        }
+        openDocumentById(doc.id);
+      });
+      bar.appendChild(tab);
+    });
+  }
+
+  function closeDocTab(id) {
+    state.openDocs = state.openDocs.filter((d) => d.id !== id);
+    if (state.currentDocId === id) {
+      if (state.openDocs.length > 0) {
+        openDocumentById(state.openDocs[state.openDocs.length - 1].id);
+      } else {
+        state.currentDocId = null;
+        $('documentStage')?.classList.add('hidden');
+        $('emptyReaderState')?.classList.remove('hidden');
+      }
+    }
+    renderDocTabsBar();
+  }
+
+  // =========================================================================
+  // 8. MULTI-FORMAT DOCUMENT LOADER (PDF, DOCX, PPTX, TXT, IMAGES)
+  // =========================================================================
+  async function handleFilesSelected(fileList) {
+    if (!fileList || fileList.length === 0) return;
+    let lastId = null;
+    for (const file of Array.from(fileList)) {
+      const buffer = await file.arrayBuffer();
+      const id = 'doc_' + file.name.replace(/[^a-zA-Z0-9]/g, '_') + '_' + file.size;
+      const existing = await getDocFromDB(id);
+      const record = {
+        id,
+        name: file.name,
+        type: file.type || '',
+        size: file.size,
+        data: buffer,
+        lastOpened: Date.now(),
+        currentPage: existing?.currentPage || 1,
+        totalPages: existing?.totalPages || 1,
+        favorite: existing?.favorite || false,
+        annotationsByPage: existing?.annotationsByPage || {},
+        bookmarks: existing?.bookmarks || []
+      };
+      await saveDocToDB(record);
+      lastId = id;
+    }
+    if (lastId) await openDocumentById(lastId);
+  }
+
+  async function loadSampleGuide() {
+    const pages = [
+      `# ⚡ Ahmedko Smart Workspace\n\nWelcome to your streamlined workspace. Everything is organized into quick tabs and icon shortcuts:\n\n* **Top Bar**: Switch tabs, toggle Projector Mode, or change Theme/Language.\n* **14 Drawing Tools**: Highlight, Pen, Shapes, Sticky Notes, Text, and PDF Export.\n* **Right Panel Tabs**: 🤖 AI Chat, 🎓 20 Study Tools, 🌐 Instant Translator, and 📝 Rich Notes.`,
+      `# 🎓 Active Recall & AI Study Suite\n\nClick any of the **20 Study Tools** in the right sidebar to automatically generate:\n\n* Multiple Choice Questions (MCQs) & True/False quizzes.\n* Flashcards, Glossaries, and Last-Minute Revision Sheets.\n* Formula extractions and beginner-friendly explanations.`,
+      `# 📽️ Classroom Projector Mode\n\nClick **Present** in the top bar for fullscreen presentation:\n\n* Press **L** to activate the Red Laser Pointer.\n* Press **B** or **W** for Black/White screen focus curtains.\n* Built-in timer for tracking lecture time.`
     ];
-
-    const content = samplePages.join('\n\n---PAGE---\n\n');
-    const encoder = new TextEncoder();
-    const buffer = encoder.encode(content).buffer;
-
-    const sampleRecord = {
-      id: 'sample-ahmedko-guide',
-      name: 'Ahmedko_Interactive_Guide.md',
-      type: 'text/markdown',
-      size: buffer.byteLength,
-      data: buffer,
+    const encoded = new TextEncoder().encode(pages.join('\n\n---PAGE---\n\n')).buffer;
+    const rec = {
+      id: 'sample_guide_doc',
+      name: 'Ahmedko_Quick_Guide.txt',
+      type: 'text/plain',
+      size: encoded.byteLength,
+      data: encoded,
       lastOpened: Date.now(),
       currentPage: 1,
-      totalPages: samplePages.length,
+      totalPages: pages.length,
       favorite: true,
       annotationsByPage: {},
-      bookmarks: [{ page: 1, label: 'Welcome Overview', timestamp: Date.now() }],
-      notes: [
-        {
-          id: 'n1',
-          page: 1,
-          text: 'Try the 14 annotation tools in the top toolbar and the 20 AI study tools on the right panel!',
-          timestamp: Date.now()
-        }
-      ]
+      bookmarks: [{ page: 1, label: 'Quick Overview' }]
     };
-
-    await saveDocumentToDB(sampleRecord);
-    await openCachedDocument(sampleRecord.id);
+    await saveDocToDB(rec);
+    await openDocumentById(rec.id);
   }
 
-  // =========================================================================
-  // 7. FILE UPLOAD & MULTI-FORMAT DOCUMENT LOADER (PDF, DOCX, PPTX, TXT, IMG)
-  // =========================================================================
-  async function handleFileUpload(files) {
-    if (!files || files.length === 0) return;
-    const file = files[0];
-    const buffer = await file.arrayBuffer();
-    const id = 'doc_' + file.name.replace(/[^a-zA-Z0-9]/g, '_') + '_' + file.size;
-
-    const existing = await getDocumentFromDB(id);
-    const record = {
-      id,
-      name: file.name,
-      type: file.type || '',
-      size: file.size,
-      data: buffer,
-      lastOpened: Date.now(),
-      currentPage: existing ? existing.currentPage || 1 : 1,
-      totalPages: existing ? existing.totalPages || 1 : 1,
-      favorite: existing ? !!existing.favorite : false,
-      annotationsByPage: existing ? existing.annotationsByPage || {} : {},
-      bookmarks: existing ? existing.bookmarks || [] : [],
-      notes: existing ? existing.notes || [] : []
-    };
-
-    await saveDocumentToDB(record);
-    await openCachedDocument(id);
-  }
-
-  async function openCachedDocument(id) {
-    const doc = await getDocumentFromDB(id);
-    if (!doc) {
-      showToast('Document not found in cache.', 'error');
-      return;
-    }
+  async function openDocumentById(id) {
+    const doc = await getDocFromDB(id);
+    if (!doc) return showToast('File not found', true);
 
     state.currentDocId = doc.id;
     state.currentDocMeta = doc;
     state.currentPage = doc.currentPage || 1;
     state.annotationsByPage = doc.annotationsByPage || {};
+    state.bookmarks = doc.bookmarks || [];
     state.undoStackByPage = {};
     state.redoStackByPage = {};
-    state.bookmarks = doc.bookmarks || [];
-    state.notes = doc.notes || [];
-    state.pageTexts = {};
+    state.pageTexts = [];
     state.pdfDoc = null;
     state.virtualPages = [];
 
-    const titleEl = $('currentDocTitle') || $('docTitle') || $('fileNameDisplay');
-    if (titleEl) titleEl.textContent = doc.name;
+    if (!state.openDocs.some((d) => d.id === doc.id)) {
+      state.openDocs.push({ id: doc.id, name: doc.name });
+    }
+    renderDocTabsBar();
+    switchView('workspace');
 
-    switchView('reader');
+    $('emptyReaderState')?.classList.add('hidden');
+    const stage = $('documentStage');
+    if (stage) stage.classList.remove('hidden');
 
     const ext = (doc.name.split('.').pop() || '').toLowerCase();
     try {
       if (ext === 'pdf' || doc.type === 'application/pdf') {
         state.docType = 'pdf';
-        await loadPdfDocument(doc.data);
+        await parsePdf(doc.data);
       } else if (ext === 'docx') {
         state.docType = 'docx';
-        await loadDocxDocument(doc.data);
+        await parseDocx(doc.data);
       } else if (ext === 'pptx') {
         state.docType = 'pptx';
-        await loadPptxDocument(doc.data);
-      } else if (['png', 'jpg', 'jpeg', 'webp', 'gif'].includes(ext) || doc.type.startsWith('image/')) {
+        await parsePptx(doc.data);
+      } else if (['png', 'jpg', 'jpeg', 'webp'].includes(ext) || doc.type.startsWith('image/')) {
         state.docType = 'image';
-        await loadImageDocument(doc.data, doc.type || 'image/png');
+        await parseImage(doc.data, doc.type || 'image/png');
       } else {
         state.docType = 'txt';
-        await loadTextDocument(doc.data);
+        await parseText(doc.data);
       }
 
-      await persistCurrentDocState();
-      renderBookmarksList();
-      renderNotesList();
-      renderCurrentPage();
+      if (state.currentPage > state.totalPages) state.currentPage = 1;
+      await syncDocMetadataToDB();
+      renderBookmarks();
+      await renderActivePages();
     } catch (err) {
-      console.error('Error loading document:', err);
-      showToast('Failed to render file: ' + err.message, 'error');
+      console.error(err);
+      showToast('Error opening file: ' + err.message, true);
     }
   }
 
-  // ---- 7A. PDF.js Multi-Mode Loader ----
-  async function loadPdfDocument(arrayBuffer) {
-    if (!window.pdfjsLib) {
-      throw new Error('PDF.js library is not loaded.');
-    }
-    const uint8 = new Uint8Array(arrayBuffer.slice(0));
-    const loadingTask = window.pdfjsLib.getDocument({ data: uint8 });
-    state.pdfDoc = await loadingTask.promise;
+  async function parsePdf(buffer) {
+    const uint8 = new Uint8Array(buffer.slice(0));
+    state.pdfDoc = await window.pdfjsLib.getDocument({ data: uint8 }).promise;
     state.totalPages = state.pdfDoc.numPages;
-    if (state.currentPage > state.totalPages) state.currentPage = 1;
+    state.pageTexts = new Array(state.totalPages).fill('');
 
-    // Extract text in background for AI & Search
-    extractAllPdfText();
+    // Extract text asynchronously
+    (async () => {
+      for (let i = 1; i <= state.totalPages; i++) {
+        try {
+          const p = await state.pdfDoc.getPage(i);
+          const tc = await p.getTextContent();
+          state.pageTexts[i - 1] = tc.items.map((it) => it.str).join(' ');
+        } catch (_) {}
+      }
+    })();
+
     renderPdfThumbnails();
     renderPdfOutline();
   }
 
-  async function extractAllPdfText() {
-    if (!state.pdfDoc) return;
-    for (let p = 1; p <= state.pdfDoc.numPages; p++) {
-      try {
-        const page = await state.pdfDoc.getPage(p);
-        const textContent = await page.getTextContent();
-        state.pageTexts[p] = textContent.items.map((item) => item.str).join(' ');
-      } catch (e) {
-        state.pageTexts[p] = '';
-      }
-    }
-  }
-
-  async function renderPdfThumbnails() {
-    const container = $('thumbsContainer') || $('thumbsList') || $('thumbnailsPanel');
-    if (!container || !state.pdfDoc) return;
-    container.innerHTML = '';
-
-    const maxThumbs = Math.min(state.pdfDoc.numPages, 50);
-    for (let p = 1; p <= maxThumbs; p++) {
-      const item = document.createElement('div');
-      item.className = 'thumb-item';
-      item.dataset.page = p;
-      item.style.cssText =
-        'padding:8px;margin-bottom:8px;border-radius:8px;cursor:pointer;text-align:center;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);';
-
-      const canvas = document.createElement('canvas');
-      canvas.style.cssText = 'max-width:100%;height:auto;border-radius:4px;display:block;margin:0 auto 6px;';
-      const label = document.createElement('span');
-      label.style.fontSize = '12px';
-      label.textContent = `${t('pageLabel')} ${p}`;
-
-      item.appendChild(canvas);
-      item.appendChild(label);
-      item.addEventListener('click', () => goToPage(p));
-      container.appendChild(item);
-
-      state.pdfDoc.getPage(p).then((page) => {
-        const vp = page.getViewport({ scale: 0.25 });
-        canvas.width = vp.width;
-        canvas.height = vp.height;
-        page.render({ canvasContext: canvas.getContext('2d'), viewport: vp });
-      });
-    }
-  }
-
-  async function renderPdfOutline() {
-    const container = $('outlineContainer') || $('outlineList') || $('outlinePanel');
-    if (!container) return;
-    if (!state.pdfDoc) {
-      container.innerHTML = `<div style="padding:12px;opacity:0.7;">${t('noOutlineMsg')}</div>`;
-      return;
-    }
-    const outline = await state.pdfDoc.getOutline();
-    if (!outline || outline.length === 0) {
-      container.innerHTML = `<div style="padding:12px;opacity:0.7;">${t('noOutlineMsg')}</div>`;
-      return;
-    }
-    container.innerHTML = '';
-    outline.forEach((item) => {
-      const row = document.createElement('div');
-      row.style.cssText =
-        'padding:8px 10px;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px;';
-      row.textContent = item.title;
-      row.addEventListener('click', async () => {
-        try {
-          if (item.dest) {
-            const dest = typeof item.dest === 'string' ? await state.pdfDoc.getDestination(item.dest) : item.dest;
-            const pageIndex = await state.pdfDoc.getPageIndex(dest[0]);
-            goToPage(pageIndex + 1);
-          }
-        } catch (e) {
-          console.warn('Outline navigation error:', e);
-        }
-      });
-      container.appendChild(row);
-    });
-  }
-
-  // ---- 7B. DOCX (Mammoth.js) Loader ----
-  async function loadDocxDocument(arrayBuffer) {
-    if (!window.mammoth) {
-      throw new Error('Mammoth.js is required to render DOCX files.');
-    }
-    const result = await window.mammoth.convertToHtml({ arrayBuffer: arrayBuffer.slice(0) });
-    const rawHtml = result.value || '<p>Empty document.</p>';
-
-    // Paginate HTML into virtual pages (~2500 chars per page)
+  async function parseDocx(buffer) {
+    const res = await window.mammoth.convertToHtml({ arrayBuffer: buffer.slice(0) });
     const temp = document.createElement('div');
-    temp.innerHTML = rawHtml;
+    temp.innerHTML = res.value || '<p>Empty DOCX</p>';
     const blocks = Array.from(temp.children);
     const pages = [];
-    let currentChunk = '';
-
-    blocks.forEach((el) => {
-      currentChunk += el.outerHTML;
-      if (currentChunk.length > 2600) {
-        pages.push(currentChunk);
-        currentChunk = '';
+    let chunk = '';
+    blocks.forEach((b) => {
+      chunk += b.outerHTML;
+      if (chunk.length > 2600) {
+        pages.push(`<div class="doc-html-sheet">${chunk}</div>`);
+        chunk = '';
       }
     });
-    if (currentChunk || pages.length === 0) pages.push(currentChunk);
-
+    if (chunk || pages.length === 0) pages.push(`<div class="doc-html-sheet">${chunk}</div>`);
     state.virtualPages = pages;
     state.totalPages = pages.length;
-    pages.forEach((html, idx) => {
-      const div = document.createElement('div');
-      div.innerHTML = html;
-      state.pageTexts[idx + 1] = div.textContent || '';
+    state.pageTexts = pages.map((html) => {
+      const d = document.createElement('div');
+      d.innerHTML = html;
+      return d.textContent || '';
     });
-    renderVirtualThumbnails();
+    renderSimpleThumbnails();
   }
 
-  // ---- 7C. PPTX (JSZip) Slide Loader ----
-  async function loadPptxDocument(arrayBuffer) {
-    if (!window.JSZip) {
-      throw new Error('JSZip is required to render PPTX files.');
-    }
-    const zip = await window.JSZip.loadAsync(arrayBuffer.slice(0));
-    const slideFiles = Object.keys(zip.files)
-      .filter((name) => /^ppt\/slides\/slide\d+\.xml$/i.test(name))
-      .sort((a, b) => {
-        const na = parseInt(a.match(/slide(\d+)\.xml/i)[1], 10);
-        const nb = parseInt(b.match(/slide(\d+)\.xml/i)[1], 10);
-        return na - nb;
-      });
+  async function parsePptx(buffer) {
+    const zip = await window.JSZip.loadAsync(buffer.slice(0));
+    const files = Object.keys(zip.files)
+      .filter((k) => /^ppt\/slides\/slide\d+\.xml$/i.test(k))
+      .sort((a, b) => parseInt(a.match(/\d+/)[0], 10) - parseInt(b.match(/\d+/)[0], 10));
 
     const pages = [];
-    for (let i = 0; i < slideFiles.length; i++) {
-      const xmlStr = await zip.files[slideFiles[i]].async('string');
-      const parser = new DOMParser();
-      const xmlDoc = parser.parseFromString(xmlStr, 'application/xml');
-      const textNodes = Array.from(xmlDoc.getElementsByTagName('a:t'));
-      const lines = textNodes.map((n) => n.textContent.trim()).filter(Boolean);
-      state.pageTexts[i + 1] = lines.join(' ');
-
-      const title = lines[0] || `Slide ${i + 1}`;
-      const bullets = lines.slice(1).map((line) => `<li style="margin-bottom:10px;">${line}</li>`).join('');
+    state.pageTexts = [];
+    for (let i = 0; i < files.length; i++) {
+      const xml = await zip.files[files[i]].async('string');
+      const doc = new DOMParser().parseFromString(xml, 'application/xml');
+      const texts = Array.from(doc.getElementsByTagName('a:t'))
+        .map((n) => n.textContent.trim())
+        .filter(Boolean);
+      state.pageTexts.push(texts.join(' '));
+      const title = texts[0] || `Slide ${i + 1}`;
+      const body = texts
+        .slice(1)
+        .map((t) => `<li style="margin-bottom:8px;">${t}</li>`)
+        .join('');
       pages.push(`
-        <div class="pptx-slide" style="padding:40px;min-height:480px;display:flex;flex-direction:column;justify-content:center;">
-          <div style="font-size:12px;text-transform:uppercase;letter-spacing:1px;opacity:0.6;margin-bottom:8px;">Slide ${i + 1} of ${slideFiles.length}</div>
-          <h2 style="font-size:28px;margin-bottom:24px;color:#2563eb;border-bottom:2px solid rgba(37,99,235,0.2);padding-bottom:12px;">${title}</h2>
-          <ul style="font-size:18px;line-height:1.7;padding-left:24px;">${bullets}</ul>
+        <div class="pptx-slide-card">
+          <div style="font-size:12px;color:#6366f1;font-weight:700;margin-bottom:8px;">SLIDE ${i + 1}</div>
+          <h2 style="margin-bottom:16px;">${title}</h2>
+          <ul style="padding-left:20px;line-height:1.6;">${body}</ul>
         </div>
       `);
     }
-
-    if (pages.length === 0) {
-      pages.push('<div style="padding:40px;">No readable slides found in PPTX.</div>');
-    }
+    if (pages.length === 0) pages.push('<div class="pptx-slide-card">Empty presentation</div>');
     state.virtualPages = pages;
     state.totalPages = pages.length;
-    renderVirtualThumbnails();
+    renderSimpleThumbnails();
   }
 
-  // ---- 7D. Text / Markdown & Image Loaders ----
-  async function loadTextDocument(arrayBuffer) {
-    const decoder = new TextDecoder('utf-8');
-    const text = decoder.decode(arrayBuffer);
-    const rawChunks = text.includes('---PAGE---')
-      ? text.split('---PAGE---')
-      : text.match(/[\s\S]{1,2500}/g) || [text];
-
-    state.virtualPages = rawChunks.map((chunk, idx) => {
-      state.pageTexts[idx + 1] = chunk.trim();
-      const formatted = chunk
-        .trim()
-        .replace(/^### (.*$)/gim, '<h3>$1</h3>')
-        .replace(/^## (.*$)/gim, '<h2>$1</h2>')
-        .replace(/^# (.*$)/gim, '<h1>$1</h1>')
-        .replace(/\*\*(.*?)\*\*/gim, '<strong>$1</strong>')
-        .replace(/^\* (.*$)/gim, '<li>$1</li>')
-        .replace(/\n/g, '<br>');
-      return `<div class="markdown-page" style="padding:36px;line-height:1.8;font-size:16px;">${formatted}</div>`;
+  async function parseText(buffer) {
+    const raw = new TextDecoder('utf-8').decode(buffer);
+    const parts = raw.includes('---PAGE---')
+      ? raw.split('---PAGE---')
+      : raw.match(/[\s\S]{1,2500}/g) || [raw];
+    state.pageTexts = parts.map((p) => p.trim());
+    state.virtualPages = parts.map((p) => {
+      const html = window.AhmedkoAI ? window.AhmedkoAI.renderMarkdown(p.trim()) : p;
+      return `<div class="doc-html-sheet">${html}</div>`;
     });
     state.totalPages = state.virtualPages.length;
-    renderVirtualThumbnails();
+    renderSimpleThumbnails();
   }
 
-  async function loadImageDocument(arrayBuffer, mimeType) {
-    const blob = new Blob([arrayBuffer], { type: mimeType });
-    const url = URL.createObjectURL(blob);
+  async function parseImage(buffer, mime) {
+    const url = URL.createObjectURL(new Blob([buffer], { type: mime }));
     state.virtualPages = [
-      `<div style="text-align:center;padding:20px;"><img id="docImagePage" src="${url}" style="max-width:100%;height:auto;border-radius:8px;" /></div>`
+      `<div style="padding:16px;background:#fff;"><img id="activeImageElem" src="${url}" style="max-width:780px;display:block;" /></div>`
     ];
     state.totalPages = 1;
-    state.pageTexts[1] = '[Image Document - Use OCR button to extract text]';
-    renderVirtualThumbnails();
+    state.pageTexts = [''];
+    renderSimpleThumbnails();
   }
 
-  function renderVirtualThumbnails() {
-    const container = $('thumbsContainer') || $('thumbsList') || $('thumbnailsPanel');
-    if (!container) return;
-    container.innerHTML = '';
-    for (let p = 1; p <= state.totalPages; p++) {
-      const div = document.createElement('div');
-      div.style.cssText =
-        'padding:10px;margin-bottom:6px;border-radius:8px;cursor:pointer;background:rgba(255,255,255,0.04);font-size:13px;';
-      div.textContent = `${t('pageLabel')} ${p}`;
-      div.addEventListener('click', () => goToPage(p));
-      container.appendChild(div);
+  // =========================================================================
+  // 9. THUMBNAILS, OUTLINE & BOOKMARKS
+  // =========================================================================
+  function renderPdfThumbnails() {
+    const box = $('thumbnailsContainer');
+    if (!box || !state.pdfDoc) return;
+    box.innerHTML = '';
+    const limit = Math.min(state.totalPages, 40);
+    for (let p = 1; p <= limit; p++) {
+      const item = document.createElement('div');
+      item.className = 'thumb-item' + (p === state.currentPage ? ' active' : '');
+      item.dataset.page = p;
+      const c = document.createElement('canvas');
+      const lbl = document.createElement('div');
+      lbl.className = 'thumb-label';
+      lbl.textContent = p;
+      item.appendChild(c);
+      item.appendChild(lbl);
+      item.onclick = () => goToPage(p);
+      box.appendChild(item);
+
+      state.pdfDoc.getPage(p).then((page) => {
+        const vp = page.getViewport({ scale: 0.22 });
+        c.width = vp.width;
+        c.height = vp.height;
+        page.render({ canvasContext: c.getContext('2d'), viewport: vp });
+      });
     }
   }
 
-  // =========================================================================
-  // 8. PAGE RENDERING & 14-TOOL ANNOTATION OVERLAY ENGINE
-  // =========================================================================
-  function getViewerStage() {
-    return (
-      $('viewerStage') ||
-      $('documentViewport') ||
-      $('pdfViewer') ||
-      $('readerCanvasContainer') ||
-      $('pageContainer') ||
-      document.querySelector('.viewer-stage, .canvas-container, .reader-viewport')
-    );
+  function renderSimpleThumbnails() {
+    const box = $('thumbnailsContainer');
+    if (!box) return;
+    box.innerHTML = '';
+    for (let p = 1; p <= state.totalPages; p++) {
+      const item = document.createElement('div');
+      item.className = 'thumb-item' + (p === state.currentPage ? ' active' : '');
+      item.dataset.page = p;
+      item.innerHTML = `<div class="thumb-label" style="padding:10px 0;font-weight:600;">📄 ${p}</div>`;
+      item.onclick = () => goToPage(p);
+      box.appendChild(item);
+    }
+    const outline = $('outlineContainer');
+    if (outline) outline.innerHTML = '<div style="padding:10px;color:var(--text-muted);font-size:12px;">—</div>';
   }
 
-  async function renderCurrentPage() {
-    updatePageCounterUI();
-    const stage = getViewerStage();
-    if (!stage) return;
+  async function renderPdfOutline() {
+    const box = $('outlineContainer');
+    if (!box || !state.pdfDoc) return;
+    const outline = await state.pdfDoc.getOutline();
+    if (!outline || outline.length === 0) {
+      box.innerHTML = '<div style="padding:10px;color:var(--text-muted);font-size:12px;">No outline</div>';
+      return;
+    }
+    box.innerHTML = '';
+    outline.forEach((it) => {
+      const d = document.createElement('div');
+      d.style.cssText = 'padding:6px 8px;font-size:12px;cursor:pointer;border-bottom:1px solid var(--border-color);';
+      d.textContent = it.title;
+      d.onclick = async () => {
+        try {
+          const dest = typeof it.dest === 'string' ? await state.pdfDoc.getDestination(it.dest) : it.dest;
+          const idx = await state.pdfDoc.getPageIndex(dest[0]);
+          goToPage(idx + 1);
+        } catch (_) {}
+      };
+      box.appendChild(d);
+    });
+  }
 
-    // Apply visual filters (normal, sepia, night, grayscale)
-    const filterMap = {
-      normal: 'none',
-      sepia: 'sepia(0.85) contrast(0.95)',
-      night: 'invert(0.92) hue-rotate(180deg)',
-      grayscale: 'grayscale(1)'
-    };
+  function renderBookmarks() {
+    const box = $('bookmarksContainer');
+    if (!box) return;
+    box.innerHTML = '';
+    state.bookmarks.forEach((bm, idx) => {
+      const d = document.createElement('div');
+      d.style.cssText =
+        'display:flex;justify-content:space-between;padding:6px 8px;font-size:12px;border-bottom:1px solid var(--border-color);cursor:pointer;';
+      d.innerHTML = `<span>🔖 P.${bm.page}</span><span style="color:#ef4444;">✕</span>`;
+      d.onclick = (e) => {
+        if (e.target.textContent === '✕') {
+          state.bookmarks.splice(idx, 1);
+          syncDocMetadataToDB();
+          renderBookmarks();
+          return;
+        }
+        goToPage(bm.page);
+      };
+      box.appendChild(d);
+    });
+  }
 
+  // =========================================================================
+  // 10. VIEWPORT RENDERER & 14-TOOL ANNOTATION CANVAS
+  // =========================================================================
+  async function renderActivePages() {
+    const stage = $('documentStage');
+    if (!stage || !state.currentDocId) return;
     stage.innerHTML = '';
+    stage.classList.toggle('two-page-grid', state.layoutMode === 'two-page');
+    applyPaperTint(state.paperTint);
 
+    let pagesToRender = [state.currentPage];
+    if (state.layoutMode === 'two-page') {
+      if (state.currentPage + 1 <= state.totalPages) {
+        pagesToRender = [state.currentPage, state.currentPage + 1];
+      }
+    } else if (state.layoutMode === 'continuous') {
+      const maxContinuous = Math.min(state.totalPages, 15);
+      pagesToRender = Array.from({ length: maxContinuous }, (_, i) => i + 1);
+    }
+
+    for (const pNum of pagesToRender) {
+      const wrapper = await createPageElement(pNum);
+      stage.appendChild(wrapper);
+    }
+
+    updateToolbarCounters();
+    syncProjectorStage();
+  }
+
+  async function createPageElement(pageNum) {
     const wrapper = document.createElement('div');
-    wrapper.id = 'activePageWrapper';
-    wrapper.style.cssText = `position:relative;margin:20px auto;background:#ffffff;color:#111827;box-shadow:0 12px 36px rgba(0,0,0,0.45);border-radius:6px;overflow:hidden;filter:${filterMap[state.pageFilter] || 'none'};transform:rotate(${state.rotation}deg);transition:transform 0.2s ease;`;
+    wrapper.className = 'page-wrapper';
+    wrapper.dataset.page = pageNum;
+    wrapper.style.transform = `rotate(${state.rotation}deg)`;
 
-    const baseCanvas = document.createElement('canvas');
-    baseCanvas.id = 'pdfRenderCanvas';
-    baseCanvas.style.display = 'block';
-
-    const contentDiv = document.createElement('div');
-    contentDiv.id = 'virtualPageContent';
-    contentDiv.style.display = 'none';
-
-    const annotCanvas = document.createElement('canvas');
-    annotCanvas.id = 'annotationCanvas';
-    annotCanvas.style.cssText = 'position:absolute;top:0;left:0;z-index:10;cursor:crosshair;';
-
-    wrapper.appendChild(baseCanvas);
-    wrapper.appendChild(contentDiv);
-    wrapper.appendChild(annotCanvas);
-    stage.appendChild(wrapper);
+    const annoCanvas = document.createElement('canvas');
+    annoCanvas.className =
+      'annotation-canvas' + (state.activeTool !== 'select' ? ' drawing-active' : '');
+    annoCanvas.dataset.page = pageNum;
 
     if (state.docType === 'pdf' && state.pdfDoc) {
-      const page = await state.pdfDoc.getPage(state.currentPage);
-      const viewport = page.getViewport({ scale: state.scale });
-      baseCanvas.width = viewport.width;
-      baseCanvas.height = viewport.height;
-      wrapper.style.width = viewport.width + 'px';
-      wrapper.style.height = viewport.height + 'px';
-      annotCanvas.width = viewport.width;
-      annotCanvas.height = viewport.height;
+      const page = await state.pdfDoc.getPage(pageNum);
+      const vp = page.getViewport({ scale: state.scale });
+      const pdfCanvas = document.createElement('canvas');
+      pdfCanvas.className = 'pdf-canvas';
+      pdfCanvas.width = vp.width;
+      pdfCanvas.height = vp.height;
+      wrapper.style.width = vp.width + 'px';
+      wrapper.style.height = vp.height + 'px';
+      annoCanvas.width = vp.width;
+      annoCanvas.height = vp.height;
 
-      await page.render({
-        canvasContext: baseCanvas.getContext('2d'),
-        viewport
-      }).promise;
+      wrapper.appendChild(pdfCanvas);
+      wrapper.appendChild(annoCanvas);
+      await page.render({ canvasContext: pdfCanvas.getContext('2d'), viewport: vp }).promise;
     } else {
-      baseCanvas.style.display = 'none';
-      contentDiv.style.display = 'block';
-      const width = Math.round(720 * state.scale);
-      wrapper.style.width = width + 'px';
-      wrapper.style.minHeight = Math.round(920 * state.scale) + 'px';
-      contentDiv.innerHTML = state.virtualPages[state.currentPage - 1] || '';
+      const content = document.createElement('div');
+      content.innerHTML = state.virtualPages[pageNum - 1] || '';
+      content.style.transform = `scale(${state.scale})`;
+      content.style.transformOrigin = 'top left';
+      wrapper.appendChild(content);
+      wrapper.appendChild(annoCanvas);
 
       setTimeout(() => {
-        annotCanvas.width = wrapper.clientWidth || width;
-        annotCanvas.height = wrapper.clientHeight || 920;
-        redrawAnnotations(annotCanvas);
-      }, 50);
+        annoCanvas.width = wrapper.clientWidth || 794;
+        annoCanvas.height = wrapper.clientHeight || 1050;
+        redrawPageAnnotations(annoCanvas, pageNum);
+      }, 40);
     }
 
-    bindAnnotationCanvasEvents(annotCanvas);
-    redrawAnnotations(annotCanvas);
-    syncProjectorView();
+    setupAnnotationEvents(annoCanvas, pageNum);
+    redrawPageAnnotations(annoCanvas, pageNum);
+    return wrapper;
   }
 
-  function updatePageCounterUI() {
-    const pageInput = $('pageInput') || $('currentPageInput');
-    if (pageInput) pageInput.value = state.currentPage;
+  function updateToolbarCounters() {
+    const pIn = $('pageNumberInput');
+    if (pIn) pIn.value = state.currentPage;
+    const tot = $('totalPagesLabel');
+    if (tot) tot.textContent = state.totalPages;
+    const zLbl = $('zoomPercentLabel');
+    if (zLbl) zLbl.textContent = Math.round(state.scale * 100) + '%';
+    const prog = $('readingProgressBar');
+    if (prog) prog.style.width = Math.round((state.currentPage / state.totalPages) * 100) + '%';
+    const linkBadge = $('linkPageBadge');
+    if (linkBadge) linkBadge.textContent = `P.${state.currentPage}`;
 
-    const totalEl = $('totalPages') || $('pageCount') || $('totalPagesSpan');
-    if (totalEl) totalEl.textContent = state.totalPages;
-
-    const indicator = $('pageIndicator');
-    if (indicator) {
-      indicator.textContent = `${t('pageLabel')} ${state.currentPage} ${t('ofLabel')} ${state.totalPages}`;
-    }
-
-    const zoomLabel = $('zoomLevel') || $('zoomValue');
-    if (zoomLabel) zoomLabel.textContent = Math.round(state.scale * 100) + '%';
+    document.querySelectorAll('.thumb-item').forEach((el) => {
+      el.classList.toggle('active', parseInt(el.dataset.page, 10) === state.currentPage);
+    });
   }
 
-  function goToPage(pageNum) {
-    const target = Math.max(1, Math.min(state.totalPages, parseInt(pageNum, 10) || 1));
-    state.currentPage = target;
-    persistCurrentDocState();
-    renderCurrentPage();
+  function goToPage(p) {
+    state.currentPage = Math.max(1, Math.min(state.totalPages, parseInt(p, 10) || 1));
+    syncDocMetadataToDB();
+    renderActivePages();
   }
 
-  // =========================================================================
-  // 9. 14-TOOL CANVAS ANNOTATION ENGINE (WITH UNDO, REDO & PDF EXPORT)
-  // =========================================================================
-  function getPageAnnotations(page = state.currentPage) {
-    if (!state.annotationsByPage[page]) {
-      state.annotationsByPage[page] = [];
-    }
-    return state.annotationsByPage[page];
+  // ---- 14-Tool Annotation Drawing ----
+  function getAnnots(p) {
+    if (!state.annotationsByPage[p]) state.annotationsByPage[p] = [];
+    return state.annotationsByPage[p];
   }
 
-  function pushUndoSnapshot(page = state.currentPage) {
-    if (!state.undoStackByPage[page]) state.undoStackByPage[page] = [];
-    state.undoStackByPage[page].push(JSON.parse(JSON.stringify(getPageAnnotations(page))));
-    if (state.undoStackByPage[page].length > 40) state.undoStackByPage[page].shift();
-    state.redoStackByPage[page] = [];
+  function saveUndoState(p) {
+    if (!state.undoStackByPage[p]) state.undoStackByPage[p] = [];
+    state.undoStackByPage[p].push(JSON.parse(JSON.stringify(getAnnots(p))));
+    state.redoStackByPage[p] = [];
   }
 
-  function undoAnnotation() {
-    const page = state.currentPage;
-    const stack = state.undoStackByPage[page] || [];
-    if (stack.length === 0) return;
-    if (!state.redoStackByPage[page]) state.redoStackByPage[page] = [];
-    state.redoStackByPage[page].push(JSON.parse(JSON.stringify(getPageAnnotations(page))));
-    state.annotationsByPage[page] = stack.pop();
-    redrawAnnotations($('annotationCanvas'));
-    persistCurrentDocState();
-  }
-
-  function redoAnnotation() {
-    const page = state.currentPage;
-    const stack = state.redoStackByPage[page] || [];
-    if (stack.length === 0) return;
-    if (!state.undoStackByPage[page]) state.undoStackByPage[page] = [];
-    state.undoStackByPage[page].push(JSON.parse(JSON.stringify(getPageAnnotations(page))));
-    state.annotationsByPage[page] = stack.pop();
-    redrawAnnotations($('annotationCanvas'));
-    persistCurrentDocState();
-  }
-
-  function clearPageAnnotations() {
-    pushUndoSnapshot();
-    state.annotationsByPage[state.currentPage] = [];
-    redrawAnnotations($('annotationCanvas'));
-    persistCurrentDocState();
-  }
-
-  function bindAnnotationCanvasEvents(canvas) {
-    if (!canvas) return;
-    canvas.style.pointerEvents = state.activeTool === 'select' ? 'none' : 'auto';
-
-    const getCoords = (e) => {
-      const rect = canvas.getBoundingClientRect();
-      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-      return {
-        x: clientX - rect.left,
-        y: clientY - rect.top
-      };
+  function setupAnnotationEvents(canvas, pageNum) {
+    const pos = (e) => {
+      const r = canvas.getBoundingClientRect();
+      return { x: e.clientX - r.left, y: e.clientY - r.top };
     };
 
     canvas.onmousedown = (e) => {
       if (state.activeTool === 'select') return;
-      const { x, y } = getCoords(e);
+      const { x, y } = pos(e);
+
+      if (state.activeTool === 'textbox' || state.activeTool === 'sticky') {
+        const txt = prompt(state.activeTool === 'sticky' ? '📌 Note:' : '🔤 Text:');
+        if (!txt) return;
+        saveUndoState(pageNum);
+        getAnnots(pageNum).push({
+          tool: state.activeTool,
+          x,
+          y,
+          text: txt,
+          color: state.activeTool === 'sticky' ? '#eab308' : state.strokeColor,
+          size: state.strokeSize
+        });
+        redrawPageAnnotations(canvas, pageNum);
+        syncDocMetadataToDB();
+        return;
+      }
+
       state.isDrawing = true;
       state.startX = x;
       state.startY = y;
       state.currentPath = [{ x, y }];
-
-      if (['text', 'sticky', 'stamp'].includes(state.activeTool)) {
-        state.isDrawing = false;
-        handlePointAnnotationTool(x, y, canvas);
-      }
     };
 
     canvas.onmousemove = (e) => {
-      const { x, y } = getCoords(e);
-      if (state.activeTool === 'laser') {
-        state.laserTrail.push({ x, y, time: Date.now() });
-        redrawAnnotations(canvas);
-        return;
-      }
       if (!state.isDrawing) return;
-
-      if (['pen', 'highlighter', 'marker', 'eraser'].includes(state.activeTool)) {
+      const { x, y } = pos(e);
+      if (['pen', 'pencil', 'freehand', 'highlighter', 'eraser'].includes(state.activeTool)) {
         state.currentPath.push({ x, y });
-        redrawAnnotations(canvas);
-        drawPreviewStroke(canvas.getContext('2d'));
-      } else {
-        redrawAnnotations(canvas);
-        drawPreviewShape(canvas.getContext('2d'), x, y);
       }
+      redrawPageAnnotations(canvas, pageNum);
+      drawShape(canvas.getContext('2d'), buildTempAnnotation(x, y));
     };
 
-    window.addEventListener('mouseup', (e) => {
+    canvas.onmouseup = (e) => {
       if (!state.isDrawing) return;
       state.isDrawing = false;
-      const rect = canvas.getBoundingClientRect();
-      const endX = e.clientX - rect.left;
-      const endY = e.clientY - rect.top;
+      const { x, y } = pos(e);
+      saveUndoState(pageNum);
 
-      commitAnnotation(endX, endY, canvas);
-    });
+      if (state.activeTool === 'eraser') {
+        state.annotationsByPage[pageNum] = getAnnots(pageNum).filter((a) => {
+          if (a.points) return !a.points.some((pt) => Math.hypot(pt.x - x, pt.y - y) < 22);
+          return Math.hypot((a.x || 0) - x, (a.y || 0) - y) >= 25;
+        });
+      } else {
+        getAnnots(pageNum).push(buildTempAnnotation(x, y));
+      }
+      redrawPageAnnotations(canvas, pageNum);
+      syncDocMetadataToDB();
+    };
   }
 
-  function handlePointAnnotationTool(x, y, canvas) {
-    const annots = getPageAnnotations();
-    if (state.activeTool === 'text') {
-      const text = prompt(state.lang === 'ar' ? 'أدخل النص:' : 'Enter annotation text:');
-      if (!text) return;
-      pushUndoSnapshot();
-      annots.push({
-        tool: 'text',
-        x,
-        y,
-        text,
-        color: state.strokeColor,
-        size: Math.max(14, state.strokeWidth * 5)
-      });
-    } else if (state.activeTool === 'sticky') {
-      const noteText = prompt(state.lang === 'ar' ? 'أدخل ملاحظة الملصق:' : 'Enter sticky note:');
-      if (!noteText) return;
-      pushUndoSnapshot();
-      annots.push({
-        tool: 'sticky',
-        x,
-        y,
-        text: noteText,
-        color: '#facc15'
-      });
-      // Also add to Document Notes list
-      state.notes.push({
-        id: 'note_' + Date.now(),
-        page: state.currentPage,
-        text: `📌 ${noteText}`,
-        timestamp: Date.now()
-      });
-      renderNotesList();
-    } else if (state.activeTool === 'stamp') {
-      pushUndoSnapshot();
-      annots.push({
-        tool: 'stamp',
-        x,
-        y,
-        text: state.activeStamp || '★ IMPORTANT',
-        color: state.strokeColor
-      });
-    }
-    redrawAnnotations(canvas);
-    persistCurrentDocState();
-  }
-
-  function commitAnnotation(endX, endY, canvas) {
-    const annots = getPageAnnotations();
-    pushUndoSnapshot();
-
-    if (state.activeTool === 'eraser') {
-      // Erase nearby objects within 25px radius
-      const radius = 25;
-      state.annotationsByPage[state.currentPage] = annots.filter((a) => {
-        if (a.points && a.points.length > 0) {
-          return !a.points.some((pt) => Math.hypot(pt.x - endX, pt.y - endY) < radius);
-        }
-        return Math.hypot((a.x || 0) - endX, (a.y || 0) - endY) >= radius;
-      });
-    } else if (['pen', 'highlighter', 'marker'].includes(state.activeTool)) {
-      annots.push({
-        tool: state.activeTool,
-        points: state.currentPath.slice(),
-        color: state.strokeColor,
-        width:
-          state.activeTool === 'highlighter'
-            ? state.strokeWidth * 6
-            : state.activeTool === 'marker'
-            ? state.strokeWidth * 3
-            : state.strokeWidth,
-        opacity: state.activeTool === 'highlighter' ? 0.35 : state.activeTool === 'marker' ? 0.75 : 1.0
-      });
-    } else if (['line', 'arrow', 'rect', 'circle', 'redact'].includes(state.activeTool)) {
-      annots.push({
-        tool: state.activeTool,
-        x: state.startX,
-        y: state.startY,
-        endX,
-        endY,
-        color: state.activeTool === 'redact' ? '#000000' : state.strokeColor,
-        width: state.strokeWidth
-      });
-    }
-
-    redrawAnnotations(canvas);
-    persistCurrentDocState();
-  }
-
-  function drawPreviewStroke(ctx) {
-    if (state.currentPath.length < 2) return;
-    ctx.save();
-    ctx.beginPath();
-    ctx.strokeStyle = state.strokeColor;
-    ctx.lineWidth =
-      state.activeTool === 'highlighter'
-        ? state.strokeWidth * 6
-        : state.activeTool === 'marker'
-        ? state.strokeWidth * 3
-        : state.strokeWidth;
-    ctx.globalAlpha = state.activeTool === 'highlighter' ? 0.35 : 0.9;
-    ctx.lineCap = 'round';
-    ctx.lineJoin = 'round';
-    ctx.moveTo(state.currentPath[0].x, state.currentPath[0].y);
-    state.currentPath.forEach((pt) => ctx.lineTo(pt.x, pt.y));
-    ctx.stroke();
-    ctx.restore();
-  }
-
-  function drawPreviewShape(ctx, curX, curY) {
-    drawSingleAnnotation(ctx, {
+  function buildTempAnnotation(endX, endY) {
+    const isHl = state.activeTool === 'highlighter';
+    return {
       tool: state.activeTool,
+      points: state.currentPath.slice(),
       x: state.startX,
       y: state.startY,
-      endX: curX,
-      endY: curY,
-      color: state.activeTool === 'redact' ? '#000000' : state.strokeColor,
-      width: state.strokeWidth
-    });
+      endX,
+      endY,
+      color: isHl ? state.hlColor : state.strokeColor,
+      size: isHl ? state.strokeSize * 5 : state.activeTool === 'pencil' ? 1.5 : state.strokeSize,
+      opacity: isHl ? 0.35 : state.strokeOpacity
+    };
   }
 
-  function redrawAnnotations(canvas) {
+  function redrawPageAnnotations(canvas, pageNum) {
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    const annots = getPageAnnotations();
-    annots.forEach((item) => drawSingleAnnotation(ctx, item));
-
-    // Draw temporary laser trail if active
-    const now = Date.now();
-    state.laserTrail = state.laserTrail.filter((pt) => now - pt.time < 600);
-    if (state.laserTrail.length > 1) {
-      ctx.save();
-      ctx.beginPath();
-      ctx.strokeStyle = '#ff0044';
-      ctx.lineWidth = 4;
-      ctx.shadowColor = '#ff0044';
-      ctx.shadowBlur = 12;
-      ctx.moveTo(state.laserTrail[0].x, state.laserTrail[0].y);
-      state.laserTrail.forEach((pt) => ctx.lineTo(pt.x, pt.y));
-      ctx.stroke();
-      ctx.restore();
-      requestAnimationFrame(() => redrawAnnotations(canvas));
-    }
+    getAnnots(pageNum).forEach((a) => drawShape(ctx, a));
   }
 
-  function drawSingleAnnotation(ctx, item) {
+  function drawShape(ctx, a) {
+    if (!a || a.tool === 'eraser') return;
     ctx.save();
-    ctx.strokeStyle = item.color || '#ff3b30';
-    ctx.fillStyle = item.color || '#ff3b30';
-    ctx.lineWidth = item.width || 3;
-    ctx.globalAlpha = item.opacity !== undefined ? item.opacity : 1.0;
+    ctx.strokeStyle = a.color || '#6366f1';
+    ctx.fillStyle = a.color || '#6366f1';
+    ctx.lineWidth = a.size || 3;
+    ctx.globalAlpha = a.opacity || 1;
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
 
-    if (item.points && item.points.length > 1) {
+    if (['pen', 'pencil', 'freehand', 'highlighter'].includes(a.tool) && a.points?.length > 1) {
       ctx.beginPath();
-      ctx.moveTo(item.points[0].x, item.points[0].y);
-      item.points.forEach((p) => ctx.lineTo(p.x, p.y));
+      ctx.moveTo(a.points[0].x, a.points[0].y);
+      a.points.forEach((p) => ctx.lineTo(p.x, p.y));
       ctx.stroke();
-    } else if (item.tool === 'line') {
+    } else if (['line', 'underline', 'strikethrough'].includes(a.tool)) {
       ctx.beginPath();
-      ctx.moveTo(item.x, item.y);
-      ctx.lineTo(item.endX, item.endY);
+      ctx.moveTo(a.x, a.y);
+      ctx.lineTo(a.endX, a.tool === 'line' ? a.endY : a.y);
       ctx.stroke();
-    } else if (item.tool === 'arrow') {
-      const headLen = 14;
-      const angle = Math.atan2(item.endY - item.y, item.endX - item.x);
+    } else if (a.tool === 'rect') {
+      ctx.strokeRect(a.x, a.y, a.endX - a.x, a.endY - a.y);
+    } else if (a.tool === 'circle') {
+      const rx = Math.abs(a.endX - a.x) / 2;
+      const ry = Math.abs(a.endY - a.y) / 2;
       ctx.beginPath();
-      ctx.moveTo(item.x, item.y);
-      ctx.lineTo(item.endX, item.endY);
-      ctx.lineTo(
-        item.endX - headLen * Math.cos(angle - Math.PI / 6),
-        item.endY - headLen * Math.sin(angle - Math.PI / 6)
-      );
-      ctx.moveTo(item.endX, item.endY);
-      ctx.lineTo(
-        item.endX - headLen * Math.cos(angle + Math.PI / 6),
-        item.endY - headLen * Math.sin(angle + Math.PI / 6)
-      );
+      ctx.ellipse(Math.min(a.x, a.endX) + rx, Math.min(a.y, a.endY) + ry, rx, ry, 0, 0, Math.PI * 2);
       ctx.stroke();
-    } else if (item.tool === 'rect') {
-      ctx.strokeRect(item.x, item.y, item.endX - item.x, item.endY - item.y);
-    } else if (item.tool === 'redact') {
-      ctx.fillStyle = '#000000';
-      ctx.fillRect(item.x, item.y, item.endX - item.x, item.endY - item.y);
-    } else if (item.tool === 'circle') {
-      const rx = Math.abs(item.endX - item.x) / 2;
-      const ry = Math.abs(item.endY - item.y) / 2;
-      const cx = Math.min(item.x, item.endX) + rx;
-      const cy = Math.min(item.y, item.endY) + ry;
+    } else if (a.tool === 'arrow') {
+      const ang = Math.atan2(a.endY - a.y, a.endX - a.x);
       ctx.beginPath();
-      ctx.ellipse(cx, cy, rx, ry, 0, 0, Math.PI * 2);
+      ctx.moveTo(a.x, a.y);
+      ctx.lineTo(a.endX, a.endY);
+      ctx.lineTo(a.endX - 12 * Math.cos(ang - 0.5), a.endY - 12 * Math.sin(ang - 0.5));
+      ctx.moveTo(a.endX, a.endY);
+      ctx.lineTo(a.endX - 12 * Math.cos(ang + 0.5), a.endY - 12 * Math.sin(ang + 0.5));
       ctx.stroke();
-    } else if (item.tool === 'text') {
-      ctx.font = `600 ${item.size || 16}px sans-serif`;
-      ctx.fillText(item.text, item.x, item.y);
-    } else if (item.tool === 'sticky') {
+    } else if (a.tool === 'textbox') {
+      ctx.font = `600 ${Math.max(14, (a.size || 3) * 5)}px Inter, Cairo, sans-serif`;
+      ctx.fillText(a.text || '', a.x, a.y);
+    } else if (a.tool === 'sticky') {
       ctx.fillStyle = '#fef08a';
-      ctx.strokeStyle = '#ca8a04';
-      ctx.lineWidth = 1.5;
-      ctx.fillRect(item.x, item.y, 160, 90);
-      ctx.strokeRect(item.x, item.y, 160, 90);
-      ctx.fillStyle = '#1f2937';
-      ctx.font = '13px sans-serif';
-      ctx.fillText('📌 ' + item.text.slice(0, 22), item.x + 8, item.y + 26);
-      if (item.text.length > 22) {
-        ctx.fillText(item.text.slice(22, 46), item.x + 8, item.y + 46);
-      }
-    } else if (item.tool === 'stamp') {
-      ctx.font = 'bold 15px sans-serif';
-      const w = ctx.measureText(item.text).width + 20;
-      ctx.strokeRect(item.x, item.y - 22, w, 30);
-      ctx.fillText(item.text, item.x + 10, item.y - 2);
+      ctx.fillRect(a.x, a.y, 140, 65);
+      ctx.strokeStyle = '#eab308';
+      ctx.strokeRect(a.x, a.y, 140, 65);
+      ctx.fillStyle = '#0f172a';
+      ctx.font = '12px Inter, Cairo, sans-serif';
+      ctx.fillText('📌 ' + (a.text || '').slice(0, 18), a.x + 6, a.y + 24);
     }
     ctx.restore();
   }
 
-  function exportAnnotatedPage() {
-    const baseCanvas = $('pdfRenderCanvas');
-    const annotCanvas = $('annotationCanvas');
-    if (!annotCanvas) return;
-
-    const merged = document.createElement('canvas');
-    merged.width = annotCanvas.width;
-    merged.height = annotCanvas.height;
-    const ctx = merged.getContext('2d');
-
-    if (baseCanvas && baseCanvas.style.display !== 'none') {
-      ctx.drawImage(baseCanvas, 0, 0);
-    } else {
-      ctx.fillStyle = '#ffffff';
-      ctx.fillRect(0, 0, merged.width, merged.height);
-    }
-    ctx.drawImage(annotCanvas, 0, 0);
-
-    const link = document.createElement('a');
-    link.download = `${(state.currentDocMeta?.name || 'document').replace(/\.[^.]+$/, '')}_page_${state.currentPage}_annotated.png`;
-    link.href = merged.toDataURL('image/png');
-    link.click();
-    showToast('Annotated page exported!', 'success');
-  }
-
   // =========================================================================
-  // 10. BOOKMARKS & PAGE-LINKED NOTES MANAGER
+  // 11. AI CHAT & 20 STUDY TOOLS ENGINE (CONNECTED TO window.AhmedkoAI)
   // =========================================================================
-  function addBookmarkCurrentPage() {
-    if (state.bookmarks.some((b) => b.page === state.currentPage)) {
-      showToast('Page is already bookmarked.');
-      return;
+  function populateAiModels() {
+    const provSel = $('aiProviderSelect');
+    const modSel = $('aiModelSelect');
+    if (!provSel || !modSel || !window.AhmedkoAI) return;
+    const prov = provSel.value;
+    const models = window.AhmedkoAI.PROVIDERS[prov]?.models || [];
+    modSel.innerHTML = models
+      .map((m) => `<option value="${m.id}">${m.label}</option>`)
+      .join('');
+  }
+
+  function getActiveChatSession() {
+    let s = state.chatSessions.find((c) => c.id === state.activeChatId);
+    if (!s) {
+      s = { id: 'default', title: 'Main Chat', messages: [] };
+      state.chatSessions.push(s);
     }
-    state.bookmarks.push({
-      page: state.currentPage,
-      label: `${t('pageLabel')} ${state.currentPage}`,
-      timestamp: Date.now()
-    });
-    persistCurrentDocState();
-    renderBookmarksList();
-    showToast(t('bookmarkAddedMsg'), 'success');
+    return s;
   }
 
-  function renderBookmarksList() {
-    const container = $('bookmarksContainer') || $('bookmarksList');
-    if (!container) return;
-    if (!state.bookmarks || state.bookmarks.length === 0) {
-      container.innerHTML = `<div style="padding:12px;opacity:0.7;font-size:13px;">${t('noBookmarksMsg')}</div>`;
-      return;
+  function saveChats() {
+    localStorage.setItem('ahmedko_chats', JSON.stringify(state.chatSessions));
+  }
+
+  function renderChatSessionsDropdown() {
+    const sel = $('chatSessionSelect');
+    if (!sel) return;
+    sel.innerHTML = state.chatSessions
+      .map((c) => `<option value="${c.id}" ${c.id === state.activeChatId ? 'selected' : ''}>${c.title}</option>`)
+      .join('');
+    renderChatMessages();
+  }
+
+  function renderChatMessages() {
+    const box = $('chatMessagesList');
+    if (!box) return;
+    const session = getActiveChatSession();
+    box.innerHTML = '';
+    session.messages.forEach((m) => {
+      const b = document.createElement('div');
+      b.className = `chat-bubble ${m.role}`;
+      b.innerHTML = window.AhmedkoAI ? window.AhmedkoAI.renderMarkdown(m.content) : m.content;
+      box.appendChild(b);
+    });
+    box.scrollTop = box.scrollHeight;
+  }
+
+  async function sendAiPrompt(customPrompt, forceContextScope) {
+    if (!window.AhmedkoAI) return;
+    const input = $('chatPromptInput');
+    const promptText = (customPrompt || input?.value || '').trim();
+    if (!promptText) return;
+    if (!customPrompt && input) input.value = '';
+
+    activateRightTab('aiChat');
+    const session = getActiveChatSession();
+    session.messages.push({ role: 'user', content: promptText });
+    renderChatMessages();
+
+    const scope = forceContextScope || $('aiContextScope')?.value || 'page';
+    let contextBlock = '';
+    if (scope === 'selection' && state.selectedTextContext) {
+      contextBlock = `Selected Text:\n${state.selectedTextContext}`;
+    } else if (scope === 'document') {
+      const rag = window.AhmedkoAI.buildRelevantDocumentContext(state.pageTexts, promptText);
+      contextBlock = rag.text;
+    } else if (scope === 'page') {
+      contextBlock = `[Page ${state.currentPage}]\n${state.pageTexts[state.currentPage - 1] || ''}`;
     }
-    container.innerHTML = '';
-    state.bookmarks.forEach((bm, idx) => {
-      const item = document.createElement('div');
-      item.style.cssText =
-        'display:flex;justify-content:space-between;align-items:center;padding:8px 12px;border-bottom:1px solid rgba(255,255,255,0.08);cursor:pointer;font-size:13px;';
-      item.innerHTML = `
-        <span>🔖 ${bm.label}</span>
-        <button data-idx="${idx}" style="background:none;border:none;color:#ef4444;cursor:pointer;">✕</button>
-      `;
-      item.addEventListener('click', (e) => {
-        if (e.target.tagName === 'BUTTON') {
-          state.bookmarks.splice(idx, 1);
-          persistCurrentDocState();
-          renderBookmarksList();
-          return;
-        }
-        goToPage(bm.page);
-      });
-      container.appendChild(item);
-    });
-  }
 
-  function addNoteFromInput() {
-    const input = $('noteInput') || $('notesTextarea') || $('newNoteText');
-    if (!input || !input.value.trim()) return;
-    state.notes.unshift({
-      id: 'note_' + Date.now(),
-      page: state.currentPage,
-      text: input.value.trim(),
-      timestamp: Date.now()
-    });
-    input.value = '';
-    persistCurrentDocState();
-    renderNotesList();
-    showToast(t('savedNoteMsg'), 'success');
-  }
+    const sysPrompt = `You are Ahmedko AI Study Assistant. Be concise, structured, and helpful.${
+      contextBlock ? `\n\nDocument Context:\n${contextBlock}` : ''
+    }`;
 
-  function renderNotesList() {
-    const list = $('notesList') || $('savedNotesContainer');
-    if (!list) return;
-    list.innerHTML = '';
-    state.notes.forEach((n, idx) => {
-      const card = document.createElement('div');
-      card.style.cssText =
-        'padding:10px 12px;margin-bottom:8px;border-radius:8px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);font-size:13px;';
-      card.innerHTML = `
-        <div style="display:flex;justify-content:space-between;opacity:0.75;font-size:11px;margin-bottom:4px;">
-          <span class="note-page-link" style="cursor:pointer;color:#60a5fa;">${t('pageLabel')} ${n.page}</span>
-          <button style="background:none;border:none;color:#ef4444;cursor:pointer;">✕</button>
-        </div>
-        <div style="line-height:1.5;">${n.text}</div>
-      `;
-      card.querySelector('.note-page-link').addEventListener('click', () => goToPage(n.page));
-      card.querySelector('button').addEventListener('click', () => {
-        state.notes.splice(idx, 1);
-        persistCurrentDocState();
-        renderNotesList();
-      });
-      list.appendChild(card);
-    });
-  }
-
-  function exportNotesAsMarkdown() {
-    if (state.notes.length === 0) {
-      showToast('No notes to export.');
-      return;
-    }
-    const content =
-      `# Notes for ${state.currentDocMeta?.name || 'Document'}\n\n` +
-      state.notes.map((n) => `### Page ${n.page}\n${n.text}\n`).join('\n');
-    const blob = new Blob([content], { type: 'text/markdown;charset=utf-8' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = `${(state.currentDocMeta?.name || 'notes').replace(/\.[^.]+$/, '')}_notes.md`;
-    link.click();
-  }
-
-  // =========================================================================
-  // 11. SMART BILINGUAL TRANSLATOR
-  // =========================================================================
-  async function translateText(sourceText, targetLang = 'ar') {
-    const outputEl = $('translateOutput') || $('translationResult') || $('translatedText');
-    if (outputEl) outputEl.textContent = t('translatingMsg');
-
-    const text = (
-      sourceText ||
-      ($('translateInput') || $('sourceText'))?.value ||
-      window.getSelection().toString() ||
-      state.pageTexts[state.currentPage] ||
-      ''
-    )
-      .trim()
-      .slice(0, 1800);
-
-    if (!text) {
-      if (outputEl) outputEl.textContent = 'Select or enter text to translate.';
-      return;
-    }
+    const stopBtn = $('stopAiGenBtn');
+    stopBtn?.classList.remove('hidden');
 
     try {
-      const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${encodeURIComponent(
-        targetLang
-      )}&dt=t&q=${encodeURIComponent(text)}`;
+      const res = await window.AhmedkoAI.sendChatRequest({
+        provider: $('aiProviderSelect')?.value || 'gemini',
+        model: $('aiModelSelect')?.value,
+        messages: session.messages.slice(-8),
+        systemPrompt: sysPrompt
+      });
+      session.messages.push({ role: 'assistant', content: res.text });
+      saveChats();
+      renderChatMessages();
+    } catch (err) {
+      session.messages.push({
+        role: 'assistant',
+        content: `⚠️ **AI Notice:** ${err.message}\n\n*(Click **🔑 API Keys** above to add your Gemini, OpenAI, or Claude API key).*`
+      });
+      renderChatMessages();
+    } finally {
+      stopBtn?.classList.add('hidden');
+    }
+  }
+
+  // =========================================================================
+  // 12. SMART TRANSLATOR & NOTES
+  // =========================================================================
+  async function runTranslator() {
+    const srcEl = $('transSourceInput');
+    const outEl = $('transResultBox');
+    const text = (srcEl?.value || '').trim();
+    if (!text) return showToast('Enter text to translate', true);
+
+    const sl = $('transSourceLang')?.value || 'auto';
+    const tl = $('transTargetLang')?.value || 'ar';
+    if (outEl) outEl.textContent = '...';
+
+    try {
+      const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${sl}&tl=${tl}&dt=t&q=${encodeURIComponent(
+        text
+      )}`;
       const res = await fetch(url);
       const data = await res.json();
-      const translated = data[0].map((seg) => seg[0]).join('');
-      if (outputEl) outputEl.textContent = translated;
-      return translated;
-    } catch (err) {
-      const fallbackMsg = `[Offline Translation Fallback (${targetLang.toUpperCase()})]:\n${text}`;
-      if (outputEl) outputEl.textContent = fallbackMsg;
-      return fallbackMsg;
+      const translated = (data[0] || []).map((s) => s[0]).join('');
+      if (outEl) outEl.textContent = translated;
+
+      state.transHistory.unshift({ src: text.slice(0, 60), out: translated.slice(0, 80) });
+      state.transHistory = state.transHistory.slice(0, 15);
+      localStorage.setItem('ahmedko_trans_hist', JSON.stringify(state.transHistory));
+      renderTransHistory();
+    } catch (e) {
+      if (outEl) outEl.textContent = 'Translation error.';
     }
   }
 
-  // =========================================================================
-  // 12. TEXT-TO-SPEECH (TTS) & TESSERACT OCR
-  // =========================================================================
-  function toggleTextToSpeech() {
-    if (!('speechSynthesis' in window)) {
-      showToast('Speech Synthesis is not supported in this browser.', 'error');
-      return;
-    }
-    if (window.speechSynthesis.speaking) {
-      window.speechSynthesis.cancel();
-      state.ttsActive = false;
-      return;
-    }
-    const selected = window.getSelection().toString().trim();
-    const textToRead =
-      selected || state.pageTexts[state.currentPage] || 'No readable text on this page.';
-    const utterance = new SpeechSynthesisUtterance(textToRead);
-    utterance.lang = /[\u0600-\u06FF]/.test(textToRead) ? 'ar-SA' : 'en-US';
-    utterance.rate = parseFloat(($('ttsSpeed') || {})?.value || '1.0');
-    utterance.onend = () => {
-      state.ttsActive = false;
-    };
-    state.ttsActive = true;
-    window.speechSynthesis.speak(utterance);
+  function renderTransHistory() {
+    const box = $('transHistoryList');
+    if (!box) return;
+    box.innerHTML = state.transHistory
+      .map(
+        (h) => `<div class="trans-hist-item"><strong>${h.src}</strong><br/><span>${h.out}</span></div>`
+      )
+      .join('');
   }
 
-  async function runOcrOnCurrentPage() {
-    if (!window.Tesseract) {
-      showToast('Tesseract OCR library not loaded.', 'error');
-      return;
-    }
-    const targetCanvas = $('pdfRenderCanvas') || $('docImagePage');
-    if (!targetCanvas) {
-      showToast('No visual canvas available for OCR on this page.', 'error');
-      return;
-    }
-    showToast(t('ocrRunningMsg'));
-    try {
-      const result = await window.Tesseract.recognize(targetCanvas, 'eng+ara');
-      const extracted = (result?.data?.text || '').trim();
-      state.pageTexts[state.currentPage] = extracted;
-      const translateInput = $('translateInput') || $('sourceText');
-      if (translateInput) translateInput.value = extracted;
-      showToast('OCR completed! Text extracted to page index & translator.', 'success');
-    } catch (err) {
-      showToast('OCR failed: ' + err.message, 'error');
-    }
+  function renderSavedNotes() {
+    const box = $('savedNotesList');
+    if (!box) return;
+    const folder = $('notesFolderSelect')?.value || 'all';
+    const list =
+      folder === 'all' ? state.notes : state.notes.filter((n) => n.folder === folder);
+
+    box.innerHTML = list
+      .map(
+        (n, i) => `
+      <div class="saved-note-item">
+        <div style="display:flex;justify-content:space-between;font-weight:600;margin-bottom:4px;">
+          <span>${n.title || 'Note'} ${n.page ? `(P.${n.page})` : ''}</span>
+          <span data-del-note="${i}" style="color:#ef4444;cursor:pointer;">✕</span>
+        </div>
+        <div style="font-size:12px;opacity:0.85;">${n.html}</div>
+      </div>
+    `
+      )
+      .join('');
+
+    box.querySelectorAll('[data-del-note]').forEach((btn) => {
+      btn.onclick = () => {
+        state.notes.splice(parseInt(btn.dataset.delNote, 10), 1);
+        localStorage.setItem('ahmedko_notes', JSON.stringify(state.notes));
+        renderSavedNotes();
+      };
+    });
   }
 
   // =========================================================================
-  // 13. PROJECTOR MODE WITH LASER POINTER & PRESENTATION TIMER
+  // 13. PROJECTOR MODE
   // =========================================================================
-  function toggleProjectorMode() {
-    state.projectorActive = !state.projectorActive;
-    let overlay = $('projectorOverlay');
-
+  function toggleProjector(show) {
+    state.projectorActive = show !== undefined ? show : !state.projectorActive;
+    const ov = $('projectorOverlay');
+    if (!ov) return;
+    ov.classList.toggle('hidden', !state.projectorActive);
     if (state.projectorActive) {
-      if (!overlay) {
-        overlay = document.createElement('div');
-        overlay.id = 'projectorOverlay';
-        overlay.style.cssText =
-          'position:fixed;inset:0;background:#090d16;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;';
-        overlay.innerHTML = `
-          <div style="position:fixed;top:16px;right:24px;display:flex;gap:12px;align-items:center;background:rgba(15,23,42,0.85);padding:8px 16px;border-radius:999px;border:1px solid rgba(255,255,255,0.15);z-index:10001;color:#fff;">
-            <span id="projectorTimerDisplay" style="font-family:monospace;font-size:15px;">00:00</span>
-            <button id="projPrevBtn" style="background:none;border:none;color:#fff;cursor:pointer;font-size:16px;">◀</button>
-            <span id="projPageBadge" style="font-size:13px;">1 / 1</span>
-            <button id="projNextBtn" style="background:none;border:none;color:#fff;cursor:pointer;font-size:16px;">▶</button>
-            <button id="projBlackoutBtn" style="background:none;border:none;color:#fff;cursor:pointer;font-size:13px;">Blackout (B)</button>
-            <button id="exitProjectorBtn" style="background:#ef4444;border:none;color:#fff;padding:4px 12px;border-radius:999px;cursor:pointer;font-size:13px;">Exit</button>
-          </div>
-          <div id="projectorStage" style="max-width:92vw;max-height:88vh;overflow:auto;display:flex;justify-content:center;align-items:center;"></div>
-          <div id="projectorLaserDot" style="position:fixed;width:14px;height:14px;border-radius:50%;background:#ff0044;box-shadow:0 0 16px 6px #ff0044;pointer-events:none;z-index:10002;display:none;"></div>
-        `;
-        document.body.appendChild(overlay);
-
-        $('projPrevBtn').onclick = () => goToPage(state.currentPage - 1);
-        $('projNextBtn').onclick = () => goToPage(state.currentPage + 1);
-        $('projBlackoutBtn').onclick = () => {
-          state.projectorBlackout = !state.projectorBlackout;
-          $('projectorStage').style.opacity = state.projectorBlackout ? '0' : '1';
-        };
-        $('exitProjectorBtn').onclick = () => toggleProjectorMode();
-
-        overlay.addEventListener('mousemove', (e) => {
-          const dot = $('projectorLaserDot');
-          if (dot) {
-            dot.style.display = 'block';
-            dot.style.left = e.clientX - 7 + 'px';
-            dot.style.top = e.clientY - 7 + 'px';
-          }
-        });
-      }
-      overlay.style.display = 'flex';
-      startProjectorTimer();
-      syncProjectorView();
-      if (document.documentElement.requestFullscreen) {
-        document.documentElement.requestFullscreen().catch(() => {});
-      }
+      syncProjectorStage();
+      document.documentElement.requestFullscreen?.().catch(() => {});
     } else {
-      if (overlay) overlay.style.display = 'none';
-      stopProjectorTimer();
-      if (document.fullscreenElement && document.exitFullscreen) {
-        document.exitFullscreen().catch(() => {});
+      if (document.fullscreenElement) document.exitFullscreen?.().catch(() => {});
+    }
+  }
+
+  function syncProjectorStage() {
+    if (!state.projectorActive) return;
+    const pStage = $('projectorStage');
+    const dStage = $('documentStage');
+    if (pStage && dStage) {
+      pStage.innerHTML = '';
+      const firstPage = dStage.querySelector('.page-wrapper');
+      if (firstPage) {
+        const clone = firstPage.cloneNode(true);
+        const srcC = firstPage.querySelectorAll('canvas');
+        const dstC = clone.querySelectorAll('canvas');
+        srcC.forEach((c, i) => dstC[i]?.getContext('2d').drawImage(c, 0, 0));
+        pStage.appendChild(clone);
       }
     }
-  }
-
-  function syncProjectorView() {
-    if (!state.projectorActive) return;
-    const projStage = $('projectorStage');
-    const activeWrapper = $('activePageWrapper');
-    if (projStage && activeWrapper) {
-      projStage.innerHTML = '';
-      const clone = activeWrapper.cloneNode(true);
-      // Copy canvas bitmaps
-      const srcCanvases = activeWrapper.querySelectorAll('canvas');
-      const dstCanvases = clone.querySelectorAll('canvas');
-      srcCanvases.forEach((src, i) => {
-        if (dstCanvases[i]) {
-          dstCanvases[i].getContext('2d').drawImage(src, 0, 0);
-        }
-      });
-      projStage.appendChild(clone);
-    }
-    const badge = $('projPageBadge');
-    if (badge) badge.textContent = `${state.currentPage} / ${state.totalPages}`;
-  }
-
-  function startProjectorTimer() {
-    stopProjectorTimer();
-    state.timerSeconds = 0;
-    state.timerInterval = setInterval(() => {
-      state.timerSeconds++;
-      const mins = String(Math.floor(state.timerSeconds / 60)).padStart(2, '0');
-      const secs = String(state.timerSeconds % 60).padStart(2, '0');
-      const el = $('projectorTimerDisplay') || $('projectorTimer');
-      if (el) el.textContent = `${mins}:${secs}`;
-    }, 1000);
-  }
-
-  function stopProjectorTimer() {
-    if (state.timerInterval) {
-      clearInterval(state.timerInterval);
-      state.timerInterval = null;
-    }
+    const ind = $('projPageIndicator');
+    if (ind) ind.textContent = `${state.currentPage} / ${state.totalPages}`;
   }
 
   // =========================================================================
-  // 14. EVENT LISTENERS & INITIALIZATION
+  // 14. EVENT BINDINGS
   // =========================================================================
-  function bindEvents() {
-    // Language & Theme
-    const langBtn = $('langToggle') || $('langBtn');
-    if (langBtn) {
-      langBtn.addEventListener('click', () =>
-        applyLanguage(state.lang === 'en' ? 'ar' : 'en')
-      );
-    }
-
-    const themeBtn = $('themeToggle') || $('themeBtn');
-    if (themeBtn) {
-      themeBtn.addEventListener('click', () =>
-        applyTheme(state.theme === 'dark' ? 'light' : 'dark')
-      );
-    }
-
-    // Navigation Views
-    [$('dashboardView'), $('dashboardBtn')].forEach((btn) => {
-      if (btn) btn.addEventListener('click', () => switchView('dashboard'));
+  function bindAllEvents() {
+    const fileInput = $('globalFileInput');
+    ['headerUploadBtn', 'heroUploadBtn', 'emptyUploadBtn'].forEach((id) => {
+      $(id)?.addEventListener('click', () => fileInput?.click());
     });
-    [$('readerView'), $('readerBtn')].forEach((btn) => {
-      if (btn) btn.addEventListener('click', () => switchView('reader'));
-    });
-    const projBtn = $('projectorBtn');
-    if (projBtn) projBtn.addEventListener('click', toggleProjectorMode);
+    fileInput?.addEventListener('change', (e) => handleFilesSelected(e.target.files));
 
-    // File Upload Buttons & Drag-and-Drop
-    const fileInput = $('fileInput') || document.querySelector('input[type="file"]');
-    [$('uploadBtn'), $('uploadFilesCta')].forEach((btn) => {
-      if (btn && fileInput) btn.addEventListener('click', () => fileInput.click());
+    ['heroSampleBtn', 'emptySampleBtn'].forEach((id) => {
+      $(id)?.addEventListener('click', loadSampleGuide);
     });
-    if (fileInput) {
-      fileInput.addEventListener('change', (e) => handleFileUpload(e.target.files));
-    }
 
-    window.addEventListener('dragover', (e) => e.preventDefault());
+    // Drag & Drop
+    const dropOverlay = $('dropZoneOverlay');
+    window.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropOverlay?.classList.remove('hidden');
+    });
+    window.addEventListener('dragleave', (e) => {
+      if (e.target === dropOverlay) dropOverlay?.classList.add('hidden');
+    });
     window.addEventListener('drop', (e) => {
       e.preventDefault();
-      if (e.dataTransfer?.files?.length) {
-        handleFileUpload(e.dataTransfer.files);
+      dropOverlay?.classList.add('hidden');
+      if (e.dataTransfer?.files?.length) handleFilesSelected(e.dataTransfer.files);
+    });
+
+    // Header Actions
+    $('brandHomeBtn')?.addEventListener('click', () => switchView('dashboard'));
+    $('viewSwitchBtn')?.addEventListener('click', () =>
+      switchView(state.currentView === 'dashboard' ? 'workspace' : 'dashboard')
+    );
+    $('projectorModeBtn')?.addEventListener('click', () => toggleProjector(true));
+    $('langToggleBtn')?.addEventListener('click', () =>
+      applyLanguage(state.lang === 'en' ? 'ar' : 'en')
+    );
+    $('themeToggleBtn')?.addEventListener('click', () =>
+      applyTheme(state.theme === 'dark' ? 'light' : 'dark')
+    );
+    $('shortcutsHelpBtn')?.addEventListener('click', () =>
+      $('shortcutsModal')?.classList.remove('hidden')
+    );
+    $('settingsOpenBtn')?.addEventListener('click', () =>
+      $('settingsModal')?.classList.remove('hidden')
+    );
+    $('openApiKeyModalBtn')?.addEventListener('click', () =>
+      $('settingsModal')?.classList.remove('hidden')
+    );
+
+    document.querySelectorAll('.close-modal-btn').forEach((btn) => {
+      btn.addEventListener('click', () => $(btn.dataset.close)?.classList.add('hidden'));
+    });
+
+    // Quick Cards on Dashboard
+    $('qaAiAssistant')?.addEventListener('click', () => {
+      switchView('workspace');
+      activateRightTab('aiChat');
+    });
+    $('qaTranslate')?.addEventListener('click', () => {
+      switchView('workspace');
+      activateRightTab('translator');
+    });
+    $('qaNotes')?.addEventListener('click', () => {
+      switchView('workspace');
+      activateRightTab('notes');
+    });
+    $('qaProjector')?.addEventListener('click', () => toggleProjector(true));
+
+    // Dashboard Filter & Search
+    document.querySelectorAll('.fm-tab').forEach((tab) => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.fm-tab').forEach((t) => t.classList.remove('active'));
+        tab.classList.add('active');
+        state.fileFilter = tab.dataset.filter;
+        renderRecentFilesGrid();
+      });
+    });
+    $('dashboardSearchInput')?.addEventListener('input', (e) => {
+      state.fileSearch = e.target.value;
+      renderRecentFilesGrid();
+    });
+    $('fileSortSelect')?.addEventListener('change', (e) => {
+      state.fileSort = e.target.value;
+      renderRecentFilesGrid();
+    });
+    $('clearHistoryBtn')?.addEventListener('click', async () => {
+      await clearAllDocsFromDB();
+      state.openDocs = [];
+      renderDocTabsBar();
+      renderRecentFilesGrid();
+      showToast('History cleared');
+    });
+
+    // Sidebars & Tabs
+    document.querySelectorAll('.sidebar-tab').forEach((b) => {
+      b.addEventListener('click', () => activateLeftTab(b.dataset.leftTab));
+    });
+    document.querySelectorAll('.rp-tab').forEach((b) => {
+      b.addEventListener('click', () => activateRightTab(b.dataset.rpTab));
+    });
+    $('toggleLeftSidebarBtn')?.addEventListener('click', () =>
+      $('leftSidebar')?.classList.toggle('hidden')
+    );
+    $('toggleRightPanelBtn')?.addEventListener('click', () =>
+      $('rightSidebar')?.classList.toggle('hidden')
+    );
+
+    // Reader Navigation & Zoom
+    $('prevPageBtn')?.addEventListener('click', () => goToPage(state.currentPage - 1));
+    $('nextPageBtn')?.addEventListener('click', () => goToPage(state.currentPage + 1));
+    $('pageNumberInput')?.addEventListener('change', (e) => goToPage(e.target.value));
+    $('zoomInBtn')?.addEventListener('click', () => {
+      state.scale = Math.min(3, state.scale + 0.2);
+      renderActivePages();
+    });
+    $('zoomOutBtn')?.addEventListener('click', () => {
+      state.scale = Math.max(0.4, state.scale - 0.2);
+      renderActivePages();
+    });
+    $('zoomPresetSelect')?.addEventListener('change', (e) => {
+      const v = e.target.value;
+      state.scale = v === 'fit-width' ? 1.15 : v === 'fit-page' ? 0.9 : parseFloat(v) || 1;
+      renderActivePages();
+    });
+    $('viewLayoutSelect')?.addEventListener('change', (e) => {
+      state.layoutMode = e.target.value;
+      renderActivePages();
+    });
+    $('rotateCwBtn')?.addEventListener('click', () => {
+      state.rotation = (state.rotation + 90) % 360;
+      renderActivePages();
+    });
+    $('rotateCcwBtn')?.addEventListener('click', () => {
+      state.rotation = (state.rotation + 270) % 360;
+      renderActivePages();
+    });
+
+    // Extra Utilities
+    $('addBookmarkBtn')?.addEventListener('click', () => {
+      if (!state.bookmarks.some((b) => b.page === state.currentPage)) {
+        state.bookmarks.push({ page: state.currentPage });
+        syncDocMetadataToDB();
+        renderBookmarks();
+        showToast('Bookmarked P.' + state.currentPage);
       }
     });
 
-    // Sample Guide & History Controls
-    const sampleBtn = $('loadSampleBtn');
-    if (sampleBtn) sampleBtn.addEventListener('click', loadInteractiveSampleGuide);
+    $('ttsToggleBtn')?.addEventListener('click', () => {
+      if (!('speechSynthesis' in window)) return;
+      if (window.speechSynthesis.speaking) {
+        window.speechSynthesis.cancel();
+        return;
+      }
+      const txt =
+        window.getSelection().toString().trim() ||
+        state.pageTexts[state.currentPage - 1] ||
+        '';
+      if (!txt) return showToast('No text on this page', true);
+      const u = new SpeechSynthesisUtterance(txt);
+      u.lang = /[\u0600-\u06FF]/.test(txt) ? 'ar-SA' : 'en-US';
+      window.speechSynthesis.speak(u);
+    });
 
-    const allTab = $('allFilesTab');
-    const favTab = $('favoritesTab');
-    if (allTab) {
-      allTab.addEventListener('click', () => {
-        state.activeFilter = 'all';
-        renderDashboardFiles();
-      });
-    }
-    if (favTab) {
-      favTab.addEventListener('click', () => {
-        state.activeFilter = 'favorites';
-        renderDashboardFiles();
-      });
-    }
+    $('ocrPageBtn')?.addEventListener('click', async () => {
+      const c = document.querySelector('.pdf-canvas') || $('activeImageElem');
+      if (!c || !window.Tesseract) return showToast('No image/page for OCR', true);
+      showToast('Running OCR...');
+      const res = await window.Tesseract.recognize(c, 'eng+ara');
+      state.pageTexts[state.currentPage - 1] = res.data.text || '';
+      if ($('transSourceInput')) $('transSourceInput').value = state.pageTexts[state.currentPage - 1];
+      activateRightTab('translator');
+      showToast('OCR Extracted!');
+    });
 
-    const clearBtn = $('clearHistoryBtn');
-    if (clearBtn) {
-      clearBtn.addEventListener('click', async () => {
-        await clearAllDocumentsFromDB();
-        renderDashboardFiles();
-        showToast(t('historyClearedMsg'));
-      });
-    }
+    $('wordCountBtn')?.addEventListener('click', () => {
+      const allTxt = state.pageTexts.join('\n\n');
+      const words = allTxt.trim() ? allTxt.trim().split(/\s+/).length : 0;
+      if ($('docStatsMetrics')) {
+        $('docStatsMetrics').innerHTML = `
+          <div class="stat-box"><strong>${state.totalPages}</strong><span>Pages</span></div>
+          <div class="stat-box"><strong>${words}</strong><span>Words</span></div>
+          <div class="stat-box"><strong>${allTxt.length}</strong><span>Chars</span></div>
+          <div class="stat-box"><strong>${Math.ceil(words / 200)}m</strong><span>Read Time</span></div>
+        `;
+      }
+      if ($('extractedTextOutput')) $('extractedTextOutput').value = allTxt;
+      $('docStatsModal')?.classList.remove('hidden');
+    });
 
-    // Reader Page & Zoom Controls
-    const prevBtn = $('prevPageBtn') || $('prevPage');
-    const nextBtn = $('nextPageBtn') || $('nextPage');
-    if (prevBtn) prevBtn.addEventListener('click', () => goToPage(state.currentPage - 1));
-    if (nextBtn) nextBtn.addEventListener('click', () => goToPage(state.currentPage + 1));
+    $('copyExtractedTextBtn')?.addEventListener('click', () => {
+      navigator.clipboard.writeText($('extractedTextOutput')?.value || '');
+      showToast('Copied!');
+    });
 
-    const pageInput = $('pageInput') || $('currentPageInput');
-    if (pageInput) {
-      pageInput.addEventListener('change', (e) => goToPage(e.target.value));
-    }
+    $('screenshotPageBtn')?.addEventListener('click', exportPagePng);
+    $('exportAnnotatedPdfBtn')?.addEventListener('click', exportPagePng);
+    $('downloadDocBtn')?.addEventListener('click', exportPagePng);
+    $('printDocBtn')?.addEventListener('click', () => window.print());
 
-    const zoomIn = $('zoomInBtn') || $('zoomIn');
-    const zoomOut = $('zoomOutBtn') || $('zoomOut');
-    if (zoomIn) {
-      zoomIn.addEventListener('click', () => {
-        state.scale = Math.min(3.0, state.scale + 0.2);
-        renderCurrentPage();
-      });
-    }
-    if (zoomOut) {
-      zoomOut.addEventListener('click', () => {
-        state.scale = Math.max(0.5, state.scale - 0.2);
-        renderCurrentPage();
-      });
-    }
-
-    const rotateBtn = $('rotateBtn') || $('rotatePageBtn');
-    if (rotateBtn) {
-      rotateBtn.addEventListener('click', () => {
-        state.rotation = (state.rotation + 90) % 360;
-        renderCurrentPage();
-      });
-    }
-
-    // 14 Annotation Tools Selection
-    document.querySelectorAll('[data-tool]').forEach((btn) => {
+    // 14 Annotation Tools
+    document.querySelectorAll('.anno-btn[data-tool]').forEach((btn) => {
       btn.addEventListener('click', () => {
-        document.querySelectorAll('[data-tool]').forEach((b) => b.classList.remove('active'));
+        document.querySelectorAll('.anno-btn').forEach((b) => b.classList.remove('active'));
         btn.classList.add('active');
         state.activeTool = btn.dataset.tool;
-        const annotCanvas = $('annotationCanvas');
-        if (annotCanvas) {
-          annotCanvas.style.pointerEvents = state.activeTool === 'select' ? 'none' : 'auto';
-        }
+        document.querySelectorAll('.annotation-canvas').forEach((c) => {
+          c.classList.toggle('drawing-active', state.activeTool !== 'select');
+        });
       });
     });
 
-    const colorInput = $('annotColor') || $('strokeColor');
-    if (colorInput) {
-      colorInput.addEventListener('input', (e) => {
-        state.strokeColor = e.target.value;
-      });
-    }
-
-    const sizeInput = $('annotSize') || $('strokeWidth');
-    if (sizeInput) {
-      sizeInput.addEventListener('input', (e) => {
-        state.strokeWidth = parseInt(e.target.value, 10) || 3;
-      });
-    }
-
-    const undoBtn = $('undoBtn');
-    const redoBtn = $('redoBtn');
-    const clearAnnotBtn = $('clearAnnotBtn') || $('clearCanvasBtn');
-    const exportBtn = $('exportPdfBtn') || $('exportAnnotatedBtn');
-    if (undoBtn) undoBtn.addEventListener('click', undoAnnotation);
-    if (redoBtn) redoBtn.addEventListener('click', redoAnnotation);
-    if (clearAnnotBtn) clearAnnotBtn.addEventListener('click', clearPageAnnotations);
-    if (exportBtn) exportBtn.addEventListener('click', exportAnnotatedPage);
-
-    // Bookmarks, Notes, Translator, TTS, OCR
-    const bmBtn = $('bookmarkPageBtn');
-    if (bmBtn) bmBtn.addEventListener('click', addBookmarkCurrentPage);
-
-    const addNoteBtn = $('addNoteBtn') || $('saveNoteBtn');
-    if (addNoteBtn) addNoteBtn.addEventListener('click', addNoteFromInput);
-
-    const exportNotesBtn = $('exportNotesBtn');
-    if (exportNotesBtn) exportNotesBtn.addEventListener('click', exportNotesAsMarkdown);
-
-    const transBtn = $('translateNowBtn');
-    if (transBtn) {
-      transBtn.addEventListener('click', () => {
-        const targetLang = ($('targetLang') || $('translateLangSelect'))?.value || 'ar';
-        translateText(null, targetLang);
-      });
-    }
-
-    const ttsBtn = $('ttsBtn') || $('ttsPlayBtn');
-    if (ttsBtn) ttsBtn.addEventListener('click', toggleTextToSpeech);
-
-    const ocrBtn = $('ocrBtn') || $('runOcrBtn');
-    if (ocrBtn) ocrBtn.addEventListener('click', runOcrOnCurrentPage);
-
-    // Sidebar Tabs (Left & Right)
-    document.querySelectorAll('[data-tab], .tab-btn, .sidebar-tab').forEach((tabBtn) => {
-      tabBtn.addEventListener('click', () => {
-        const targetId = tabBtn.dataset.tab || tabBtn.dataset.target;
-        if (!targetId) return;
-        const parent = tabBtn.parentElement;
-        if (parent) {
-          parent.querySelectorAll('[data-tab], .tab-btn, .sidebar-tab').forEach((b) =>
-            b.classList.remove('active')
-          );
-        }
-        tabBtn.classList.add('active');
-
-        const panel = $(targetId);
-        if (panel && panel.parentElement) {
-          Array.from(panel.parentElement.children).forEach((sib) => {
-            if (sib.classList.contains('tab-panel') || sib.classList.contains('panel')) {
-              sib.style.display = sib.id === targetId ? 'block' : 'none';
-              sib.classList.toggle('active', sib.id === targetId);
-            }
-          });
-        }
+    document.querySelectorAll('.swatch[data-hl]').forEach((sw) => {
+      sw.addEventListener('click', () => {
+        document.querySelectorAll('.swatch').forEach((s) => s.classList.remove('active'));
+        sw.classList.add('active');
+        state.hlColor = sw.dataset.hl;
       });
     });
 
-    // Keyboard Shortcuts
-    window.addEventListener('keydown', (e) => {
-      if (['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName)) return;
-      if (e.key === 'ArrowRight') {
-        goToPage(state.lang === 'ar' ? state.currentPage - 1 : state.currentPage + 1);
-      } else if (e.key === 'ArrowLeft') {
-        goToPage(state.lang === 'ar' ? state.currentPage + 1 : state.currentPage - 1);
-      } else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') {
+    $('annoColorPicker')?.addEventListener('input', (e) => (state.strokeColor = e.target.value));
+    $('annoSizeInput')?.addEventListener('input', (e) => (state.strokeSize = +e.target.value));
+    $('annoOpacityInput')?.addEventListener(
+      'input',
+      (e) => (state.strokeOpacity = +e.target.value / 100)
+    );
+
+    $('annoUndoBtn')?.addEventListener('click', () => {
+      const p = state.currentPage;
+      if (!state.undoStackByPage[p]?.length) return;
+      state.redoStackByPage[p] = state.redoStackByPage[p] || [];
+      state.redoStackByPage[p].push(JSON.parse(JSON.stringify(getAnnots(p))));
+      state.annotationsByPage[p] = state.undoStackByPage[p].pop();
+      renderActivePages();
+    });
+
+    $('annoRedoBtn')?.addEventListener('click', () => {
+      const p = state.currentPage;
+      if (!state.redoStackByPage[p]?.length) return;
+      state.undoStackByPage[p].push(JSON.parse(JSON.stringify(getAnnots(p))));
+      state.annotationsByPage[p] = state.redoStackByPage[p].pop();
+      renderActivePages();
+    });
+
+    $('annoClearPageBtn')?.addEventListener('click', () => {
+      saveUndoState(state.currentPage);
+      state.annotationsByPage[state.currentPage] = [];
+      renderActivePages();
+    });
+
+    // AI Chat & 20 Study Tools
+    $('aiProviderSelect')?.addEventListener('change', populateAiModels);
+    $('testAiConnBtn')?.addEventListener('click', async () => {
+      const badge = $('aiConnectionBadge');
+      try {
+        await window.AhmedkoAI.testConnection(
+          $('aiProviderSelect').value,
+          $('aiModelSelect').value
+        );
+        if (badge) {
+          badge.textContent = '● Connected';
+          badge.className = 'conn-badge connected';
+        }
+        showToast('AI Connected!');
+      } catch (e) {
+        showToast(e.message, true);
+      }
+    });
+
+    $('sendChatBtn')?.addEventListener('click', () => sendAiPrompt());
+    $('chatPromptInput')?.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
         e.preventDefault();
-        undoAnnotation();
-      } else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'y') {
-        e.preventDefault();
-        redoAnnotation();
-      } else if (e.key === 'Escape' && state.projectorActive) {
-        toggleProjectorMode();
+        sendAiPrompt();
+      }
+    });
+    $('stopAiGenBtn')?.addEventListener('click', () => window.AhmedkoAI?.stopGeneration());
+
+    $('newChatSessionBtn')?.addEventListener('click', () => {
+      const id = 'chat_' + Date.now();
+      state.chatSessions.push({ id, title: `Chat ${state.chatSessions.length + 1}`, messages: [] });
+      state.activeChatId = id;
+      saveChats();
+      renderChatSessionsDropdown();
+    });
+    $('clearChatSessionBtn')?.addEventListener('click', () => {
+      getActiveChatSession().messages = [];
+      saveChats();
+      renderChatMessages();
+    });
+
+    document.querySelectorAll('.study-tool-btn[data-study]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const key = btn.dataset.study;
+        const basePrompt = window.AhmedkoAI?.STUDY_PROMPTS[key] || key;
+        const diff = $('studyDifficultySelect')?.value || 'Medium';
+        const lang = $('studyLangSelect')?.value || 'Arabic';
+        const fullPrompt = `${basePrompt}\n(Difficulty Level: ${diff} | Output Language: ${lang})`;
+        sendAiPrompt(
+          fullPrompt,
+          key === 'summarize_doc' ? 'document' : 'page'
+        );
+      });
+    });
+
+    // Translator
+    $('runTranslateBtn')?.addEventListener('click', runTranslator);
+    $('transSelectionBtn')?.addEventListener('click', () => {
+      if ($('transSourceInput')) $('transSourceInput').value = window.getSelection().toString();
+      runTranslator();
+    });
+    $('transPageBtn')?.addEventListener('click', () => {
+      if ($('transSourceInput'))
+        $('transSourceInput').value = (state.pageTexts[state.currentPage - 1] || '').slice(0, 1500);
+      runTranslator();
+    });
+    $('copyTransBtn')?.addEventListener('click', () => {
+      navigator.clipboard.writeText($('transResultBox')?.textContent || '');
+      showToast('Copied!');
+    });
+
+    // Notes
+    document.querySelectorAll('.rich-btn[data-cmd]').forEach((b) => {
+      b.addEventListener('click', () =>
+        document.execCommand(b.dataset.cmd, false, b.dataset.val || null)
+      );
+    });
+    $('saveNoteBtn')?.addEventListener('click', () => {
+      const editor = $('noteRichEditor');
+      if (!editor || !editor.innerHTML.trim()) return;
+      state.notes.unshift({
+        title: $('noteTitleInput')?.value || `Page ${state.currentPage} Note`,
+        folder: $('noteFolderAssign')?.value || 'General',
+        page: $('linkNoteToPageChk')?.checked ? state.currentPage : null,
+        html: editor.innerHTML
+      });
+      editor.innerHTML = '';
+      if ($('noteTitleInput')) $('noteTitleInput').value = '';
+      localStorage.setItem('ahmedko_notes', JSON.stringify(state.notes));
+      renderSavedNotes();
+      showToast('Note saved!');
+    });
+    $('notesFolderSelect')?.addEventListener('change', renderSavedNotes);
+
+    // Settings Modal Save
+    $('saveSettingsBtn')?.addEventListener('click', () => {
+      const keys = {
+        openai: $('settingOpenaiKey')?.value.trim() || '',
+        gemini: $('settingGeminiKey')?.value.trim() || '',
+        anthropic: $('settingAnthropicKey')?.value.trim() || ''
+      };
+      localStorage.setItem('ahmedko_api_keys', JSON.stringify(keys));
+      applyTheme($('settingThemeSelect')?.value || state.theme);
+      applyLanguage($('settingLangSelect')?.value || state.lang);
+      applyPaperTint($('settingPaperTint')?.value || 'default');
+      $('settingsModal')?.classList.add('hidden');
+      showToast('Settings saved!');
+    });
+
+    $('resetAllDataBtn')?.addEventListener('click', async () => {
+      localStorage.clear();
+      await clearAllDocsFromDB();
+      location.reload();
+    });
+
+    // Projector HUD Controls
+    $('projPrevBtn')?.addEventListener('click', () => goToPage(state.currentPage - 1));
+    $('projNextBtn')?.addEventListener('click', () => goToPage(state.currentPage + 1));
+    $('projExitBtn')?.addEventListener('click', () => toggleProjector(false));
+    $('projLaserBtn')?.addEventListener('click', () => {
+      state.laserActive = !state.laserActive;
+      $('laserPointerDot')?.classList.toggle('hidden', !state.laserActive);
+    });
+    $('projectorOverlay')?.addEventListener('mousemove', (e) => {
+      if (!state.laserActive) return;
+      const dot = $('laserPointerDot');
+      if (dot) {
+        dot.style.left = e.clientX + 'px';
+        dot.style.top = e.clientY + 'px';
       }
     });
   }
 
-  // Expose helper API for external AI module (ai.js / study-tools.js)
-  window.AhmedkoApp = {
-    getState: () => state,
-    getCurrentPageText: () => state.pageTexts[state.currentPage] || '',
-    getAllDocumentText: () =>
-      Object.keys(state.pageTexts)
-        .map((p) => `[Page ${p}]\n${state.pageTexts[p]}`)
-        .join('\n\n'),
-    goToPage,
-    translateText,
-    runOcrOnCurrentPage,
-    toggleTextToSpeech,
-    loadInteractiveSampleGuide
-  };
+  function exportPagePng() {
+    const wrapper = document.querySelector('.page-wrapper');
+    if (!wrapper) return;
+    const canvases = wrapper.querySelectorAll('canvas');
+    if (!canvases.length) return;
+    const out = document.createElement('canvas');
+    out.width = canvases[0].width;
+    out.height = canvases[0].height;
+    const ctx = out.getContext('2d');
+    canvases.forEach((c) => ctx.drawImage(c, 0, 0));
+    const a = document.createElement('a');
+    a.download = `ahmedko_page_${state.currentPage}.png`;
+    a.href = out.toDataURL('image/png');
+    a.click();
+  }
 
-  // Boot Application on DOMContentLoaded
+  // =========================================================================
+  // 15. INITIALIZE ON LOAD
+  // =========================================================================
   document.addEventListener('DOMContentLoaded', () => {
+    injectCompactUIStyles();
+    populateAiModels();
     applyTheme(state.theme);
     applyLanguage(state.lang);
-    bindEvents();
-    renderDashboardFiles();
+    bindAllEvents();
+    renderChatSessionsDropdown();
+    renderTransHistory();
+    renderSavedNotes();
+    renderRecentFilesGrid();
   });
 })();
