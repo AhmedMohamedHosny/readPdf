@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AHMEDKO — Your Knowledge. Your Workspace. Your AI.</title>
+
+  <!-- Google Fonts: Inter (English), Cairo (Arabic), JetBrains Mono (Code) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- PDF.js (v3.11.174) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <!-- Mammoth.js for DOCX rendering -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+  <!-- JSZip for PPTX parsing -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <!-- jsPDF for Annotated PDF & Note Export -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <!-- Tesseract.js for Scanned PDF / Image OCR -->
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Hidden File Input -->
+  <input type="file" id="globalFileInput" multiple accept=".pdf,.docx,.txt,.pptx,.jpg,.jpeg,.png,.webp" hidden />
+
+  <!-- Drag & Drop Global Overlay -->
+  <div id="dropZoneOverlay" class="drop-overlay hidden">
+    <div class="drop-box">
+      <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="17 8 12 3 7 8"/>
+        <line x1="12" y1="3" x2="12" y2="15"/>
+      </svg>
+      <h2 data-i18n="dropTitle">Drop your files into Ahmedko</h2>
+      <p data-i18n="dropSub">Supports PDF, DOCX, PPTX, TXT, JPG, PNG, WEBP</p>
+    </div>
+  </div>
+
+  <!-- TOP APPLICATION HEADER -->
+  <header class="app-header">
+    <div class="brand-group" id="brandHomeBtn" title="Return to Dashboard">
+      <div class="brand-logo">
+        <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+          <rect width="32" height="32" rx="8" fill="url(#ahmedkoGrad)"/>
+          <path d="M16 7L24 23H19.8L18.2 19.5H13.8L12.2 23H8L16 7ZM16 12.8L14.6 16.5H17.4L16 12.8Z" fill="white"/>
+          <defs>
+            <linearGradient id="ahmedkoGrad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#6366F1"/>
+              <stop offset="1" stop-color="#06B6D4"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <span class="brand-name">AHMEDKO</span>
+        <span class="brand-tagline" data-i18n="tagline">Your Knowledge. Your Workspace. Your AI.</span>
+      </div>
+    </div>
+
+    <!-- Document Tabs Bar (Shown when files are open) -->
+    <div class="doc-tabs-bar" id="docTabsBar"></div>
+
+    <!-- Header Right Actions -->
+    <div class="header-actions">
+      <button class="btn btn-primary btn-sm" id="headerUploadBtn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
+        </svg>
+        <span data-i18n="uploadBtn">Open File</span>
+      </button>
+
+      <button class="btn btn-secondary btn-sm" id="viewSwitchBtn" title="Toggle Dashboard / Reader">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+          <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+        </svg>
+        <span id="viewSwitchLabel" data-i18n="readerView">Workspace</span>
+      </button>
+
+      <button class="btn btn-accent btn-sm" id="projectorModeBtn" title="Launch Classroom Projector Mode">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+        </svg>
+        <span data-i18n="projectorBtn">Projector</span>
+      </button>
+
+      <button class="icon-btn" id="langToggleBtn" title="Switch Language (AR / EN)">
+        <span id="langBadge">عربي</span>
+      </button>
+
+      <button class="icon-btn" id="themeToggleBtn" title="Toggle Dark / Light Theme">
+        <svg id="themeIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+      </button>
+
+      <button class="icon-btn" id="shortcutsHelpBtn" title="Keyboard Shortcuts (?)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="2" y="4" width="20" height="16" rx="2"/><path d="M6 8h.01M10 8h.01M14 8h.01M18 8h.01M8 12h.01M12 12h.01M16 12h.01M7 16h10"/>
+        </svg>
+      </button>
+
+      <button class="icon-btn" id="settingsOpenBtn" title="Settings & API Keys">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- =================================================================== -->
+  <!-- VIEW 1: MAIN DASHBOARD                                              -->
+  <!-- =================================================================== -->
+  <main id="dashboardView" class="dashboard-container">
+    <!-- Hero Welcome Banner -->
+    <section class="hero-card">
+      <div class="hero-content">
+        <div class="hero-badge">ALL-IN-ONE AI DOCUMENT WORKSPACE</div>
+        <h1 data-i18n="welcomeTitle">Welcome to Ahmedko — Your Smart Workspace.</h1>
+        <p data-i18n="welcomeSub">Open, annotate, translate, study, and present PDF, DOCX, PPTX, TXT, and images with multi-provider AI intelligence.</p>
+        <div class="hero-buttons">
+          <button class="btn btn-primary btn-lg" id="heroUploadBtn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
+            </svg>
+            <span data-i18n="uploadFilesCta">Upload Documents</span>
+          </button>
+          <button class="btn btn-secondary btn-lg" id="heroSampleBtn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
+            </svg>
+            <span data-i18n="loadSampleBtn">Load Interactive Sample Guide</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick Actions Grid -->
+      <div class="quick-actions-grid">
+        <div class="quick-card" id="qaAiAssistant">
+          <div class="qa-icon qa-purple">✨</div>
+          <div>
+            <h4 data-i18n="qaAiTitle">AI Study Center</h4>
+            <p data-i18n="qaAiDesc">ChatGPT, Gemini & Claude</p>
+          </div>
+        </div>
+        <div class="quick-card" id="qaTranslate">
+          <div class="qa-icon qa-cyan">🌐</div>
+          <div>
+            <h4 data-i18n="qaTransTitle">Smart Translator</h4>
+            <p data-i18n="qaTransDesc">Dictionary & Full Page</p>
+          </div>
+        </div>
+        <div class="quick-card" id="qaNotes">
+          <div class="qa-icon qa-emerald">📝</div>
+          <div>
+            <h4 data-i18n="qaNotesTitle">Knowledge Notes</h4>
+            <p data-i18n="qaNotesDesc">Page-linked Rich Notes</p>
+          </div>
+        </div>
+        <div class="quick-card" id="qaProjector">
+          <div class="qa-icon qa-amber">📽️</div>
+          <div>
+            <h4 data-i18n="qaProjTitle">Projector Mode</h4>
+            <p data-i18n="qaProjDesc">Laser Pointer & Timer</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- File Manager Controls -->
+    <section class="file-manager-section">
+      <div class="fm-toolbar">
+        <div class="fm-tabs">
+          <button class="fm-tab active" data-filter="all" data-i18n="allFilesTab">Recent Documents</button>
+          <button class="fm-tab" data-filter="favorites" data-i18n="favoritesTab">★ Favorites</button>
+        </div>
+
+        <div class="fm-controls">
+          <div class="search-input-wrap">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+            <input type="text" id="dashboardSearchInput" placeholder="Search files by name or type..." data-i18n-placeholder="searchFilesPlaceholder" />
+          </div>
+
+          <select id="fileSortSelect" class="select-input">
+            <option value="date-desc" data-i18n="sortNewest">Last Opened (Newest)</option>
+            <option value="name-asc" data-i18n="sortName">Name (A-Z)</option>
+            <option value="type-asc" data-i18n="sortType">File Type</option>
+            <option value="size-desc" data-i18n="sortSize">File Size</option>
+          </select>
+
+          <button class="btn btn-danger-ghost btn-sm" id="clearHistoryBtn" data-i18n="clearHistoryBtn">Clear History</button>
+        </div>
+      </div>
+
+      <div class="storage-notice">
+        <span data-i18n="storageNotice">ℹ️ Files are cached locally in your browser's IndexedDB for instant reopening without uploading to any third-party cloud.</span>
+      </div>
+
+      <!-- Files Grid -->
+      <div id="recentFilesGrid" class="files-grid"></div>
+    </section>
+  </main>
+
+  <!-- =================================================================== -->
+  <!-- VIEW 2: DOCUMENT READER & AI WORKSPACE                              -->
+  <!-- =================================================================== -->
+  <div id="workspaceView" class="workspace-container hidden">
+    <!-- LEFT SIDEBAR: Thumbnails, Outline, Bookmarks -->
+    <aside id="leftSidebar" class="left-sidebar">
+      <div class="sidebar-tabs">
+        <button class="sidebar-tab active" data-left-tab="thumbnails" data-i18n="thumbsTab">Pages</button>
+        <button class="sidebar-tab" data-left-tab="outline" data-i18n="outlineTab">Outline</button>
+        <button class="sidebar-tab" data-left-tab="bookmarks" data-i18n="bookmarksTab">Bookmarks</button>
+      </div>
+
+      <div id="leftTabThumbnails" class="sidebar-Body active">
+        <div id="thumbnailsContainer" class="thumbnails-list"></div>
+      </div>
+
+      <div id="leftTabOutline" class="sidebar-Body hidden">
+        <div id="outlineContainer" class="outline-list"></div>
+      </div>
+
+      <div id="leftTabBookmarks" class="sidebar-Body hidden">
+        <div class="bookmarks-header">
+          <button class="btn btn-primary btn-sm w-full" id="addBookmarkBtn" data-i18n="bookmarkPageBtn">+ Bookmark Current Page</button>
+        </div>
+        <div id="bookmarksContainer" class="bookmarks-list"></div>
+      </div>
+    </aside>
+
+    <!-- CENTER: DOCUMENT READER & ANNOTATION AREA -->
+    <section class="reader-center">
+      <!-- PRIMARY READER TOOLBAR -->
+      <div class="reader-toolbar">
+        <div class="toolbar-group">
+          <button class="icon-btn" id="toggleLeftSidebarBtn" title="Toggle Pages Sidebar">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Page Navigation -->
+        <div class="toolbar-group">
+          <button class="icon-btn" id="prevPageBtn" title="Previous Page (Left Arrow)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <div class="page-counter">
+            <input type="number" id="pageNumberInput" value="1" min="1" />
+            <span>/</span>
+            <span id="totalPagesLabel">1</span>
+          </div>
+          <button class="icon-btn" id="nextPageBtn" title="Next Page (Right Arrow)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+
+        <!-- Zoom & Fit Controls -->
+        <div class="toolbar-group">
+          <button class="icon-btn" id="zoomOutBtn" title="Zoom Out (Ctrl -)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <span id="zoomPercentLabel" class="zoom-label">100%</span>
+          <button class="icon-btn" id="zoomInBtn" title="Zoom In (Ctrl +)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <select id="zoomPresetSelect" class="select-input select-xs">
+            <option value="fit-width" data-i18n="fitWidth">Fit Width</option>
+            <option value="fit-page" data-i18n="fitPage">Fit Page</option>
+            <option value="1" selected>100%</option>
+            <option value="1.25">125%</option>
+            <option value="1.5">150%</option>
+            <option value="2">200%</option>
+          </select>
+        </div>
+
+        <!-- View Mode & Rotation -->
+        <div class="toolbar-group">
+          <select id="viewLayoutSelect" class="select-input select-xs" title="Page Layout Mode">
+            <option value="single" data-i18n="singlePage">Single Page</option>
+            <option value="continuous" data-i18n="continuousScroll">Continuous</option>
+            <option value="two-page" data-i18n="twoPage">Two-Page</option>
+          </select>
+          <button class="icon-btn" id="rotateCcwBtn" title="Rotate Counterclockwise">↺</button>
+          <button class="icon-btn" id="rotateCwBtn" title="Rotate Clockwise">↻</button>
+        </div>
+
+        <!-- In-Document Search -->
+        <div class="toolbar-group search-doc-group">
+          <input type="text" id="docSearchInput" placeholder="Find in doc..." data-i18n-placeholder="findInDoc" />
+          <span id="docSearchCount" class="search-count">0/0</span>
+          <button class="icon-btn btn-xs" id="docSearchPrevBtn" title="Previous Match">▲</button>
+          <button class="icon-btn btn-xs" id="docSearchNextBtn" title="Next Match">▼</button>
+        </div>
+
+        <!-- Reader Extra Utilities -->
+        <div class="toolbar-group">
+          <button class="icon-btn" id="ttsToggleBtn" title="Read Page Aloud (Text-to-Speech)">🔊</button>
+          <button class="icon-btn" id="ocrPageBtn" title="Run OCR on Scanned Page">🔍 OCR</button>
+          <button class="icon-btn" id="compareDocBtn" title="Side-by-Side Document Compare">⚖️</button>
+          <button class="icon-btn" id="wordCountBtn" title="Document Statistics & Extract Text">📊</button>
+          <button class="icon-btn" id="screenshotPageBtn" title="Export Current Page as PNG">📸</button>
+          <button class="icon-btn" id="printDocBtn" title="Print Document">🖨️</button>
+          <button class="icon-btn" id="downloadDocBtn" title="Download Original or Annotated PDF">⬇️</button>
+          <button class="icon-btn" id="toggleRightPanelBtn" title="Toggle AI & Study Panel">🤖</button>
+        </div>
+      </div>
+
+      <!-- SECONDARY ANNOTATION & DRAWING TOOLBAR (All 14 Tools) -->
+      <div class="annotation-toolbar" id="annotationToolbar">
+        <div class="anno-tools-list">
+          <button class="anno-btn active" data-tool="select" title="1. Select / Move Text & Shapes">↖ <span data-i18n="toolSelect">Select</span></button>
+          <button class="anno-btn" data-tool="highlighter" title="2. Highlighter">🖍️ <span data-i18n="toolHighlight">Highlight</span></button>
+          <button class="anno-btn" data-tool="underline" title="3. Underline"><u>U</u> <span data-i18n="toolUnderline">Underline</span></button>
+          <button class="anno-btn" data-tool="strikethrough" title="4. Strikethrough"><s>S</s> <span data-i18n="toolStrike">Strike</span></button>
+          <button class="anno-btn" data-tool="pen" title="5. Pen">✒️ <span data-i18n="toolPen">Pen</span></button>
+          <button class="anno-btn" data-tool="pencil" title="6. Fine Pencil">✏️ <span data-i18n="toolPencil">Pencil</span></button>
+          <button class="anno-btn" data-tool="freehand" title="14. Freehand Marker">〰️ <span data-i18n="toolFreehand">Freehand</span></button>
+          <button class="anno-btn" data-tool="eraser" title="7. Eraser">🧹 <span data-i18n="toolEraser">Eraser</span></button>
+          <button class="anno-btn" data-tool="textbox" title="8. Text Box">🔤 <span data-i18n="toolText">Text</span></button>
+          <button class="anno-btn" data-tool="sticky" title="9. Sticky Note">📌 <span data-i18n="toolSticky">Note</span></button>
+          <button class="anno-btn" data-tool="rect" title="10. Rectangle">▭ <span data-i18n="toolRect">Rect</span></button>
+          <button class="anno-btn" data-tool="circle" title="11. Circle">◯ <span data-i18n="toolCircle">Circle</span></button>
+          <button class="anno-btn" data-tool="arrow" title="12. Arrow">↗ <span data-i18n="toolArrow">Arrow</span></button>
+          <button class="anno-btn" data-tool="line" title="13. Straight Line">╱ <span data-i18n="toolLine">Line</span></button>
+        </div>
+
+        <!-- Style & Action Controls -->
+        <div class="anno-options">
+          <!-- Highlighter Quick Swatches -->
+          <div class="hl-swatches" title="Highlighter Colors">
+            <button class="swatch active" data-hl="#FFEB3B" style="background:#FFEB3B"></button>
+            <button class="swatch" data-hl="#4CAF50" style="background:#4CAF50"></button>
+            <button class="swatch" data-hl="#2196F3" style="background:#2196F3"></button>
+            <button class="swatch" data-hl="#E91E63" style="background:#E91E63"></button>
+            <button class="swatch" data-hl="#FF9800" style="background:#FF9800"></button>
+          </div>
+
+          <input type="color" id="annoColorPicker" value="#6366f1" title="Stroke / Text Color" />
+          <label class="anno-slider-label" title="Stroke Thickness">
+            <span>W</span>
+            <input type="range" id="annoSizeInput" min="1" max="24" value="3" />
+          </label>
+          <label class="anno-slider-label" title="Opacity">
+            <span>α</span>
+            <input type="range" id="annoOpacityInput" min="20" max="100" value="100" />
+          </label>
+
+          <button class="icon-btn btn-xs" id="annoUndoBtn" title="Undo Annotation (Ctrl+Z)">↶</button>
+          <button class="icon-btn btn-xs" id="annoRedoBtn" title="Redo Annotation (Ctrl+Shift+Z)">↷</button>
+          <button class="icon-btn btn-xs" id="annoClearPageBtn" title="Clear Page Annotations">🗑️</button>
+          <button class="btn btn-primary btn-xs" id="exportAnnotatedPdfBtn" title="Export PDF with Annotations">💾 Export PDF</button>
+        </div>
+      </div>
+
+      <!-- Reading Progress Bar -->
+      <div class="reading-progress-track">
+        <div id="readingProgressBar" class="reading-progress-fill" style="width: 0%"></div>
+      </div>
+
+      <!-- DOCUMENT VIEWPORT -->
+      <div id="readerViewport" class="reader-viewport">
+        <!-- Empty State if no document loaded -->
+        <div id="emptyReaderState" class="empty-reader-state">
+          <div class="empty-icon">📄</div>
+          <h3 data-i18n="noDocOpenTitle">No Document Currently Open</h3>
+          <p data-i18n="noDocOpenSub">Upload a PDF, DOCX, PPTX, TXT, or Image file, or load the interactive sample guide.</p>
+          <div class="empty-actions">
+            <button class="btn btn-primary" id="emptyUploadBtn" data-i18n="uploadBtn">Open File</button>
+            <button class="btn btn-secondary" id="emptySampleBtn" data-i18n="loadSampleBtn">Load Sample Guide</button>
+          </div>
+        </div>
+
+        <!-- Active Document Render Stage -->
+        <div id="documentStage" class="document-stage hidden"></div>
+
+        <!-- Secondary Comparison Stage (Hidden unless Compare Mode is active) -->
+        <div id="compareStage" class="compare-stage hidden">
+          <div class="compare-header">
+            <span data-i18n="compareWith">Compare with:</span>
+            <select id="compareDocSelect" class="select-input select-xs"></select>
+            <button class="icon-btn btn-xs" id="closeCompareBtn">✕</button>
+          </div>
+          <div id="compareContent" class="compare-content"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESIZER HANDLE -->
+    <div id="rightPanelResizer" class="panel-resizer" title="Drag to resize panel"></div>
+
+    <!-- RIGHT SIDEBAR: MULTI-AI ASSISTANT, STUDY TOOLS, TRANSLATOR, NOTES -->
+    <aside id="rightSidebar" class="right-sidebar">
+      <div class="right-panel-tabs">
+        <button class="rp-tab active" data-rp-tab="aiChat" data-i18n="tabAiChat">🤖 AI Chat</button>
+        <button class="rp-tab" data-rp-tab="studyTools" data-i18n="tabStudyTools">🎓 Study (20)</button>
+        <button class="rp-tab" data-rp-tab="translator" data-i18n="tabTranslator">🌐 Translate</button>
+        <button class="rp-tab" data-rp-tab="notes" data-i18n="tabNotes">📝 Notes</button>
+      </div>
+
+      <!-- Shared AI Provider & Model Header -->
+      <div class="ai-provider-bar">
+        <div class="provider-row">
+          <select id="aiProviderSelect" class="select-input select-sm" title="Select AI Provider">
+            <option value="openai">OpenAI (ChatGPT)</option>
+            <option value="gemini">Google Gemini</option>
+            <option value="anthropic">Anthropic Claude</option>
+          </select>
+
+          <select id="aiModelSelect" class="select-input select-sm" title="Select Model"></select>
+
+          <button class="btn btn-secondary btn-xs" id="testAiConnBtn" title="Verify real API connection">Test</button>
+        </div>
+
+        <div class="provider-status-row">
+          <span id="aiConnectionBadge" class="conn-badge disconnected">● Not Verified</span>
+          <button class="link-btn" id="openApiKeyModalBtn" data-i18n="configureKeysBtn">🔑 Configure API Keys</button>
+        </div>
+      </div>
+
+      <!-- TAB 1: CONVERSATIONAL AI CHAT -->
+      <div id="rpTabAiChat" class="rp-body active">
+        <div class="chat-top-controls">
+          <select id="chatSessionSelect" class="select-input select-xs"></select>
+          <button class="icon-btn btn-xs" id="newChatSessionBtn" title="New Conversation">+</button>
+          <button class="icon-btn btn-xs" id="renameChatSessionBtn" title="Rename Conversation">✎</button>
+          <button class="icon-btn btn-xs" id="clearChatSessionBtn" title="Clear Messages">🧹</button>
+          <button class="icon-btn btn-xs" id="deleteChatSessionBtn" title="Delete Conversation">🗑️</button>
+        </div>
+
+        <!-- Context Scope Bar -->
+        <div class="context-bar">
+          <label data-i18n="contextLabel">Context:</label>
+          <select id="aiContextScope" class="select-input select-xs">
+            <option value="page" data-i18n="ctxCurrentPage">Current Page</option>
+            <option value="selection" data-i18n="ctxSelectedText">Selected Text</option>
+            <option value="range" data-i18n="ctxPageRange">Page Range</option>
+            <option value="document" data-i18n="ctxFullDoc">Entire Document (RAG)</option>
+            <option value="general" data-i18n="ctxGeneral">General Question</option>
+          </select>
+          <input type="text" id="aiPageRangeInput" class="range-input hidden" placeholder="e.g. 1-4" />
+        </div>
+
+        <!-- Chat Messages List -->
+        <div id="chatMessagesList" class="chat-messages"></div>
+
+        <!-- Chat Input Box -->
+        <div class="chat-input-area">
+          <div id="selectedContextPreview" class="selected-ctx-pill hidden">
+            <span id="selectedContextText"></span>
+            <button id="clearSelectedCtxBtn">✕</button>
+          </div>
+          <div class="chat-composer">
+            <textarea id="chatPromptInput" rows="2" placeholder="Ask about this document, page, or concept..." data-i18n-placeholder="chatPlaceholder"></textarea>
+            <div class="composer-btns">
+              <button class="btn btn-danger btn-xs hidden" id="stopAiGenBtn">⏹ Stop</button>
+              <button class="btn btn-primary btn-sm" id="sendChatBtn" data-i18n="sendBtn">Send</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 2: 20 AI STUDY TOOLS -->
+      <div id="rpTabStudyTools" class="rp-body hidden">
+        <div class="study-controls">
+          <div class="study-option">
+            <label data-i18n="difficultyLabel">Level:</label>
+            <select id="studyDifficultySelect" class="select-input select-xs">
+              <option value="Easy">Easy / Beginner</option>
+              <option value="Medium" selected>Medium / University</option>
+              <option value="Advanced">Advanced / Research</option>
+            </select>
+          </div>
+          <div class="study-option">
+            <label data-i18n="outputLangLabel">Language:</label>
+            <select id="studyLangSelect" class="select-input select-xs">
+              <option value="English">English</option>
+              <option value="Arabic">العربية (Arabic)</option>
+              <option value="French">Français</option>
+              <option value="German">Deutsch</option>
+              <option value="Spanish">Español</option>
+            </select>
+          </div>
+        </div>
+
+        <p class="study-hint" data-i18n="studyHint">Click any study tool below to generate structured academic material from the active document/page in the AI Chat:</p>
+
+        <div class="study-tools-grid" id="studyToolsGrid">
+          <button class="study-tool-btn" data-study="explain_page">1. 📖 Explain This Page</button>
+          <button class="study-tool-btn" data-study="explain_beginner">2. 🌱 Explain Like I'm a Beginner</button>
+          <button class="study-tool-btn" data-study="summarize_doc">3. 📚 Summarize Entire Document</button>
+          <button class="study-tool-btn" data-study="summarize_page">4. 📄 Summarize Current Page</button>
+          <button class="study-tool-btn" data-study="key_points">5. 🎯 Extract Important Points</button>
+          <button class="study-tool-btn" data-study="mcq">6. ✅ Generate MCQ Questions</button>
+          <button class="study-tool-btn" data-study="true_false">7. ⚖️ Generate True/False Questions</button>
+          <button class="study-tool-btn" data-study="essay">8. ✍️ Generate Essay Questions</button>
+          <button class="study-tool-btn" data-study="flashcards">9. 🗂️ Generate Flashcards</button>
+          <button class="study-tool-btn" data-study="glossary">10. 📘 Create a Glossary</button>
+          <button class="study-tool-btn" data-study="terminology">11. 🔬 Explain Difficult Terminology</button>
+          <button class="study-tool-btn" data-study="study_guide">12. 🧭 Create a Study Guide</button>
+          <button class="study-tool-btn" data-study="quiz">13. 🏆 Generate Interactive Quiz</button>
+          <button class="study-tool-btn" data-study="compare_concepts">14. 🔄 Compare Two Concepts</button>
+          <button class="study-tool-btn" data-study="revision_notes">15. 📝 Create Revision Notes</button>
+          <button class="study-tool-btn" data-study="extract_formulas">16. ∑ Extract Formulas & Equations</button>
+          <button class="study-tool-btn" data-study="explain_diagrams">17. 🖼️ Explain Page Diagrams (Vision)</button>
+          <button class="study-tool-btn" data-study="qa_with_answers">18. 💡 Questions WITH Answers</button>
+          <button class="study-tool-btn" data-study="qa_without_answers">19. ❓ Questions WITHOUT Answers</button>
+          <button class="study-tool-btn" data-study="lecture_outline">20. 🎓 Structured Lecture Outline</button>
+        </div>
+      </div>
+
+      <!-- TAB 3: SMART TRANSLATION CENTER -->
+      <div id="rpTabTranslator" class="rp-body hidden">
+        <div class="trans-controls">
+          <select id="transSourceLang" class="select-input select-xs">
+            <option value="auto">Auto-Detect</option>
+            <option value="en">English</option>
+            <option value="ar">Arabic (العربية)</option>
+            <option value="fr">French</option>
+            <option value="de">German</option>
+            <option value="es">Spanish</option>
+          </select>
+          <span>➔</span>
+          <select id="transTargetLang" class="select-input select-xs">
+            <option value="ar" selected>Arabic (العربية)</option>
+            <option value="en">English</option>
+            <option value="fr">French</option>
+            <option value="de">German</option>
+            <option value="es">Spanish</option>
+          </select>
+        </div>
+
+        <div class="trans-quick-scopes">
+          <button class="btn btn-secondary btn-xs" id="transSelectionBtn" data-i18n="transSelBtn">Selection</button>
+          <button class="btn btn-secondary btn-xs" id="transPageBtn" data-i18n="transPageBtn">Current Page</button>
+          <button class="btn btn-secondary btn-xs" id="transDocBtn" data-i18n="transDocBtn">Full Document</button>
+        </div>
+
+        <textarea id="transSourceInput" class="trans-textarea" rows="4" placeholder="Select text in document or type/paste here to translate..."></textarea>
+
+        <button class="btn btn-primary btn-sm w-full" id="runTranslateBtn" data-i18n="translateNowBtn">Translate Now</button>
+
+        <!-- Word Dictionary Breakdown Card -->
+        <div id="wordDictionaryCard" class="word-dict-card hidden"></div>
+
+        <!-- Translated Output Box -->
+        <div class="trans-output-wrap">
+          <div class="trans-output-header">
+            <span data-i18n="translationResult">Translated Text</span>
+            <div class="trans-actions">
+              <button class="icon-btn btn-xs" id="copyTransBtn" title="Copy Translation">📋</button>
+              <button class="icon-btn btn-xs" id="saveFavTransBtn" title="Save to Favorite Translations">★</button>
+              <button class="icon-btn btn-xs" id="insertTransToNoteBtn" title="Insert into Notes">📝</button>
+            </div>
+          </div>
+          <div id="transResultBox" class="trans-result-box"></div>
+        </div>
+
+        <!-- Translation History & Favorites -->
+        <div class="trans-history-section">
+          <div class="trans-hist-header">
+            <h5 data-i18n="transHistoryTitle">History & Favorites</h5>
+            <button class="link-btn" id="clearTransHistoryBtn">Clear</button>
+          </div>
+          <div id="transHistoryList" class="trans-history-list"></div>
+        </div>
+      </div>
+
+      <!-- TAB 4: NOTES & KNOWLEDGE MANAGEMENT -->
+      <div id="rpTabNotes" class="rp-body hidden">
+        <div class="notes-top-bar">
+          <select id="notesFolderSelect" class="select-input select-xs">
+            <option value="all">All Folders</option>
+            <option value="General">📁 General</option>
+            <option value="Lecture Notes">📁 Lecture Notes</option>
+            <option value="Summaries">📁 Summaries</option>
+            <option value="Exam Prep">📁 Exam Prep</option>
+          </select>
+          <button class="btn btn-primary btn-xs" id="newNoteBtn">+ New Note</button>
+        </div>
+
+        <!-- Active Note Editor -->
+        <div class="note-editor-card">
+          <input type="text" id="noteTitleInput" class="note-title-input" placeholder="Note title..." />
+          <div class="note-meta-row">
+            <select id="noteFolderAssign" class="select-input select-xs">
+              <option value="General">General</option>
+              <option value="Lecture Notes">Lecture Notes</option>
+              <option value="Summaries">Summaries</option>
+              <option value="Exam Prep">Exam Prep</option>
+            </select>
+            <label class="checkbox-label">
+              <input type="checkbox" id="linkNoteToPageChk" checked />
+              <span id="linkPageBadge">Link to Page 1</span>
+            </label>
+          </div>
+
+          <!-- Rich Text Formatting Bar -->
+          <div class="rich-toolbar">
+            <button class="rich-btn" data-cmd="bold" title="Bold"><b>B</b></button>
+            <button class="rich-btn" data-cmd="italic" title="Italic"><i>I</i></button>
+            <button class="rich-btn" data-cmd="insertUnorderedList" title="Bullet List">• List</button>
+            <button class="rich-btn" data-cmd="insertOrderedList" title="Numbered List">1. List</button>
+            <button class="rich-btn" id="insertChecklistBtn" title="Insert Checklist">☑️ Check</button>
+            <button class="rich-btn" data-cmd="formatBlock" data-val="H3" title="Heading">H3</button>
+          </div>
+
+          <div id="noteRichEditor" class="note-rich-editor" contenteditable="true" data-placeholder="Write your study notes here..."></div>
+
+          <div class="note-editor-footer">
+            <button class="btn btn-primary btn-xs" id="saveNoteBtn">Save Note</button>
+            <button class="btn btn-secondary btn-xs" id="copyNoteBtn">Copy</button>
+            <button class="btn btn-secondary btn-xs" id="exportNoteTxtBtn">TXT</button>
+            <button class="btn btn-secondary btn-xs" id="exportNotePdfBtn">PDF</button>
+          </div>
+        </div>
+
+        <!-- Saved Notes List -->
+        <div id="savedNotesList" class="saved-notes-list"></div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- FLOATING TEXT SELECTION ACTION POPUP -->
+  <div id="selectionPopup" class="selection-popup hidden">
+    <button id="selPopupTranslate">🌐 Translate</button>
+    <button id="selPopupAskAi">✨ Ask AI</button>
+    <button id="selPopupExplain">📖 Explain</button>
+    <button id="selPopupNote">📝 + Note</button>
+    <button id="selPopupCopy">📋 Copy</button>
+  </div>
+
+  <!-- =================================================================== -->
+  <!-- PROJECTOR / PRESENTATION MODE OVERLAY                               -->
+  <!-- =================================================================== -->
+  <div id="projectorOverlay" class="projector-overlay hidden">
+    <!-- Black/White Screen Curtain -->
+    <div id="projectorCurtain" class="projector-curtain hidden"></div>
+
+    <!-- Laser Pointer Dot -->
+    <div id="laserPointerDot" class="laser-dot hidden"></div>
+
+    <!-- Main Projector Stage -->
+    <div id="projectorStage" class="projector-stage"></div>
+
+    <!-- Minimal Floating HUD Controls -->
+    <div class="projector-hud">
+      <button class="proj-btn" id="projPrevBtn" title="Previous Page (←)">◀</button>
+      <span id="projPageIndicator" class="proj-page-label">1 / 1</span>
+      <button class="proj-btn" id="projNextBtn" title="Next Page (→)">▶</button>
+
+      <div class="proj-divider"></div>
+
+      <button class="proj-btn" id="projZoomOutBtn" title="Zoom Out">−</button>
+      <button class="proj-btn" id="projFitBtn" title="Fit to Screen">Fit</button>
+      <button class="proj-btn" id="projZoomInBtn" title="Zoom In">+</button>
+
+      <div class="proj-divider"></div>
+
+      <button class="proj-btn" id="projLaserBtn" title="Toggle Laser Pointer (L)">🔴 Laser</button>
+      <button class="proj-btn" id="projBlackScreenBtn" title="Black Screen (B)">⬛ Black</button>
+      <button class="proj-btn" id="projWhiteScreenBtn" title="White Screen (W)">⬜ White</button>
+
+      <div class="proj-divider"></div>
+
+      <div class="proj-timer">
+        <span id="projTimerDisplay">00:00</span>
+        <button class="proj-btn" id="projTimerToggleBtn" title="Start/Pause Timer">▶</button>
+        <button class="proj-btn" id="projTimerResetBtn" title="Reset Timer">↺</button>
+      </div>
+
+      <button class="proj-btn proj-exit" id="projExitBtn" title="Exit Projector Mode (Esc)">✕ Exit</button>
+    </div>
+  </div>
+
+  <!-- =================================================================== -->
+  <!-- MODALS: SETTINGS & API KEYS, KEYBOARD SHORTCUTS, STATS              -->
+  <!-- =================================================================== -->
+  <div id="settingsModal" class="modal-backdrop hidden">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 data-i18n="settingsTitle">Settings, Personalization & AI API Keys</h3>
+        <button class="icon-btn close-modal-btn" data-close="settingsModal">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="settings-grid">
+          <div class="settings-group">
+            <h4>🔐 Multi-AI Provider API Keys</h4>
+            <p class="settings-note">Keys are sent securely through your local Ahmedko server proxy (`server.js`). Note: ChatGPT Plus subscriptions do not include OpenAI API credits—use an API key from platform.openai.com, Google AI Studio, or Anthropic Console.</p>
+
+            <label>OpenAI API Key (`sk-...`)</label>
+            <input type="password" id="settingOpenaiKey" class="text-input" placeholder="sk-..." />
+
+            <label>Google Gemini API Key (`AIza...`)</label>
+            <input type="password" id="settingGeminiKey" class="text-input" placeholder="AIza..." />
+
+            <label>Anthropic Claude API Key (`sk-ant-...`)</label>
+            <input type="password" id="settingAnthropicKey" class="text-input" placeholder="sk-ant-..." />
+          </div>
+
+          <div class="settings-group">
+            <h4>🎨 Workspace & Reader Preferences</h4>
+            <label>Appearance Theme</label>
+            <select id="settingThemeSelect" class="select-input">
+              <option value="dark">Dark Mode (Default)</option>
+              <option value="light">Light Mode</option>
+            </select>
+
+            <label>Interface Language</label>
+            <select id="settingLangSelect" class="select-input">
+              <option value="en">English (LTR)</option>
+              <option value="ar">العربية (RTL)</option>
+            </select>
+
+            <label>Reading Paper Tint</label>
+            <select id="settingPaperTint" class="select-input">
+              <option value="default">Original Paper</option>
+              <option value="sepia">Warm Sepia Comfort</option>
+              <option value="night">Night Inverted Filter</option>
+            </select>
+
+            <label>Default PDF Zoom</label>
+            <select id="settingDefaultZoom" class="select-input">
+              <option value="1">100%</option>
+              <option value="1.25">125%</option>
+              <option value="fit-width">Fit Width</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-danger-ghost" id="resetAllDataBtn">Reset All Local Data</button>
+        <button class="btn btn-primary" id="saveSettingsBtn">Save Settings</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div id="shortcutsModal" class="modal-backdrop hidden">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-header">
+        <h3 data-i18n="shortcutsTitle">⌨️ Keyboard Shortcuts</h3>
+        <button class="icon-btn close-modal-btn" data-close="shortcutsModal">✕</button>
+      </div>
+      <div class="modal-body">
+        <ul class="shortcuts-list">
+          <li><span>Open File</span> <kbd>Ctrl + O</kbd></li>
+          <li><span>Search in Document</span> <kbd>Ctrl + F</kbd></li>
+          <li><span>Zoom In</span> <kbd>Ctrl + +</kbd></li>
+          <li><span>Zoom Out</span> <kbd>Ctrl + -</kbd></li>
+          <li><span>Undo Annotation</span> <kbd>Ctrl + Z</kbd></li>
+          <li><span>Redo Annotation</span> <kbd>Ctrl + Shift + Z</kbd></li>
+          <li><span>Previous / Next Page</span> <kbd>←</kbd> / <kbd>→</kbd></li>
+          <li><span>Projector Black / White Screen</span> <kbd>B</kbd> / <kbd>W</kbd></li>
+          <li><span>Projector Laser Pointer</span> <kbd>L</kbd></li>
+          <li><span>Exit Projector / Close Dialog</span> <kbd>Esc</kbd></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Document Stats & Extracted Text Modal -->
+  <div id="docStatsModal" class="modal-backdrop hidden">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3>📊 Document Analytics & Extracted Text</h3>
+        <button class="icon-btn close-modal-btn" data-close="docStatsModal">✕</button>
+      </div>
+      <div class="modal-body">
+        <div id="docStatsMetrics" class="stats-metrics-row"></div>
+        <label>Extracted Document Text</label>
+        <textarea id="extractedTextOutput" class="trans-textarea" rows="10" readonly></textarea>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="copyExtractedTextBtn">📋 Copy All Text</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- Application Scripts -->
+  <script src="ai.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
