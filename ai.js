@@ -8,9 +8,9 @@ window.AhmedkoAI = (function () {
     gemini: {
       name: 'Google Gemini',
       models: [
-        { id: 'gemini-2.5-flash', label: 'Gemini 2.5 Flash' },
-        { id: 'gemini-2.0-flash', label: 'Gemini 2.0 Flash' },
-        { id: 'gemini-2.5-pro', label: 'Gemini 2.5 Pro' }
+        { id: 'gemini-3.8-flash', label: 'Gemini 3.8 Flash (موصى به)' },
+        { id: 'gemini-3.8-pro', label: 'Gemini 3.8 Pro' },
+        { id: 'gemini-2.0-flash', label: 'Gemini 2.0 Flash' }
       ]
     },
     openai: {
@@ -103,7 +103,7 @@ window.AhmedkoAI = (function () {
     }
 
     if (provider === 'gemini') {
-      const targetModel = model || 'gemini-2.5-flash';
+      const targetModel = model || 'gemini-3.8-flash';
       const url = `https://generativelanguage.googleapis.com/v1beta/models/${targetModel}:generateContent?key=${encodeURIComponent(
         apiKey
       )}`;
@@ -227,7 +227,6 @@ window.AhmedkoAI = (function () {
     activeAbortController = new AbortController();
 
     try {
-      // If hosted on GitHub Pages or static file, call provider directly
       if (location.hostname.includes('github.io') || location.protocol === 'file:') {
         return await directBrowserChat({
           provider,
