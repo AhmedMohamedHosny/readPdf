@@ -1,230 +1,134 @@
 /**
- * AHMEDKO — Complete Frontend Controller (Matched 100% to index.html, style.css & ai.js)
- * Compact Tabs & Shortcuts Edition
+ * AHMEDKO — Complete High-DPI Controller, All-Pages Lazy Renderer, Snap Vision & Projector
  * File: script.js
  */
 
 (function () {
   'use strict';
 
-  // Configure PDF.js Worker
   if (window.pdfjsLib) {
     window.pdfjsLib.GlobalWorkerOptions.workerSrc =
       'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
   }
 
-  // =========================================================================
-  // 1. COMPACT BILINGUAL DICTIONARY (SHORT LABELS & TABS ONLY)
-  // =========================================================================
   const I18N = {
+    ar: {
+      uploadBtn: 'فتح ملف',
+      readerView: 'مساحة العمل',
+      dashboardBtnLabel: 'الرئيسية',
+      projectorBtn: 'عرض',
+      welcomeTitle: '⚡ بوابة الملفات السريعة',
+      uploadFilesCta: 'رفع مستند جديد',
+      loadSampleBtn: 'ملف تجريبي',
+      qaAiTitle: 'المساعد الذكي',
+      qaStudyTitle: 'أدوات الدراسة',
+      qaTransTitle: 'المترجم الفوري',
+      qaNotesTitle: 'الملاحظات',
+      allFilesTab: '📂 الملفات الأخيرة',
+      favoritesTab: '★ المفضلة',
+      clearHistoryBtn: '🗑️ مسح الكل',
+      thumbsTab: '📄 الصفحات',
+      outlineTab: '📑 الفهرس',
+      bookmarksTab: '🔖 الإشارات',
+      bookmarkPageBtn: '+ حفظ الصفحة الحالية',
+      tabAiChat: '🤖 محادثة',
+      tabStudyTools: '🎓 مذاكرة',
+      tabTranslator: '🌐 ترجمة',
+      tabNotes: '📝 ملاحظات',
+      contextLabel: 'النطاق:',
+      ctxCurrentPage: 'الصفحة الحالية',
+      ctxFullDoc: 'كامل المستند',
+      ctxSelectedText: 'النص المحدد',
+      sendBtn: 'إرسال',
+      transPageBtn: 'ترجمة الصفحة',
+      translateNowBtn: '⚡ ترجم الآن',
+      translationResult: 'الترجمة',
+      noDocOpenTitle: 'لا يوجد مستند مفتوح',
+      tSelect: 'تحديد',
+      tHighlight: 'تظليل',
+      tPen: 'قلم',
+      tArrow: 'سهم',
+      tRect: 'مربع',
+      tNote: 'ملصق',
+      tEraser: 'مسح',
+      tSnap: 'قص وشرح AI',
+      searchFilesPlaceholder: 'بحث في الملفات...',
+      findInDoc: 'بحث...',
+      chatPlaceholder: 'اسأل عن الصفحة أو الرسمة...'
+    },
     en: {
-      tagline: 'Smart AI Workspace',
       uploadBtn: 'Open',
       readerView: 'Workspace',
       dashboardBtnLabel: 'Dashboard',
       projectorBtn: 'Present',
-      welcomeTitle: '⚡ Quick Launch',
-      uploadFilesCta: 'Open File',
+      welcomeTitle: '⚡ Quick Document Launch',
+      uploadFilesCta: 'Upload Document',
       loadSampleBtn: 'Sample Guide',
       qaAiTitle: 'AI Chat',
-      qaAiDesc: 'Ask & Analyze',
+      qaStudyTitle: 'Study Tools',
       qaTransTitle: 'Translator',
-      qaTransDesc: 'Instant Dict',
       qaNotesTitle: 'Notes',
-      qaNotesDesc: 'Page-Linked',
-      qaProjTitle: 'Projector',
-      qaProjDesc: 'Laser & Timer',
-      allFilesTab: '📂 Recent',
+      allFilesTab: '📂 Recent Files',
       favoritesTab: '★ Saved',
-      clearHistoryBtn: '🗑️ Clear',
+      clearHistoryBtn: '🗑️ Clear All',
       thumbsTab: '📄 Pages',
       outlineTab: '📑 Index',
       bookmarksTab: '🔖 Marks',
-      bookmarkPageBtn: '+ Bookmark',
+      bookmarkPageBtn: '+ Bookmark Page',
       tabAiChat: '🤖 Chat',
-      tabStudyTools: '🎓 Tools (20)',
+      tabStudyTools: '🎓 Study',
       tabTranslator: '🌐 Translate',
       tabNotes: '📝 Notes',
-      configureKeysBtn: '🔑 API Keys',
       contextLabel: 'Scope:',
-      ctxCurrentPage: 'Page',
-      ctxSelectedText: 'Selection',
-      ctxPageRange: 'Range',
+      ctxCurrentPage: 'Current Page',
       ctxFullDoc: 'Full Doc',
-      ctxGeneral: 'General',
+      ctxSelectedText: 'Selection',
       sendBtn: 'Send',
-      difficultyLabel: 'Level:',
-      outputLangLabel: 'Lang:',
-      transSelBtn: 'Selection',
-      transPageBtn: 'Page',
-      transDocBtn: 'Doc',
-      translateNowBtn: '⚡ Translate',
-      translationResult: 'Result',
-      transHistoryTitle: 'History',
-      noDocOpenTitle: 'No File Open',
-      toolSelect: '',
-      toolHighlight: '',
-      toolUnderline: '',
-      toolStrike: '',
-      toolPen: '',
-      toolPencil: '',
-      toolFreehand: '',
-      toolEraser: '',
-      toolText: '',
-      toolSticky: '',
-      toolRect: '',
-      toolCircle: '',
-      toolArrow: '',
-      toolLine: '',
+      transPageBtn: 'Translate Page',
+      translateNowBtn: '⚡ Translate Now',
+      translationResult: 'Translation',
+      noDocOpenTitle: 'No Document Open',
+      tSelect: 'Select',
+      tHighlight: 'Highlight',
+      tPen: 'Pen',
+      tArrow: 'Arrow',
+      tRect: 'Box',
+      tNote: 'Note',
+      tEraser: 'Erase',
+      tSnap: 'Snap & Ask AI',
       searchFilesPlaceholder: 'Filter files...',
       findInDoc: 'Find...',
-      chatPlaceholder: 'Ask AI...'
-    },
-    ar: {
-      tagline: 'مساحة العمل الذكية',
-      uploadBtn: 'فتح',
-      readerView: 'مساحة العمل',
-      dashboardBtnLabel: 'الرئيسية',
-      projectorBtn: 'عرض',
-      welcomeTitle: '⚡ وصول سريع',
-      uploadFilesCta: 'رفع ملف',
-      loadSampleBtn: 'ملف تجريبي',
-      qaAiTitle: 'المساعد الذكي',
-      qaAiDesc: 'اسأل وحلل',
-      qaTransTitle: 'المترجم',
-      qaTransDesc: 'قاموس فوري',
-      qaNotesTitle: 'الملاحظات',
-      qaNotesDesc: 'مرتبطة بالصفحات',
-      qaProjTitle: 'وضع العرض',
-      qaProjDesc: 'ليزر ومؤقت',
-      allFilesTab: '📂 الأخيرة',
-      favoritesTab: '★ المفضلة',
-      clearHistoryBtn: '🗑️ مسح',
-      thumbsTab: '📄 الصفحات',
-      outlineTab: '📑 الفهرس',
-      bookmarksTab: '🔖 الإشارات',
-      bookmarkPageBtn: '+ حفظ إشارة',
-      tabAiChat: '🤖 محادثة',
-      tabStudyTools: '🎓 أدوات (20)',
-      tabTranslator: '🌐 ترجمة',
-      tabNotes: '📝 ملاحظات',
-      configureKeysBtn: '🔑 المفاتيح',
-      contextLabel: 'النطاق:',
-      ctxCurrentPage: 'الصفحة',
-      ctxSelectedText: 'المحدد',
-      ctxPageRange: 'نطاق',
-      ctxFullDoc: 'المستند',
-      ctxGeneral: 'عام',
-      sendBtn: 'إرسال',
-      difficultyLabel: 'المستوى:',
-      outputLangLabel: 'اللغة:',
-      transSelBtn: 'المحدد',
-      transPageBtn: 'الصفحة',
-      transDocBtn: 'المستند',
-      translateNowBtn: '⚡ ترجم',
-      translationResult: 'النتيجة',
-      transHistoryTitle: 'السجل',
-      noDocOpenTitle: 'لا يوجد ملف مفتوح',
-      toolSelect: '',
-      toolHighlight: '',
-      toolUnderline: '',
-      toolStrike: '',
-      toolPen: '',
-      toolPencil: '',
-      toolFreehand: '',
-      toolEraser: '',
-      toolText: '',
-      toolSticky: '',
-      toolRect: '',
-      toolCircle: '',
-      toolArrow: '',
-      toolLine: '',
-      searchFilesPlaceholder: 'بحث في الملفات...',
-      findInDoc: 'بحث...',
-      chatPlaceholder: 'اسأل الذكاء الاصطناعي...'
+      chatPlaceholder: 'Ask about this page or diagram...'
     }
   };
 
-  // Short labels for the 20 study tools
-  const COMPACT_STUDY_LABELS = {
-    en: {
-      explain_page: '📖 Explain Page',
-      explain_beginner: '🌱 Simple Explain',
-      summarize_doc: '📚 Doc Summary',
-      summarize_page: '📄 Page Summary',
-      key_points: '🎯 Key Points',
-      mcq: '✅ MCQ Quiz',
-      true_false: '⚖️ True / False',
-      essay: '✍️ Essay Qs',
-      flashcards: '🗂️ Flashcards',
-      glossary: '📘 Glossary',
-      terminology: '🔬 Terms',
-      study_guide: '🧭 Study Guide',
-      quiz: '🏆 Full Quiz',
-      compare_concepts: '🔄 Compare',
-      revision_notes: '📝 Revision',
-      extract_formulas: '∑ Formulas',
-      explain_diagrams: '🖼️ Diagrams',
-      qa_with_answers: '💡 Q & A',
-      qa_without_answers: '❓ Self-Test',
-      lecture_outline: '🎓 Lecture Plan'
-    },
-    ar: {
-      explain_page: '📖 شرح الصفحة',
-      explain_beginner: '🌱 شرح مبسط',
-      summarize_doc: '📚 ملخص كامل',
-      summarize_page: '📄 ملخص الصفحة',
-      key_points: '🎯 أهم النقاط',
-      mcq: '✅ اختياري MCQ',
-      true_false: '⚖️ صح وخطأ',
-      essay: '✍️ أسئلة مقالية',
-      flashcards: '🗂️ بطاقات استذكار',
-      glossary: '📘 قاموس مصطلحات',
-      terminology: '🔬 شرح المصطلحات',
-      study_guide: '🧭 دليل مذاكرة',
-      quiz: '🏆 اختبار شامل',
-      compare_concepts: '🔄 مقارنة مفاهيم',
-      revision_notes: '📝 برشامة مراجعة',
-      extract_formulas: '∑ القوانين والمعادلات',
-      explain_diagrams: '🖼️ شرح الرسوم',
-      qa_with_answers: '💡 س وج محلول',
-      qa_without_answers: '❓ اختبر نفسك',
-      lecture_outline: '🎓 خطة محاضرة'
-    }
-  };
-
-  // =========================================================================
-  // 2. APPLICATION STATE
-  // =========================================================================
   const state = {
     lang: localStorage.getItem('ahmedko_lang') || 'ar',
     theme: localStorage.getItem('ahmedko_theme') || 'dark',
     paperTint: localStorage.getItem('ahmedko_tint') || 'default',
-    defaultZoom: localStorage.getItem('ahmedko_zoom') || '1',
-    currentView: 'dashboard', // 'dashboard' | 'workspace'
+    currentView: 'dashboard',
     fileFilter: 'all',
     fileSearch: '',
     fileSort: 'date-desc',
 
-    openDocs: [], // Array of { id, name, type, size }
+    openDocs: [],
     currentDocId: null,
     currentDocMeta: null,
-    docType: null, // 'pdf' | 'docx' | 'pptx' | 'txt' | 'image'
+    docType: null,
     pdfDoc: null,
     virtualPages: [],
-    pageTexts: [], // 0-indexed array of strings per page
+    pageTexts: [],
     currentPage: 1,
     totalPages: 1,
-    scale: 1.0,
+    scale: 1.15,
     rotation: 0,
-    layoutMode: 'single', // 'single' | 'continuous' | 'two-page'
+    layoutMode: 'continuous', // Default to continuous with full-page lazy rendering
 
-    // 14-Tool Annotation Engine
+    // 8 Streamlined Tools: select, highlighter, pen, arrow, rect, sticky, eraser, snap
     activeTool: 'select',
-    strokeColor: '#6366f1',
+    strokeColor: '#ef4444',
     hlColor: '#FFEB3B',
     strokeSize: 3,
-    strokeOpacity: 1.0,
     isDrawing: false,
     startX: 0,
     startY: 0,
@@ -233,98 +137,101 @@
     undoStackByPage: {},
     redoStackByPage: {},
 
-    // Bookmarks, Notes, Translations, Chat Sessions
     bookmarks: [],
     notes: JSON.parse(localStorage.getItem('ahmedko_notes') || '[]'),
     transHistory: JSON.parse(localStorage.getItem('ahmedko_trans_hist') || '[]'),
-    chatSessions: JSON.parse(
-      localStorage.getItem('ahmedko_chats') ||
-        '[{"id":"default","title":"Main Chat","messages":[]}]'
-    ),
-    activeChatId: 'default',
+    chatMessages: JSON.parse(localStorage.getItem('ahmedko_chat_msgs') || '[]'),
     selectedTextContext: '',
 
     // In-Doc Search
-    searchMatches: [],
+    searchMatches: [], // Array of page numbers
     searchIdx: -1,
+
+    // Pomodoro 25/5 Timer
+    pomoSeconds: 25 * 60,
+    pomoRunning: false,
+    pomoIsBreak: false,
+    pomoInterval: null,
 
     // Projector
     projectorActive: false,
-    laserActive: false,
-    curtainMode: null, // null | 'black' | 'white'
-    timerSeconds: 0,
-    timerInterval: null
+    projScale: 1.25,
+    projTool: 'laser', // 'laser' | 'pen'
+    projCurtain: null,
+    projTimerSeconds: 0,
+    projTimerRunning: false,
+    projTimerInterval: null
   };
 
   const $ = (id) => document.getElementById(id);
-
-  // =========================================================================
-  // 3. COMPACT UI STYLING (NO CLUTTER, TABS & SHORTCUTS)
-  // =========================================================================
-  function injectCompactUIStyles() {
-    const style = document.createElement('style');
-    style.textContent = `
-      /* Hide verbose paragraphs & clutter */
-      .hero-content p, .hero-badge, .storage-notice, .study-hint, .settings-note {
-        display: none !important;
-      }
-      .hero-card {
-        padding: 14px 18px !important;
-        margin-bottom: 16px !important;
-        grid-template-columns: auto 1fr !important;
-        gap: 16px !important;
-      }
-      .hero-content h1 {
-        font-size: 1.05rem !important;
-        margin-bottom: 8px !important;
-      }
-      .quick-actions-grid {
-        grid-template-columns: repeat(4, 1fr) !important;
-        gap: 8px !important;
-      }
-      .quick-card {
-        padding: 8px 10px !important;
-      }
-      .quick-card p {
-        display: none !important;
-      }
-      /* 2-Column Compact Grid for 20 Study Tools */
-      .study-tools-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 6px !important;
-      }
-      .study-tool-btn {
-        padding: 8px 10px !important;
-        font-size: 0.76rem !important;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-      /* Icon-only compact Annotation Toolbar */
-      .anno-btn span {
-        display: none !important;
-      }
-      .anno-btn {
-        padding: 5px 9px !important;
-        font-size: 0.88rem !important;
-      }
-    `;
-    document.head.appendChild(style);
-  }
+  let pageObserver = null;
 
   function showToast(msg, isError = false) {
     const container = $('toastContainer');
     if (!container) return;
     const t = document.createElement('div');
     t.className = 'toast';
-    if (isError) t.style.borderLeftColor = '#ef4444';
+    if (isError) t.style.borderInlineStartColor = '#ef4444';
     t.textContent = msg;
     container.appendChild(t);
     setTimeout(() => t.remove(), 2600);
   }
 
   // =========================================================================
-  // 4. INDEXEDDB STORAGE ENGINE
+  // 1. POMODORO 25/5 FOCUS TIMER WITH AUDIO CHIME
+  // =========================================================================
+  function playBeep() {
+    try {
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(880, ctx.currentTime);
+      gain.gain.setValueAtTime(0.15, ctx.currentTime);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + 0.35);
+    } catch (_) {}
+  }
+
+  function updatePomoUI() {
+    const m = String(Math.floor(state.pomoSeconds / 60)).padStart(2, '0');
+    const s = String(state.pomoSeconds % 60).padStart(2, '0');
+    if ($('pomoTimeDisplay')) $('pomoTimeDisplay').textContent = `${m}:${s}`;
+    if ($('pomoModeIcon')) $('pomoModeIcon').textContent = state.pomoIsBreak ? '☕' : '🍅';
+    if ($('pomoToggleBtn')) $('pomoToggleBtn').textContent = state.pomoRunning ? '⏸' : '▶';
+  }
+
+  function togglePomodoro() {
+    state.pomoRunning = !state.pomoRunning;
+    if (state.pomoRunning) {
+      state.pomoInterval = setInterval(() => {
+        state.pomoSeconds--;
+        if (state.pomoSeconds <= 0) {
+          playBeep();
+          state.pomoIsBreak = !state.pomoIsBreak;
+          state.pomoSeconds = (state.pomoIsBreak ? 5 : 25) * 60;
+          showToast(state.pomoIsBreak ? '☕ وقت راحة 5 دقائق!' : '🍅 ابدأ جلسة تركيز 25 دقيقة!');
+        }
+        updatePomoUI();
+      }, 1000);
+    } else {
+      clearInterval(state.pomoInterval);
+    }
+    updatePomoUI();
+  }
+
+  function resetPomodoro() {
+    clearInterval(state.pomoInterval);
+    state.pomoRunning = false;
+    state.pomoIsBreak = false;
+    state.pomoSeconds = 25 * 60;
+    updatePomoUI();
+  }
+
+  // =========================================================================
+  // 2. INDEXEDDB STORAGE
   // =========================================================================
   const DB_NAME = 'AhmedkoWorkspaceDB';
   const STORE_NAME = 'files';
@@ -406,43 +313,26 @@
   }
 
   // =========================================================================
-  // 5. LOCALIZATION & THEME (SAFE ATTRIBUTE-ONLY UPDATES)
+  // 3. LANGUAGE, THEME & VIEW NAVIGATION
   // =========================================================================
   function applyLanguage(lang) {
-    state.lang = lang === 'ar' ? 'ar' : 'en';
+    state.lang = lang === 'en' ? 'en' : 'ar';
     localStorage.setItem('ahmedko_lang', state.lang);
     document.documentElement.lang = state.lang;
     document.documentElement.dir = state.lang === 'ar' ? 'rtl' : 'ltr';
 
     const dict = I18N[state.lang];
-    // ONLY update elements with explicit [data-i18n] or [data-i18n-placeholder]
     document.querySelectorAll('[data-i18n]').forEach((el) => {
-      const key = el.getAttribute('data-i18n');
-      if (dict[key] !== undefined) {
-        el.textContent = dict[key];
-      }
+      const k = el.getAttribute('data-i18n');
+      if (dict[k] !== undefined) el.textContent = dict[k];
     });
-
     document.querySelectorAll('[data-i18n-placeholder]').forEach((el) => {
-      const key = el.getAttribute('data-i18n-placeholder');
-      if (dict[key] !== undefined) {
-        el.placeholder = dict[key];
-      }
+      const k = el.getAttribute('data-i18n-placeholder');
+      if (dict[k] !== undefined) el.placeholder = dict[k];
     });
 
-    // Update compact 20 study tools labels
-    const studyLabels = COMPACT_STUDY_LABELS[state.lang];
-    document.querySelectorAll('.study-tool-btn[data-study]').forEach((btn) => {
-      const key = btn.getAttribute('data-study');
-      if (studyLabels[key]) btn.textContent = studyLabels[key];
-    });
-
-    const badge = $('langBadge');
-    if (badge) badge.textContent = state.lang === 'ar' ? 'EN' : 'عربي';
-
-    const settingLang = $('settingLangSelect');
-    if (settingLang) settingLang.value = state.lang;
-
+    if ($('langBadge')) $('langBadge').textContent = state.lang === 'ar' ? 'EN' : 'عربي';
+    if ($('settingLangSelect')) $('settingLangSelect').value = state.lang;
     updateViewSwitchLabel();
     renderRecentFilesGrid();
   }
@@ -451,8 +341,7 @@
     state.theme = theme === 'light' ? 'light' : 'dark';
     localStorage.setItem('ahmedko_theme', state.theme);
     document.documentElement.setAttribute('data-theme', state.theme);
-    const settingTheme = $('settingThemeSelect');
-    if (settingTheme) settingTheme.value = state.theme;
+    if ($('settingThemeSelect')) $('settingThemeSelect').value = state.theme;
   }
 
   function applyPaperTint(tint) {
@@ -466,21 +355,12 @@
     }
   }
 
-  // =========================================================================
-  // 6. VIEW & TAB NAVIGATION
-  // =========================================================================
   function switchView(targetView) {
     state.currentView = targetView === 'workspace' ? 'workspace' : 'dashboard';
-    const dash = $('dashboardView');
-    const work = $('workspaceView');
-    if (dash && work) {
-      dash.classList.toggle('hidden', state.currentView !== 'dashboard');
-      work.classList.toggle('hidden', state.currentView !== 'workspace');
-    }
+    $('dashboardView')?.classList.toggle('hidden', state.currentView !== 'dashboard');
+    $('workspaceView')?.classList.toggle('hidden', state.currentView !== 'workspace');
     updateViewSwitchLabel();
-    if (state.currentView === 'dashboard') {
-      renderRecentFilesGrid();
-    }
+    if (state.currentView === 'dashboard') renderRecentFilesGrid();
   }
 
   function updateViewSwitchLabel() {
@@ -502,11 +382,7 @@
       notes: 'rpTabNotes'
     };
     Object.entries(map).forEach(([k, id]) => {
-      const el = $(id);
-      if (el) {
-        el.classList.toggle('hidden', k !== tabName);
-        el.classList.toggle('active', k === tabName);
-      }
+      $(id)?.classList.toggle('hidden', k !== tabName);
     });
   }
 
@@ -520,16 +396,12 @@
       bookmarks: 'leftTabBookmarks'
     };
     Object.entries(map).forEach(([k, id]) => {
-      const el = $(id);
-      if (el) {
-        el.classList.toggle('hidden', k !== tabName);
-        el.classList.toggle('active', k === tabName);
-      }
+      $(id)?.classList.toggle('hidden', k !== tabName);
     });
   }
 
   // =========================================================================
-  // 7. DASHBOARD FILE MANAGER & MULTI-DOC TABS BAR
+  // 4. DASHBOARD & DOCUMENT LOADER
   // =========================================================================
   function formatSize(bytes) {
     if (!bytes) return '0 KB';
@@ -540,65 +412,56 @@
   async function renderRecentFilesGrid() {
     const grid = $('recentFilesGrid');
     if (!grid) return;
-
     let docs = await getAllDocsFromDB();
-    if (state.fileFilter === 'favorites') {
-      docs = docs.filter((d) => d.favorite);
-    }
+    if (state.fileFilter === 'favorites') docs = docs.filter((d) => d.favorite);
     if (state.fileSearch) {
       const q = state.fileSearch.toLowerCase();
       docs = docs.filter((d) => d.name.toLowerCase().includes(q));
     }
-
     docs.sort((a, b) => {
       if (state.fileSort === 'name-asc') return a.name.localeCompare(b.name);
       if (state.fileSort === 'size-desc') return (b.size || 0) - (a.size || 0);
-      if (state.fileSort === 'type-asc') return (a.type || '').localeCompare(b.type || '');
       return (b.lastOpened || 0) - (a.lastOpened || 0);
     });
 
     if (docs.length === 0) {
-      grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:32px;color:var(--text-muted);">
-        ${state.lang === 'ar' ? 'لا توجد ملفات بعد — اضغط "رفع ملف" أو "ملف تجريبي"' : 'No files yet — click Open File or Sample Guide'}
+      grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:28px;color:var(--text-muted);">
+        ${state.lang === 'ar' ? 'لا توجد ملفات محفوظة حالياً — اضغط "رفع مستند جديد"' : 'No saved files yet — click Upload Document'}
       </div>`;
       return;
     }
 
     grid.innerHTML = '';
     docs.forEach((doc) => {
-      const ext = (doc.name.split('.').pop() || 'FILE').toUpperCase();
+      const ext = (doc.name.split('.').pop() || 'DOC').toUpperCase();
       const card = document.createElement('div');
       card.className = 'file-card';
-      card.style.cursor = 'pointer';
       card.innerHTML = `
         <div>
           <div class="file-card-top">
             <span class="file-type-badge">${ext}</span>
-            <div style="display:flex;gap:6px;">
-              <button class="icon-btn btn-xs fav-toggle" title="Favorite">${doc.favorite ? '★' : '☆'}</button>
-              <button class="icon-btn btn-xs del-doc" title="Delete">✕</button>
+            <div style="display:flex;gap:4px;">
+              <button class="icon-btn btn-xs fav-toggle">${doc.favorite ? '★' : '☆'}</button>
+              <button class="icon-btn btn-xs del-doc">✕</button>
             </div>
           </div>
-          <div class="file-title">${doc.name}</div>
+          <div class="file-title" style="margin-top:8px;">${doc.name}</div>
         </div>
         <div class="file-card-actions">
-          <span class="file-meta">${formatSize(doc.size)} • ${doc.totalPages || 1}p</span>
-          <span class="file-meta">${doc.currentPage || 1}/${doc.totalPages || 1}</span>
+          <span class="file-meta">${formatSize(doc.size)}</span>
+          <span class="file-meta">P.${doc.currentPage || 1} / ${doc.totalPages || 1}</span>
         </div>
       `;
-
       card.addEventListener('click', (e) => {
         if (e.target.closest('.fav-toggle') || e.target.closest('.del-doc')) return;
         openDocumentById(doc.id);
       });
-
       card.querySelector('.fav-toggle').addEventListener('click', async (e) => {
         e.stopPropagation();
         doc.favorite = !doc.favorite;
         await saveDocToDB(doc);
         renderRecentFilesGrid();
       });
-
       card.querySelector('.del-doc').addEventListener('click', async (e) => {
         e.stopPropagation();
         await deleteDocFromDB(doc.id);
@@ -606,7 +469,6 @@
         renderDocTabsBar();
         renderRecentFilesGrid();
       });
-
       grid.appendChild(card);
     });
   }
@@ -620,12 +482,21 @@
       tab.className = 'doc-tab' + (doc.id === state.currentDocId ? ' active' : '');
       tab.innerHTML = `
         <span class="doc-tab-title">${doc.name}</span>
-        <span class="doc-tab-close" title="Close">✕</span>
+        <span class="doc-tab-close">✕</span>
       `;
       tab.addEventListener('click', (e) => {
         if (e.target.classList.contains('doc-tab-close')) {
           e.stopPropagation();
-          closeDocTab(doc.id);
+          state.openDocs = state.openDocs.filter((d) => d.id !== doc.id);
+          if (state.currentDocId === doc.id) {
+            if (state.openDocs.length) openDocumentById(state.openDocs[0].id);
+            else {
+              state.currentDocId = null;
+              $('documentStage')?.classList.add('hidden');
+              $('emptyReaderState')?.classList.remove('hidden');
+            }
+          }
+          renderDocTabsBar();
           return;
         }
         openDocumentById(doc.id);
@@ -634,23 +505,6 @@
     });
   }
 
-  function closeDocTab(id) {
-    state.openDocs = state.openDocs.filter((d) => d.id !== id);
-    if (state.currentDocId === id) {
-      if (state.openDocs.length > 0) {
-        openDocumentById(state.openDocs[state.openDocs.length - 1].id);
-      } else {
-        state.currentDocId = null;
-        $('documentStage')?.classList.add('hidden');
-        $('emptyReaderState')?.classList.remove('hidden');
-      }
-    }
-    renderDocTabsBar();
-  }
-
-  // =========================================================================
-  // 8. MULTI-FORMAT DOCUMENT LOADER (PDF, DOCX, PPTX, TXT, IMAGES)
-  // =========================================================================
   async function handleFilesSelected(fileList) {
     if (!fileList || fileList.length === 0) return;
     let lastId = null;
@@ -679,14 +533,13 @@
 
   async function loadSampleGuide() {
     const pages = [
-      `# ⚡ Ahmedko Smart Workspace\n\nWelcome to your streamlined workspace. Everything is organized into quick tabs and icon shortcuts:\n\n* **Top Bar**: Switch tabs, toggle Projector Mode, or change Theme/Language.\n* **14 Drawing Tools**: Highlight, Pen, Shapes, Sticky Notes, Text, and PDF Export.\n* **Right Panel Tabs**: 🤖 AI Chat, 🎓 20 Study Tools, 🌐 Instant Translator, and 📝 Rich Notes.`,
-      `# 🎓 Active Recall & AI Study Suite\n\nClick any of the **20 Study Tools** in the right sidebar to automatically generate:\n\n* Multiple Choice Questions (MCQs) & True/False quizzes.\n* Flashcards, Glossaries, and Last-Minute Revision Sheets.\n* Formula extractions and beginner-friendly explanations.`,
-      `# 📽️ Classroom Projector Mode\n\nClick **Present** in the top bar for fullscreen presentation:\n\n* Press **L** to activate the Red Laser Pointer.\n* Press **B** or **W** for Black/White screen focus curtains.\n* Built-in timer for tracking lecture time.`
+      `# ⚡ دليل مساحة عمل AHMEDKO المحدثة\n\nتم تصميم الواجهة لتعمل بأعلى دقة (HiDPI Retina) بدون أي تشوه للنصوص أو الرسومات الهندسية:\n\n* **تظليل ذكي شفاف (Multiply Blend)**: ظلل فوق أي كلام أو مخطط هندسي دون أن يختفي النص الأسود تحته.\n* **أداة قص وشرح الرسومات (✂️ قص وشرح AI)**: اختر الأداة من شريط الرسم، واسحب مربعاً حول أي رسمة هندسية ليشرحها الذكاء الاصطناعي فوراً.\n* **تحديد النصوص الذكي**: ظلل أي كلمة بالماوس لتظهر لك كبسولة الترجمة والشرح والنطق الفوري.`,
+      `# 🎓 كبسولات المذاكرة والتركيز\n\n* **مؤقت بومودورو (🍅 25:00)**: موجود في البار العلوي لتنظيم جلسات المذاكرة (25 دقيقة تركيز / 5 دقائق راحة).\n* **8 أدوات دراسة مركزة**: اضغط على تبويب **🎓 مذاكرة** لتوليد أسئلة MCQ أو صح وخطأ أو شرح الرسومات الهندسية بضغطة واحدة.`
     ];
     const encoded = new TextEncoder().encode(pages.join('\n\n---PAGE---\n\n')).buffer;
     const rec = {
-      id: 'sample_guide_doc',
-      name: 'Ahmedko_Quick_Guide.txt',
+      id: 'sample_guide_v2',
+      name: 'Ahmedko_Guide.txt',
       type: 'text/plain',
       size: encoded.byteLength,
       data: encoded,
@@ -695,15 +548,18 @@
       totalPages: pages.length,
       favorite: true,
       annotationsByPage: {},
-      bookmarks: [{ page: 1, label: 'Quick Overview' }]
+      bookmarks: [{ page: 1 }]
     };
     await saveDocToDB(rec);
     await openDocumentById(rec.id);
   }
 
+  // =========================================================================
+  // 5. HIGH-DPI PDF & MULTI-FORMAT PARSER (ALL PAGES SUPPORTED)
+  // =========================================================================
   async function openDocumentById(id) {
     const doc = await getDocFromDB(id);
-    if (!doc) return showToast('File not found', true);
+    if (!doc) return showToast('الملف غير موجود', true);
 
     state.currentDocId = doc.id;
     state.currentDocMeta = doc;
@@ -723,8 +579,7 @@
     switchView('workspace');
 
     $('emptyReaderState')?.classList.add('hidden');
-    const stage = $('documentStage');
-    if (stage) stage.classList.remove('hidden');
+    $('documentStage')?.classList.remove('hidden');
 
     const ext = (doc.name.split('.').pop() || '').toLowerCase();
     try {
@@ -748,10 +603,10 @@
       if (state.currentPage > state.totalPages) state.currentPage = 1;
       await syncDocMetadataToDB();
       renderBookmarks();
-      await renderActivePages();
+      await renderDocumentViewport(true);
     } catch (err) {
       console.error(err);
-      showToast('Error opening file: ' + err.message, true);
+      showToast('خطأ في فتح الملف: ' + err.message, true);
     }
   }
 
@@ -761,7 +616,7 @@
     state.totalPages = state.pdfDoc.numPages;
     state.pageTexts = new Array(state.totalPages).fill('');
 
-    // Extract text asynchronously
+    // Extract text for all pages in background for search & AI
     (async () => {
       for (let i = 1; i <= state.totalPages; i++) {
         try {
@@ -772,7 +627,7 @@
       }
     })();
 
-    renderPdfThumbnails();
+    renderAllThumbnails();
     renderPdfOutline();
   }
 
@@ -785,7 +640,7 @@
     let chunk = '';
     blocks.forEach((b) => {
       chunk += b.outerHTML;
-      if (chunk.length > 2600) {
+      if (chunk.length > 2800) {
         pages.push(`<div class="doc-html-sheet">${chunk}</div>`);
         chunk = '';
       }
@@ -798,7 +653,7 @@
       d.innerHTML = html;
       return d.textContent || '';
     });
-    renderSimpleThumbnails();
+    renderAllThumbnails();
   }
 
   async function parsePptx(buffer) {
@@ -823,86 +678,86 @@
         .join('');
       pages.push(`
         <div class="pptx-slide-card">
-          <div style="font-size:12px;color:#6366f1;font-weight:700;margin-bottom:8px;">SLIDE ${i + 1}</div>
-          <h2 style="margin-bottom:16px;">${title}</h2>
-          <ul style="padding-left:20px;line-height:1.6;">${body}</ul>
+          <div style="font-size:12px;color:#6366f1;font-weight:700;margin-bottom:8px;">SLIDE ${i + 1} / ${files.length}</div>
+          <h2 style="margin-bottom:14px;">${title}</h2>
+          <ul style="padding-inline-start:20px;line-height:1.6;">${body}</ul>
         </div>
       `);
     }
-    if (pages.length === 0) pages.push('<div class="pptx-slide-card">Empty presentation</div>');
     state.virtualPages = pages;
-    state.totalPages = pages.length;
-    renderSimpleThumbnails();
+    state.totalPages = pages.length || 1;
+    renderAllThumbnails();
   }
 
   async function parseText(buffer) {
     const raw = new TextDecoder('utf-8').decode(buffer);
     const parts = raw.includes('---PAGE---')
       ? raw.split('---PAGE---')
-      : raw.match(/[\s\S]{1,2500}/g) || [raw];
+      : raw.match(/[\s\S]{1,2600}/g) || [raw];
     state.pageTexts = parts.map((p) => p.trim());
     state.virtualPages = parts.map((p) => {
       const html = window.AhmedkoAI ? window.AhmedkoAI.renderMarkdown(p.trim()) : p;
       return `<div class="doc-html-sheet">${html}</div>`;
     });
     state.totalPages = state.virtualPages.length;
-    renderSimpleThumbnails();
+    renderAllThumbnails();
   }
 
   async function parseImage(buffer, mime) {
     const url = URL.createObjectURL(new Blob([buffer], { type: mime }));
     state.virtualPages = [
-      `<div style="padding:16px;background:#fff;"><img id="activeImageElem" src="${url}" style="max-width:780px;display:block;" /></div>`
+      `<div style="padding:16px;background:#fff;"><img id="activeImageElem" src="${url}" style="max-width:800px;display:block;" /></div>`
     ];
     state.totalPages = 1;
     state.pageTexts = [''];
-    renderSimpleThumbnails();
+    renderAllThumbnails();
   }
 
-  // =========================================================================
-  // 9. THUMBNAILS, OUTLINE & BOOKMARKS
-  // =========================================================================
-  function renderPdfThumbnails() {
-    const box = $('thumbnailsContainer');
-    if (!box || !state.pdfDoc) return;
-    box.innerHTML = '';
-    const limit = Math.min(state.totalPages, 40);
-    for (let p = 1; p <= limit; p++) {
-      const item = document.createElement('div');
-      item.className = 'thumb-item' + (p === state.currentPage ? ' active' : '');
-      item.dataset.page = p;
-      const c = document.createElement('canvas');
-      const lbl = document.createElement('div');
-      lbl.className = 'thumb-label';
-      lbl.textContent = p;
-      item.appendChild(c);
-      item.appendChild(lbl);
-      item.onclick = () => goToPage(p);
-      box.appendChild(item);
-
-      state.pdfDoc.getPage(p).then((page) => {
-        const vp = page.getViewport({ scale: 0.22 });
-        c.width = vp.width;
-        c.height = vp.height;
-        page.render({ canvasContext: c.getContext('2d'), viewport: vp });
-      });
-    }
-  }
-
-  function renderSimpleThumbnails() {
+  // Render ALL page thumbnails (no 40-page cutoff) using IntersectionObserver
+  function renderAllThumbnails() {
     const box = $('thumbnailsContainer');
     if (!box) return;
     box.innerHTML = '';
+
+    const thumbObserver = new IntersectionObserver(
+      (entries, obs) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const item = entry.target;
+          obs.unobserve(item);
+          const p = parseInt(item.dataset.page, 10);
+          if (state.docType === 'pdf' && state.pdfDoc) {
+            const c = item.querySelector('canvas');
+            state.pdfDoc.getPage(p).then((page) => {
+              const vp = page.getViewport({ scale: 0.25 });
+              c.width = vp.width;
+              c.height = vp.height;
+              page.render({ canvasContext: c.getContext('2d'), viewport: vp });
+            });
+          }
+        });
+      },
+      { root: $('leftTabThumbnails'), rootMargin: '120px' }
+    );
+
     for (let p = 1; p <= state.totalPages; p++) {
       const item = document.createElement('div');
       item.className = 'thumb-item' + (p === state.currentPage ? ' active' : '');
       item.dataset.page = p;
-      item.innerHTML = `<div class="thumb-label" style="padding:10px 0;font-weight:600;">📄 ${p}</div>`;
+      if (state.docType === 'pdf') {
+        const c = document.createElement('canvas');
+        const lbl = document.createElement('div');
+        lbl.className = 'thumb-label';
+        lbl.textContent = `صفحة ${p}`;
+        item.appendChild(c);
+        item.appendChild(lbl);
+        thumbObserver.observe(item);
+      } else {
+        item.innerHTML = `<div class="thumb-label" style="padding:6px 0;">📄 صفحة ${p}</div>`;
+      }
       item.onclick = () => goToPage(p);
       box.appendChild(item);
     }
-    const outline = $('outlineContainer');
-    if (outline) outline.innerHTML = '<div style="padding:10px;color:var(--text-muted);font-size:12px;">—</div>';
   }
 
   async function renderPdfOutline() {
@@ -910,7 +765,7 @@
     if (!box || !state.pdfDoc) return;
     const outline = await state.pdfDoc.getOutline();
     if (!outline || outline.length === 0) {
-      box.innerHTML = '<div style="padding:10px;color:var(--text-muted);font-size:12px;">No outline</div>';
+      box.innerHTML = '<div style="padding:10px;color:var(--text-muted);font-size:12px;">لا يوجد فهرس</div>';
       return;
     }
     box.innerHTML = '';
@@ -937,7 +792,7 @@
       const d = document.createElement('div');
       d.style.cssText =
         'display:flex;justify-content:space-between;padding:6px 8px;font-size:12px;border-bottom:1px solid var(--border-color);cursor:pointer;';
-      d.innerHTML = `<span>🔖 P.${bm.page}</span><span style="color:#ef4444;">✕</span>`;
+      d.innerHTML = `<span>🔖 صفحة ${bm.page}</span><span style="color:#ef4444;">✕</span>`;
       d.onclick = (e) => {
         if (e.target.textContent === '✕') {
           state.bookmarks.splice(idx, 1);
@@ -952,39 +807,89 @@
   }
 
   // =========================================================================
-  // 10. VIEWPORT RENDERER & 14-TOOL ANNOTATION CANVAS
+  // 6. HIGH-DPI VIEWPORT RENDERING & ALL-PAGES CONTINUOUS LAZY LOADER
   // =========================================================================
-  async function renderActivePages() {
+  async function renderDocumentViewport(scrollToCurrent = false) {
     const stage = $('documentStage');
     if (!stage || !state.currentDocId) return;
+
+    if (pageObserver) pageObserver.disconnect();
     stage.innerHTML = '';
     stage.classList.toggle('two-page-grid', state.layoutMode === 'two-page');
     applyPaperTint(state.paperTint);
 
-    let pagesToRender = [state.currentPage];
-    if (state.layoutMode === 'two-page') {
-      if (state.currentPage + 1 <= state.totalPages) {
-        pagesToRender = [state.currentPage, state.currentPage + 1];
-      }
-    } else if (state.layoutMode === 'continuous') {
-      const maxContinuous = Math.min(state.totalPages, 15);
-      pagesToRender = Array.from({ length: maxContinuous }, (_, i) => i + 1);
+    let pagesList = [];
+    if (state.layoutMode === 'single') {
+      pagesList = [state.currentPage];
+    } else if (state.layoutMode === 'two-page') {
+      pagesList =
+        state.currentPage + 1 <= state.totalPages
+          ? [state.currentPage, state.currentPage + 1]
+          : [state.currentPage];
+    } else {
+      // Continuous mode: create lightweight placeholders for ALL pages (1..totalPages)
+      pagesList = Array.from({ length: state.totalPages }, (_, i) => i + 1);
     }
 
-    for (const pNum of pagesToRender) {
-      const wrapper = await createPageElement(pNum);
+    // Obtain default page dimensions from page 1 for placeholders
+    let defaultW = Math.round(612 * state.scale);
+    let defaultH = Math.round(792 * state.scale);
+    if (state.docType === 'pdf' && state.pdfDoc) {
+      try {
+        const p1 = await state.pdfDoc.getPage(1);
+        const vp1 = p1.getViewport({ scale: state.scale, rotation: state.rotation });
+        defaultW = Math.round(vp1.width);
+        defaultH = Math.round(vp1.height);
+      } catch (_) {}
+    }
+
+    pageObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const wrapper = entry.target;
+          const pNum = parseInt(wrapper.dataset.page, 10);
+          if (entry.isIntersecting) {
+            if (!wrapper.dataset.rendered) {
+              wrapper.dataset.rendered = 'true';
+              populatePageContent(wrapper, pNum);
+            }
+            // Update active page counter when scrolling in continuous mode
+            if (state.layoutMode === 'continuous' && entry.intersectionRatio > 0.35) {
+              state.currentPage = pNum;
+              updateToolbarCounters();
+            }
+          }
+        });
+      },
+      { root: $('readerViewport'), rootMargin: '350px 0px', threshold: [0.05, 0.4] }
+    );
+
+    for (const pNum of pagesList) {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'page-wrapper';
+      wrapper.id = `page-wrap-${pNum}`;
+      wrapper.dataset.page = pNum;
+      wrapper.style.width = defaultW + 'px';
+      wrapper.style.height = defaultH + 'px';
       stage.appendChild(wrapper);
+      pageObserver.observe(wrapper);
     }
 
     updateToolbarCounters();
-    syncProjectorStage();
+
+    if (scrollToCurrent && state.layoutMode === 'continuous') {
+      setTimeout(() => {
+        const targetEl = $(`page-wrap-${state.currentPage}`);
+        if (targetEl) targetEl.scrollIntoView({ behavior: 'auto', block: 'start' });
+      }, 60);
+    }
+
+    if (state.projectorActive) renderProjectorPage();
   }
 
-  async function createPageElement(pageNum) {
-    const wrapper = document.createElement('div');
-    wrapper.className = 'page-wrapper';
-    wrapper.dataset.page = pageNum;
-    wrapper.style.transform = `rotate(${state.rotation}deg)`;
+  async function populatePageContent(wrapper, pageNum) {
+    wrapper.innerHTML = '';
+    const dpr = Math.min(window.devicePixelRatio || 1, 2.5); // High-DPI sharpness
 
     const annoCanvas = document.createElement('canvas');
     annoCanvas.className =
@@ -993,63 +898,113 @@
 
     if (state.docType === 'pdf' && state.pdfDoc) {
       const page = await state.pdfDoc.getPage(pageNum);
-      const vp = page.getViewport({ scale: state.scale });
+      const cssViewport = page.getViewport({ scale: state.scale, rotation: state.rotation });
+      const hiDpiViewport = page.getViewport({
+        scale: state.scale * dpr,
+        rotation: state.rotation
+      });
+
+      const cssW = Math.round(cssViewport.width);
+      const cssH = Math.round(cssViewport.height);
+      wrapper.style.width = cssW + 'px';
+      wrapper.style.height = cssH + 'px';
+
       const pdfCanvas = document.createElement('canvas');
       pdfCanvas.className = 'pdf-canvas';
-      pdfCanvas.width = vp.width;
-      pdfCanvas.height = vp.height;
-      wrapper.style.width = vp.width + 'px';
-      wrapper.style.height = vp.height + 'px';
-      annoCanvas.width = vp.width;
-      annoCanvas.height = vp.height;
+      pdfCanvas.width = Math.round(hiDpiViewport.width);
+      pdfCanvas.height = Math.round(hiDpiViewport.height);
+      pdfCanvas.style.width = cssW + 'px';
+      pdfCanvas.style.height = cssH + 'px';
+
+      // Interactive Text Layer for mouse text selection
+      const textLayerDiv = document.createElement('div');
+      textLayerDiv.className = 'textLayer';
+      textLayerDiv.style.width = cssW + 'px';
+      textLayerDiv.style.height = cssH + 'px';
+
+      annoCanvas.width = cssW;
+      annoCanvas.height = cssH;
+      annoCanvas.style.width = cssW + 'px';
+      annoCanvas.style.height = cssH + 'px';
 
       wrapper.appendChild(pdfCanvas);
+      wrapper.appendChild(textLayerDiv);
       wrapper.appendChild(annoCanvas);
-      await page.render({ canvasContext: pdfCanvas.getContext('2d'), viewport: vp }).promise;
+
+      await page.render({
+        canvasContext: pdfCanvas.getContext('2d'),
+        viewport: hiDpiViewport
+      }).promise;
+
+      try {
+        const textContent = await page.getTextContent();
+        window.pdfjsLib.renderTextLayer({
+          textContentSource: textContent,
+          container: textLayerDiv,
+          viewport: cssViewport,
+          textDivs: []
+        });
+      } catch (_) {}
     } else {
       const content = document.createElement('div');
       content.innerHTML = state.virtualPages[pageNum - 1] || '';
-      content.style.transform = `scale(${state.scale})`;
-      content.style.transformOrigin = 'top left';
+      wrapper.style.width = 'auto';
+      wrapper.style.height = 'auto';
       wrapper.appendChild(content);
       wrapper.appendChild(annoCanvas);
 
       setTimeout(() => {
-        annoCanvas.width = wrapper.clientWidth || 794;
-        annoCanvas.height = wrapper.clientHeight || 1050;
+        annoCanvas.width = wrapper.clientWidth || 780;
+        annoCanvas.height = wrapper.clientHeight || 1020;
         redrawPageAnnotations(annoCanvas, pageNum);
-      }, 40);
+      }, 50);
     }
 
-    setupAnnotationEvents(annoCanvas, pageNum);
+    setupAnnotationEvents(annoCanvas, pageNum, wrapper);
     redrawPageAnnotations(annoCanvas, pageNum);
-    return wrapper;
   }
 
   function updateToolbarCounters() {
-    const pIn = $('pageNumberInput');
-    if (pIn) pIn.value = state.currentPage;
-    const tot = $('totalPagesLabel');
-    if (tot) tot.textContent = state.totalPages;
-    const zLbl = $('zoomPercentLabel');
-    if (zLbl) zLbl.textContent = Math.round(state.scale * 100) + '%';
-    const prog = $('readingProgressBar');
-    if (prog) prog.style.width = Math.round((state.currentPage / state.totalPages) * 100) + '%';
-    const linkBadge = $('linkPageBadge');
-    if (linkBadge) linkBadge.textContent = `P.${state.currentPage}`;
+    if ($('pageNumberInput')) $('pageNumberInput').value = state.currentPage;
+    if ($('totalPagesLabel')) $('totalPagesLabel').textContent = state.totalPages;
+    if ($('zoomPercentLabel')) $('zoomPercentLabel').textContent = Math.round(state.scale * 100) + '%';
+    if ($('readingProgressBar')) {
+      $('readingProgressBar').style.width =
+        Math.round((state.currentPage / state.totalPages) * 100) + '%';
+    }
+    if ($('linkPageBadge')) $('linkPageBadge').textContent = `P.${state.currentPage}`;
 
     document.querySelectorAll('.thumb-item').forEach((el) => {
-      el.classList.toggle('active', parseInt(el.dataset.page, 10) === state.currentPage);
+      const isAct = parseInt(el.dataset.page, 10) === state.currentPage;
+      el.classList.toggle('active', isAct);
     });
   }
 
   function goToPage(p) {
-    state.currentPage = Math.max(1, Math.min(state.totalPages, parseInt(p, 10) || 1));
+    const target = Math.max(1, Math.min(state.totalPages, parseInt(p, 10) || 1));
+    state.currentPage = target;
     syncDocMetadataToDB();
-    renderActivePages();
+    updateToolbarCounters();
+
+    if (state.layoutMode === 'continuous') {
+      const wrap = $(`page-wrap-${target}`);
+      if (wrap) {
+        if (!wrap.dataset.rendered) {
+          wrap.dataset.rendered = 'true';
+          populatePageContent(wrap, target);
+        }
+        wrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    } else {
+      renderDocumentViewport(false);
+    }
+
+    if (state.projectorActive) renderProjectorPage();
   }
 
-  // ---- 14-Tool Annotation Drawing ----
+  // =========================================================================
+  // 7. NON-DESTRUCTIVE ANNOTATION ENGINE & SNAP-TO-AI VISION TOOL
+  // =========================================================================
   function getAnnots(p) {
     if (!state.annotationsByPage[p]) state.annotationsByPage[p] = [];
     return state.annotationsByPage[p];
@@ -1061,7 +1016,7 @@
     state.redoStackByPage[p] = [];
   }
 
-  function setupAnnotationEvents(canvas, pageNum) {
+  function setupAnnotationEvents(canvas, pageNum, wrapper) {
     const pos = (e) => {
       const r = canvas.getBoundingClientRect();
       return { x: e.clientX - r.left, y: e.clientY - r.top };
@@ -1071,17 +1026,16 @@
       if (state.activeTool === 'select') return;
       const { x, y } = pos(e);
 
-      if (state.activeTool === 'textbox' || state.activeTool === 'sticky') {
-        const txt = prompt(state.activeTool === 'sticky' ? '📌 Note:' : '🔤 Text:');
+      if (state.activeTool === 'sticky') {
+        const txt = prompt('📌 اكتب نص الملصق أو الملاحظة على الصفحة:');
         if (!txt) return;
         saveUndoState(pageNum);
         getAnnots(pageNum).push({
-          tool: state.activeTool,
+          tool: 'sticky',
           x,
           y,
           text: txt,
-          color: state.activeTool === 'sticky' ? '#eab308' : state.strokeColor,
-          size: state.strokeSize
+          color: state.strokeColor
         });
         redrawPageAnnotations(canvas, pageNum);
         syncDocMetadataToDB();
@@ -1097,19 +1051,39 @@
     canvas.onmousemove = (e) => {
       if (!state.isDrawing) return;
       const { x, y } = pos(e);
-      if (['pen', 'pencil', 'freehand', 'highlighter', 'eraser'].includes(state.activeTool)) {
+      if (['pen', 'highlighter', 'eraser'].includes(state.activeTool)) {
         state.currentPath.push({ x, y });
       }
       redrawPageAnnotations(canvas, pageNum);
-      drawShape(canvas.getContext('2d'), buildTempAnnotation(x, y));
+
+      if (state.activeTool === 'snap') {
+        // Draw dashed selection box for Snap & Ask AI
+        const ctx = canvas.getContext('2d');
+        ctx.save();
+        ctx.strokeStyle = '#06b6d4';
+        ctx.lineWidth = 2;
+        ctx.setLineDash([6, 4]);
+        ctx.fillStyle = 'rgba(6, 182, 212, 0.12)';
+        ctx.fillRect(state.startX, state.startY, x - state.startX, y - state.startY);
+        ctx.strokeRect(state.startX, state.startY, x - state.startX, y - state.startY);
+        ctx.restore();
+      } else {
+        drawShape(canvas.getContext('2d'), buildTempAnnotation(x, y));
+      }
     };
 
     canvas.onmouseup = (e) => {
       if (!state.isDrawing) return;
       state.isDrawing = false;
       const { x, y } = pos(e);
-      saveUndoState(pageNum);
 
+      if (state.activeTool === 'snap') {
+        redrawPageAnnotations(canvas, pageNum);
+        captureRegionAndAskAI(wrapper, state.startX, state.startY, x, y);
+        return;
+      }
+
+      saveUndoState(pageNum);
       if (state.activeTool === 'eraser') {
         state.annotationsByPage[pageNum] = getAnnots(pageNum).filter((a) => {
           if (a.points) return !a.points.some((pt) => Math.hypot(pt.x - x, pt.y - y) < 22);
@@ -1133,8 +1107,8 @@
       endX,
       endY,
       color: isHl ? state.hlColor : state.strokeColor,
-      size: isHl ? state.strokeSize * 5 : state.activeTool === 'pencil' ? 1.5 : state.strokeSize,
-      opacity: isHl ? 0.35 : state.strokeOpacity
+      size: isHl ? state.strokeSize * 6 : state.strokeSize,
+      opacity: isHl ? 0.45 : 1.0
     };
   }
 
@@ -1148,97 +1122,199 @@
   function drawShape(ctx, a) {
     if (!a || a.tool === 'eraser') return;
     ctx.save();
-    ctx.strokeStyle = a.color || '#6366f1';
-    ctx.fillStyle = a.color || '#6366f1';
+    ctx.strokeStyle = a.color || '#ef4444';
+    ctx.fillStyle = a.color || '#ef4444';
     ctx.lineWidth = a.size || 3;
     ctx.globalAlpha = a.opacity || 1;
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
 
-    if (['pen', 'pencil', 'freehand', 'highlighter'].includes(a.tool) && a.points?.length > 1) {
+    if (['pen', 'highlighter'].includes(a.tool) && a.points?.length > 1) {
       ctx.beginPath();
       ctx.moveTo(a.points[0].x, a.points[0].y);
       a.points.forEach((p) => ctx.lineTo(p.x, p.y));
       ctx.stroke();
-    } else if (['line', 'underline', 'strikethrough'].includes(a.tool)) {
-      ctx.beginPath();
-      ctx.moveTo(a.x, a.y);
-      ctx.lineTo(a.endX, a.tool === 'line' ? a.endY : a.y);
-      ctx.stroke();
     } else if (a.tool === 'rect') {
       ctx.strokeRect(a.x, a.y, a.endX - a.x, a.endY - a.y);
-    } else if (a.tool === 'circle') {
-      const rx = Math.abs(a.endX - a.x) / 2;
-      const ry = Math.abs(a.endY - a.y) / 2;
-      ctx.beginPath();
-      ctx.ellipse(Math.min(a.x, a.endX) + rx, Math.min(a.y, a.endY) + ry, rx, ry, 0, 0, Math.PI * 2);
-      ctx.stroke();
     } else if (a.tool === 'arrow') {
       const ang = Math.atan2(a.endY - a.y, a.endX - a.x);
       ctx.beginPath();
       ctx.moveTo(a.x, a.y);
       ctx.lineTo(a.endX, a.endY);
-      ctx.lineTo(a.endX - 12 * Math.cos(ang - 0.5), a.endY - 12 * Math.sin(ang - 0.5));
+      ctx.lineTo(a.endX - 13 * Math.cos(ang - 0.5), a.endY - 13 * Math.sin(ang - 0.5));
       ctx.moveTo(a.endX, a.endY);
-      ctx.lineTo(a.endX - 12 * Math.cos(ang + 0.5), a.endY - 12 * Math.sin(ang + 0.5));
+      ctx.lineTo(a.endX - 13 * Math.cos(ang + 0.5), a.endY - 13 * Math.sin(ang + 0.5));
       ctx.stroke();
-    } else if (a.tool === 'textbox') {
-      ctx.font = `600 ${Math.max(14, (a.size || 3) * 5)}px Inter, Cairo, sans-serif`;
-      ctx.fillText(a.text || '', a.x, a.y);
     } else if (a.tool === 'sticky') {
+      ctx.globalAlpha = 0.95;
       ctx.fillStyle = '#fef08a';
-      ctx.fillRect(a.x, a.y, 140, 65);
+      ctx.fillRect(a.x, a.y, 155, 65);
       ctx.strokeStyle = '#eab308';
-      ctx.strokeRect(a.x, a.y, 140, 65);
+      ctx.lineWidth = 1.5;
+      ctx.strokeRect(a.x, a.y, 155, 65);
       ctx.fillStyle = '#0f172a';
-      ctx.font = '12px Inter, Cairo, sans-serif';
-      ctx.fillText('📌 ' + (a.text || '').slice(0, 18), a.x + 6, a.y + 24);
+      ctx.font = '600 12px Cairo, Inter, sans-serif';
+      ctx.fillText('📌 ' + (a.text || '').slice(0, 22), a.x + 8, a.y + 24);
+      if ((a.text || '').length > 22) {
+        ctx.fillText((a.text || '').slice(22, 45), a.x + 8, a.y + 44);
+      }
     }
     ctx.restore();
   }
 
+  // Crop selected region from PDF canvas and send to Vision AI
+  function captureRegionAndAskAI(wrapper, x1, y1, x2, y2) {
+    const pdfCanvas = wrapper.querySelector('.pdf-canvas');
+    if (!pdfCanvas) return showToast('متاح لصفحات PDF', true);
+
+    const rx = Math.min(x1, x2);
+    const ry = Math.min(y1, y2);
+    const rw = Math.abs(x2 - x1);
+    const rh = Math.abs(y2 - y1);
+    if (rw < 20 || rh < 20) return;
+
+    const scaleRatio = pdfCanvas.width / pdfCanvas.clientWidth;
+    const cropCanvas = document.createElement('canvas');
+    cropCanvas.width = rw * scaleRatio;
+    cropCanvas.height = rh * scaleRatio;
+    cropCanvas
+      .getContext('2d')
+      .drawImage(
+        pdfCanvas,
+        rx * scaleRatio,
+        ry * scaleRatio,
+        rw * scaleRatio,
+        rh * scaleRatio,
+        0,
+        0,
+        cropCanvas.width,
+        cropCanvas.height
+      );
+
+    const dataUrl = cropCanvas.toDataURL('image/png');
+    showToast('✂️ جاري تحليل الجزء المحدد بالذكاء البصري...');
+    sendAiPrompt(
+      'اشرح هذه الرسمة أو الجزء المقتطع بالتفصيل ووضح كافة البيانات والمصطلحات الموجودة فيه.',
+      'page',
+      dataUrl
+    );
+  }
+
   // =========================================================================
-  // 11. AI CHAT & 20 STUDY TOOLS ENGINE (CONNECTED TO window.AhmedkoAI)
+  // 8. FLOATING SELECTION POPUP (TRANSLATE, EXPLAIN, NOTE, SPEAK, COPY)
+  // =========================================================================
+  function bindSelectionPopup() {
+    const popup = $('selectionPopup');
+    if (!popup) return;
+
+    document.addEventListener('mouseup', (e) => {
+      if (popup.contains(e.target)) return;
+      setTimeout(() => {
+        const sel = window.getSelection();
+        const text = (sel?.toString() || '').trim();
+        if (!text || text.length < 2 || !$('readerViewport')?.contains(sel.anchorNode)) {
+          popup.classList.add('hidden');
+          return;
+        }
+        state.selectedTextContext = text;
+        const rect = sel.getRangeAt(0).getBoundingClientRect();
+        popup.style.top = Math.max(10, rect.top - 42) + 'px';
+        popup.style.left = Math.max(10, rect.left) + 'px';
+        popup.classList.remove('hidden');
+      }, 20);
+    });
+
+    $('selPopupTranslate')?.addEventListener('click', () => {
+      popup.classList.add('hidden');
+      activateRightTab('translator');
+      if ($('transSourceInput')) $('transSourceInput').value = state.selectedTextContext;
+      runTranslator();
+    });
+
+    $('selPopupExplain')?.addEventListener('click', () => {
+      popup.classList.add('hidden');
+      sendAiPrompt(`اشرح هذه العبارة بالتفصيل:\n"${state.selectedTextContext}"`, 'selection');
+    });
+
+    $('selPopupNote')?.addEventListener('click', () => {
+      popup.classList.add('hidden');
+      activateRightTab('notes');
+      const ed = $('noteRichEditor');
+      if (ed) ed.innerHTML += `<p>• ${state.selectedTextContext}</p>`;
+    });
+
+    $('selPopupSpeak')?.addEventListener('click', () => {
+      popup.classList.add('hidden');
+      speakText(state.selectedTextContext);
+    });
+
+    $('selPopupCopy')?.addEventListener('click', () => {
+      popup.classList.add('hidden');
+      navigator.clipboard.writeText(state.selectedTextContext);
+      showToast('تم النسخ!');
+    });
+  }
+
+  function speakText(txt) {
+    if (!('speechSynthesis' in window)) return;
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(txt);
+    u.lang = /[\u0600-\u06FF]/.test(txt) ? 'ar-SA' : 'en-US';
+    window.speechSynthesis.speak(u);
+  }
+
+  // =========================================================================
+  // 9. IN-DOCUMENT SEARCH (Ctrl + F)
+  // =========================================================================
+  function runDocSearch(query) {
+    const q = (query || '').trim().toLowerCase();
+    state.searchMatches = [];
+    state.searchIdx = -1;
+    if (!q) {
+      if ($('docSearchCount')) $('docSearchCount').textContent = '0/0';
+      return;
+    }
+    state.pageTexts.forEach((txt, idx) => {
+      if ((txt || '').toLowerCase().includes(q)) {
+        state.searchMatches.push(idx + 1);
+      }
+    });
+    if (state.searchMatches.length > 0) {
+      state.searchIdx = 0;
+      jumpToSearchMatch();
+    } else {
+      if ($('docSearchCount')) $('docSearchCount').textContent = '0/0';
+      showToast('لا توجد نتائج مطابقة', true);
+    }
+  }
+
+  function jumpToSearchMatch() {
+    if (!state.searchMatches.length) return;
+    const pageNum = state.searchMatches[state.searchIdx];
+    if ($('docSearchCount')) {
+      $('docSearchCount').textContent = `${state.searchIdx + 1}/${state.searchMatches.length}`;
+    }
+    goToPage(pageNum);
+  }
+
+  // =========================================================================
+  // 10. AI CHAT & 8 STUDY CAPSULES (WITH VISION SUPPORT)
   // =========================================================================
   function populateAiModels() {
     const provSel = $('aiProviderSelect');
     const modSel = $('aiModelSelect');
     if (!provSel || !modSel || !window.AhmedkoAI) return;
-    const prov = provSel.value;
-    const models = window.AhmedkoAI.PROVIDERS[prov]?.models || [];
+    const models = window.AhmedkoAI.PROVIDERS[provSel.value]?.models || [];
     modSel.innerHTML = models
       .map((m) => `<option value="${m.id}">${m.label}</option>`)
       .join('');
   }
 
-  function getActiveChatSession() {
-    let s = state.chatSessions.find((c) => c.id === state.activeChatId);
-    if (!s) {
-      s = { id: 'default', title: 'Main Chat', messages: [] };
-      state.chatSessions.push(s);
-    }
-    return s;
-  }
-
-  function saveChats() {
-    localStorage.setItem('ahmedko_chats', JSON.stringify(state.chatSessions));
-  }
-
-  function renderChatSessionsDropdown() {
-    const sel = $('chatSessionSelect');
-    if (!sel) return;
-    sel.innerHTML = state.chatSessions
-      .map((c) => `<option value="${c.id}" ${c.id === state.activeChatId ? 'selected' : ''}>${c.title}</option>`)
-      .join('');
-    renderChatMessages();
-  }
-
   function renderChatMessages() {
     const box = $('chatMessagesList');
     if (!box) return;
-    const session = getActiveChatSession();
     box.innerHTML = '';
-    session.messages.forEach((m) => {
+    state.chatMessages.forEach((m) => {
       const b = document.createElement('div');
       b.className = `chat-bubble ${m.role}`;
       b.innerHTML = window.AhmedkoAI ? window.AhmedkoAI.renderMarkdown(m.content) : m.content;
@@ -1247,7 +1323,15 @@
     box.scrollTop = box.scrollHeight;
   }
 
-  async function sendAiPrompt(customPrompt, forceContextScope) {
+  function getActivePageImageBase64() {
+    const wrap =
+      $(`page-wrap-${state.currentPage}`) || document.querySelector('.page-wrapper');
+    const canvas = wrap?.querySelector('.pdf-canvas');
+    if (!canvas) return null;
+    return canvas.toDataURL('image/jpeg', 0.82);
+  }
+
+  async function sendAiPrompt(customPrompt, forceScope, customImageBase64 = null) {
     if (!window.AhmedkoAI) return;
     const input = $('chatPromptInput');
     const promptText = (customPrompt || input?.value || '').trim();
@@ -1255,57 +1339,60 @@
     if (!customPrompt && input) input.value = '';
 
     activateRightTab('aiChat');
-    const session = getActiveChatSession();
-    session.messages.push({ role: 'user', content: promptText });
+    state.chatMessages.push({ role: 'user', content: promptText });
     renderChatMessages();
 
-    const scope = forceContextScope || $('aiContextScope')?.value || 'page';
+    const scope = forceScope || $('aiContextScope')?.value || 'page';
     let contextBlock = '';
     if (scope === 'selection' && state.selectedTextContext) {
       contextBlock = `Selected Text:\n${state.selectedTextContext}`;
     } else if (scope === 'document') {
-      const rag = window.AhmedkoAI.buildRelevantDocumentContext(state.pageTexts, promptText);
-      contextBlock = rag.text;
-    } else if (scope === 'page') {
-      contextBlock = `[Page ${state.currentPage}]\n${state.pageTexts[state.currentPage - 1] || ''}`;
+      contextBlock = window.AhmedkoAI.buildRelevantDocumentContext(
+        state.pageTexts,
+        promptText
+      ).text;
+    } else {
+      contextBlock = `[Page ${state.currentPage}]\n${
+        state.pageTexts[state.currentPage - 1] || ''
+      }`;
     }
 
-    const sysPrompt = `You are Ahmedko AI Study Assistant. Be concise, structured, and helpful.${
+    const sysPrompt = `You are Ahmedko AI Academic & Engineering Assistant. Answer clearly and accurately.${
       contextBlock ? `\n\nDocument Context:\n${contextBlock}` : ''
     }`;
 
-    const stopBtn = $('stopAiGenBtn');
-    stopBtn?.classList.remove('hidden');
+    $('stopAiGenBtn')?.classList.remove('hidden');
 
     try {
       const res = await window.AhmedkoAI.sendChatRequest({
         provider: $('aiProviderSelect')?.value || 'gemini',
         model: $('aiModelSelect')?.value,
-        messages: session.messages.slice(-8),
-        systemPrompt: sysPrompt
+        messages: state.chatMessages.slice(-8),
+        systemPrompt: sysPrompt,
+        imageBase64: customImageBase64
       });
-      session.messages.push({ role: 'assistant', content: res.text });
-      saveChats();
+      state.chatMessages.push({ role: 'assistant', content: res.text });
+      localStorage.setItem('ahmedko_chat_msgs', JSON.stringify(state.chatMessages.slice(-30)));
       renderChatMessages();
     } catch (err) {
-      session.messages.push({
+      state.chatMessages.push({
         role: 'assistant',
-        content: `⚠️ **AI Notice:** ${err.message}\n\n*(Click **🔑 API Keys** above to add your Gemini, OpenAI, or Claude API key).*`
+        content: `⚠️ **تنبيه:** ${err.message}`
       });
       renderChatMessages();
     } finally {
-      stopBtn?.classList.add('hidden');
+      $('stopAiGenBtn')?.classList.add('hidden');
     }
   }
 
   // =========================================================================
-  // 12. SMART TRANSLATOR & NOTES
+  // 11. TRANSLATOR, NOTES & PDF EXPORT
   // =========================================================================
   async function runTranslator() {
     const srcEl = $('transSourceInput');
     const outEl = $('transResultBox');
     const text = (srcEl?.value || '').trim();
-    if (!text) return showToast('Enter text to translate', true);
+    if (!text) return showToast('أدخل نصاً للترجمة', true);
 
     const sl = $('transSourceLang')?.value || 'auto';
     const tl = $('transTargetLang')?.value || 'ar';
@@ -1321,11 +1408,11 @@
       if (outEl) outEl.textContent = translated;
 
       state.transHistory.unshift({ src: text.slice(0, 60), out: translated.slice(0, 80) });
-      state.transHistory = state.transHistory.slice(0, 15);
+      state.transHistory = state.transHistory.slice(0, 12);
       localStorage.setItem('ahmedko_trans_hist', JSON.stringify(state.transHistory));
       renderTransHistory();
-    } catch (e) {
-      if (outEl) outEl.textContent = 'Translation error.';
+    } catch (_) {
+      if (outEl) outEl.textContent = 'تعذر الاتصال بخدمة الترجمة.';
     }
   }
 
@@ -1334,7 +1421,8 @@
     if (!box) return;
     box.innerHTML = state.transHistory
       .map(
-        (h) => `<div class="trans-hist-item"><strong>${h.src}</strong><br/><span>${h.out}</span></div>`
+        (h) =>
+          `<div class="trans-hist-item"><strong>${h.src}</strong><br/><span>${h.out}</span></div>`
       )
       .join('');
   }
@@ -1342,24 +1430,25 @@
   function renderSavedNotes() {
     const box = $('savedNotesList');
     if (!box) return;
-    const folder = $('notesFolderSelect')?.value || 'all';
-    const list =
-      folder === 'all' ? state.notes : state.notes.filter((n) => n.folder === folder);
-
-    box.innerHTML = list
+    box.innerHTML = state.notes
       .map(
         (n, i) => `
       <div class="saved-note-item">
-        <div style="display:flex;justify-content:space-between;font-weight:600;margin-bottom:4px;">
-          <span>${n.title || 'Note'} ${n.page ? `(P.${n.page})` : ''}</span>
+        <div style="display:flex;justify-content:space-between;font-weight:700;margin-bottom:4px;">
+          <span style="cursor:pointer;color:var(--accent);" data-goto="${n.page || 1}">${
+          n.title || 'ملاحظة'
+        } (P.${n.page || 1})</span>
           <span data-del-note="${i}" style="color:#ef4444;cursor:pointer;">✕</span>
         </div>
-        <div style="font-size:12px;opacity:0.85;">${n.html}</div>
+        <div>${n.html}</div>
       </div>
     `
       )
       .join('');
 
+    box.querySelectorAll('[data-goto]').forEach((el) => {
+      el.onclick = () => goToPage(parseInt(el.dataset.goto, 10));
+    });
     box.querySelectorAll('[data-del-note]').forEach((btn) => {
       btn.onclick = () => {
         state.notes.splice(parseInt(btn.dataset.delNote, 10), 1);
@@ -1369,44 +1458,153 @@
     });
   }
 
+  async function exportAnnotatedPdf() {
+    const wrap =
+      $(`page-wrap-${state.currentPage}`) || document.querySelector('.page-wrapper');
+    if (!wrap) return;
+    const pdfC = wrap.querySelector('.pdf-canvas');
+    const annoC = wrap.querySelector('.annotation-canvas');
+    if (!pdfC && !annoC) return;
+
+    const merged = document.createElement('canvas');
+    merged.width = pdfC ? pdfC.width : annoC.width;
+    merged.height = pdfC ? pdfC.height : annoC.height;
+    const ctx = merged.getContext('2d');
+
+    if (pdfC) ctx.drawImage(pdfC, 0, 0);
+    if (annoC) {
+      ctx.save();
+      ctx.globalCompositeOperation = 'multiply';
+      ctx.drawImage(annoC, 0, 0, merged.width, merged.height);
+      ctx.restore();
+    }
+
+    if (window.jspdf?.jsPDF) {
+      const orientation = merged.width > merged.height ? 'l' : 'p';
+      const pdf = new window.jspdf.jsPDF(orientation, 'pt', [merged.width, merged.height]);
+      pdf.addImage(
+        merged.toDataURL('image/jpeg', 0.92),
+        'JPEG',
+        0,
+        0,
+        merged.width,
+        merged.height
+      );
+      pdf.save(`${(state.currentDocMeta?.name || 'page').replace(/\.pdf$/i, '')}_P${state.currentPage}.pdf`);
+      showToast('💾 تم حفظ الصفحة كملف PDF بالتعديلات!');
+    } else {
+      const a = document.createElement('a');
+      a.download = `page_${state.currentPage}.png`;
+      a.href = merged.toDataURL('image/png');
+      a.click();
+    }
+  }
+
   // =========================================================================
-  // 13. PROJECTOR MODE
+  // 12. INTERACTIVE PROJECTOR MODE (LIVE PEN, LASER, TIMER & CURTAINS)
   // =========================================================================
   function toggleProjector(show) {
     state.projectorActive = show !== undefined ? show : !state.projectorActive;
     const ov = $('projectorOverlay');
     if (!ov) return;
     ov.classList.toggle('hidden', !state.projectorActive);
+
     if (state.projectorActive) {
-      syncProjectorStage();
+      renderProjectorPage();
+      $('laserPointerDot')?.classList.toggle('hidden', state.projTool !== 'laser');
       document.documentElement.requestFullscreen?.().catch(() => {});
     } else {
+      $('laserPointerDot')?.classList.add('hidden');
       if (document.fullscreenElement) document.exitFullscreen?.().catch(() => {});
     }
   }
 
-  function syncProjectorStage() {
+  async function renderProjectorPage() {
     if (!state.projectorActive) return;
     const pStage = $('projectorStage');
-    const dStage = $('documentStage');
-    if (pStage && dStage) {
-      pStage.innerHTML = '';
-      const firstPage = dStage.querySelector('.page-wrapper');
-      if (firstPage) {
-        const clone = firstPage.cloneNode(true);
-        const srcC = firstPage.querySelectorAll('canvas');
-        const dstC = clone.querySelectorAll('canvas');
-        srcC.forEach((c, i) => dstC[i]?.getContext('2d').drawImage(c, 0, 0));
-        pStage.appendChild(clone);
-      }
+    if (!pStage) return;
+    pStage.innerHTML = '';
+
+    const prevScale = state.scale;
+    state.scale = state.projScale;
+    const wrap = document.createElement('div');
+    wrap.className = 'page-wrapper';
+    wrap.dataset.page = state.currentPage;
+    pStage.appendChild(wrap);
+    await populatePageContent(wrap, state.currentPage);
+    state.scale = prevScale;
+
+    // If Pen is active inside Projector, enable drawing directly on projector canvas
+    const projAnno = wrap.querySelector('.annotation-canvas');
+    if (projAnno) {
+      projAnno.classList.toggle('drawing-active', state.projTool === 'pen');
     }
-    const ind = $('projPageIndicator');
-    if (ind) ind.textContent = `${state.currentPage} / ${state.totalPages}`;
+
+    if ($('projPageIndicator')) {
+      $('projPageIndicator').textContent = `${state.currentPage} / ${state.totalPages}`;
+    }
+  }
+
+  function toggleProjTimer() {
+    state.projTimerRunning = !state.projTimerRunning;
+    if ($('projTimerToggleBtn')) {
+      $('projTimerToggleBtn').textContent = state.projTimerRunning ? '⏸' : '▶';
+    }
+    if (state.projTimerRunning) {
+      state.projTimerInterval = setInterval(() => {
+        state.projTimerSeconds++;
+        const m = String(Math.floor(state.projTimerSeconds / 60)).padStart(2, '0');
+        const s = String(state.projTimerSeconds % 60).padStart(2, '0');
+        if ($('projTimerDisplay')) $('projTimerDisplay').textContent = `${m}:${s}`;
+      }, 1000);
+    } else {
+      clearInterval(state.projTimerInterval);
+    }
+  }
+
+  function toggleCurtain(mode) {
+    const c = $('projectorCurtain');
+    if (!c) return;
+    if (state.projCurtain === mode) {
+      state.projCurtain = null;
+      c.className = 'projector-curtain hidden';
+    } else {
+      state.projCurtain = mode;
+      c.className = `projector-curtain ${mode}`;
+    }
   }
 
   // =========================================================================
-  // 14. EVENT BINDINGS
+  // 13. SIDEBAR RESIZER & EVENT BINDINGS
   // =========================================================================
+  function initRightSidebarResizer() {
+    const resizer = $('rightPanelResizer');
+    const sidebar = $('rightSidebar');
+    if (!resizer || !sidebar) return;
+    let isResizing = false;
+
+    resizer.addEventListener('mousedown', () => {
+      isResizing = true;
+      resizer.classList.add('resizing');
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!isResizing) return;
+      const isRtl = document.documentElement.dir === 'rtl';
+      const newWidth = isRtl ? e.clientX : window.innerWidth - e.clientX;
+      if (newWidth >= 270 && newWidth <= 580) {
+        sidebar.style.width = newWidth + 'px';
+      }
+    });
+
+    window.addEventListener('mouseup', () => {
+      if (isResizing) {
+        isResizing = false;
+        resizer.classList.remove('resizing');
+      }
+    });
+  }
+
   function bindAllEvents() {
     const fileInput = $('globalFileInput');
     ['headerUploadBtn', 'heroUploadBtn', 'emptyUploadBtn'].forEach((id) => {
@@ -1417,6 +1615,10 @@
     ['heroSampleBtn', 'emptySampleBtn'].forEach((id) => {
       $(id)?.addEventListener('click', loadSampleGuide);
     });
+
+    // Pomodoro
+    $('pomoToggleBtn')?.addEventListener('click', togglePomodoro);
+    $('pomoResetBtn')?.addEventListener('click', resetPomodoro);
 
     // Drag & Drop
     const dropOverlay = $('dropZoneOverlay');
@@ -1433,14 +1635,14 @@
       if (e.dataTransfer?.files?.length) handleFilesSelected(e.dataTransfer.files);
     });
 
-    // Header Actions
+    // Header Controls
     $('brandHomeBtn')?.addEventListener('click', () => switchView('dashboard'));
     $('viewSwitchBtn')?.addEventListener('click', () =>
       switchView(state.currentView === 'dashboard' ? 'workspace' : 'dashboard')
     );
     $('projectorModeBtn')?.addEventListener('click', () => toggleProjector(true));
     $('langToggleBtn')?.addEventListener('click', () =>
-      applyLanguage(state.lang === 'en' ? 'ar' : 'en')
+      applyLanguage(state.lang === 'ar' ? 'en' : 'ar')
     );
     $('themeToggleBtn')?.addEventListener('click', () =>
       applyTheme(state.theme === 'dark' ? 'light' : 'dark')
@@ -1459,10 +1661,14 @@
       btn.addEventListener('click', () => $(btn.dataset.close)?.classList.add('hidden'));
     });
 
-    // Quick Cards on Dashboard
+    // Dashboard Quick Cards
     $('qaAiAssistant')?.addEventListener('click', () => {
       switchView('workspace');
       activateRightTab('aiChat');
+    });
+    $('qaStudy')?.addEventListener('click', () => {
+      switchView('workspace');
+      activateRightTab('studyTools');
     });
     $('qaTranslate')?.addEventListener('click', () => {
       switchView('workspace');
@@ -1472,9 +1678,8 @@
       switchView('workspace');
       activateRightTab('notes');
     });
-    $('qaProjector')?.addEventListener('click', () => toggleProjector(true));
 
-    // Dashboard Filter & Search
+    // Dashboard Filters
     document.querySelectorAll('.fm-tab').forEach((tab) => {
       tab.addEventListener('click', () => {
         document.querySelectorAll('.fm-tab').forEach((t) => t.classList.remove('active'));
@@ -1496,10 +1701,10 @@
       state.openDocs = [];
       renderDocTabsBar();
       renderRecentFilesGrid();
-      showToast('History cleared');
+      showToast('تم مسح السجل');
     });
 
-    // Sidebars & Tabs
+    // Sidebar Tabs
     document.querySelectorAll('.sidebar-tab').forEach((b) => {
       b.addEventListener('click', () => activateLeftTab(b.dataset.leftTab));
     });
@@ -1519,43 +1724,54 @@
     $('pageNumberInput')?.addEventListener('change', (e) => goToPage(e.target.value));
     $('zoomInBtn')?.addEventListener('click', () => {
       state.scale = Math.min(3, state.scale + 0.2);
-      renderActivePages();
+      renderDocumentViewport(true);
     });
     $('zoomOutBtn')?.addEventListener('click', () => {
-      state.scale = Math.max(0.4, state.scale - 0.2);
-      renderActivePages();
+      state.scale = Math.max(0.5, state.scale - 0.2);
+      renderDocumentViewport(true);
     });
     $('zoomPresetSelect')?.addEventListener('change', (e) => {
       const v = e.target.value;
-      state.scale = v === 'fit-width' ? 1.15 : v === 'fit-page' ? 0.9 : parseFloat(v) || 1;
-      renderActivePages();
+      state.scale = v === 'fit-width' ? 1.2 : parseFloat(v) || 1;
+      renderDocumentViewport(true);
     });
     $('viewLayoutSelect')?.addEventListener('change', (e) => {
       state.layoutMode = e.target.value;
-      renderActivePages();
+      renderDocumentViewport(true);
     });
     $('rotateCwBtn')?.addEventListener('click', () => {
       state.rotation = (state.rotation + 90) % 360;
-      renderActivePages();
-    });
-    $('rotateCcwBtn')?.addEventListener('click', () => {
-      state.rotation = (state.rotation + 270) % 360;
-      renderActivePages();
+      renderDocumentViewport(false);
     });
 
-    // Extra Utilities
+    // In-Doc Search
+    $('docSearchInput')?.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') runDocSearch(e.target.value);
+    });
+    $('docSearchNextBtn')?.addEventListener('click', () => {
+      if (!state.searchMatches.length) return runDocSearch($('docSearchInput')?.value);
+      state.searchIdx = (state.searchIdx + 1) % state.searchMatches.length;
+      jumpToSearchMatch();
+    });
+    $('docSearchPrevBtn')?.addEventListener('click', () => {
+      if (!state.searchMatches.length) return;
+      state.searchIdx =
+        (state.searchIdx - 1 + state.searchMatches.length) % state.searchMatches.length;
+      jumpToSearchMatch();
+    });
+
+    // Bookmarks, TTS, OCR, Export
     $('addBookmarkBtn')?.addEventListener('click', () => {
       if (!state.bookmarks.some((b) => b.page === state.currentPage)) {
         state.bookmarks.push({ page: state.currentPage });
         syncDocMetadataToDB();
         renderBookmarks();
-        showToast('Bookmarked P.' + state.currentPage);
+        showToast('تم حفظ الإشارة لصفحة ' + state.currentPage);
       }
     });
 
     $('ttsToggleBtn')?.addEventListener('click', () => {
-      if (!('speechSynthesis' in window)) return;
-      if (window.speechSynthesis.speaking) {
+      if (window.speechSynthesis?.speaking) {
         window.speechSynthesis.cancel();
         return;
       }
@@ -1563,49 +1779,26 @@
         window.getSelection().toString().trim() ||
         state.pageTexts[state.currentPage - 1] ||
         '';
-      if (!txt) return showToast('No text on this page', true);
-      const u = new SpeechSynthesisUtterance(txt);
-      u.lang = /[\u0600-\u06FF]/.test(txt) ? 'ar-SA' : 'en-US';
-      window.speechSynthesis.speak(u);
+      if (!txt) return showToast('لا يوجد نص للقراءة في هذه الصفحة', true);
+      speakText(txt);
     });
 
     $('ocrPageBtn')?.addEventListener('click', async () => {
-      const c = document.querySelector('.pdf-canvas') || $('activeImageElem');
-      if (!c || !window.Tesseract) return showToast('No image/page for OCR', true);
-      showToast('Running OCR...');
+      const wrap =
+        $(`page-wrap-${state.currentPage}`) || document.querySelector('.page-wrapper');
+      const c = wrap?.querySelector('.pdf-canvas') || $('activeImageElem');
+      if (!c || !window.Tesseract) return showToast('لا توجد صفحة لاستخراج النص', true);
+      showToast('🔍 جاري استخراج النص عبر OCR...');
       const res = await window.Tesseract.recognize(c, 'eng+ara');
       state.pageTexts[state.currentPage - 1] = res.data.text || '';
       if ($('transSourceInput')) $('transSourceInput').value = state.pageTexts[state.currentPage - 1];
       activateRightTab('translator');
-      showToast('OCR Extracted!');
+      showToast('تم استخراج النص بنجاح!');
     });
 
-    $('wordCountBtn')?.addEventListener('click', () => {
-      const allTxt = state.pageTexts.join('\n\n');
-      const words = allTxt.trim() ? allTxt.trim().split(/\s+/).length : 0;
-      if ($('docStatsMetrics')) {
-        $('docStatsMetrics').innerHTML = `
-          <div class="stat-box"><strong>${state.totalPages}</strong><span>Pages</span></div>
-          <div class="stat-box"><strong>${words}</strong><span>Words</span></div>
-          <div class="stat-box"><strong>${allTxt.length}</strong><span>Chars</span></div>
-          <div class="stat-box"><strong>${Math.ceil(words / 200)}m</strong><span>Read Time</span></div>
-        `;
-      }
-      if ($('extractedTextOutput')) $('extractedTextOutput').value = allTxt;
-      $('docStatsModal')?.classList.remove('hidden');
-    });
+    $('exportAnnotatedPdfBtn')?.addEventListener('click', exportAnnotatedPdf);
 
-    $('copyExtractedTextBtn')?.addEventListener('click', () => {
-      navigator.clipboard.writeText($('extractedTextOutput')?.value || '');
-      showToast('Copied!');
-    });
-
-    $('screenshotPageBtn')?.addEventListener('click', exportPagePng);
-    $('exportAnnotatedPdfBtn')?.addEventListener('click', exportPagePng);
-    $('downloadDocBtn')?.addEventListener('click', exportPagePng);
-    $('printDocBtn')?.addEventListener('click', () => window.print());
-
-    // 14 Annotation Tools
+    // Annotation Tools
     document.querySelectorAll('.anno-btn[data-tool]').forEach((btn) => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.anno-btn').forEach((b) => b.classList.remove('active'));
@@ -1614,6 +1807,9 @@
         document.querySelectorAll('.annotation-canvas').forEach((c) => {
           c.classList.toggle('drawing-active', state.activeTool !== 'select');
         });
+        if (state.activeTool === 'snap') {
+          showToast('✂️ اسحب بالماوس حول أي رسمة في الصفحة لشرحها بالذكاء الاصطناعي');
+        }
       });
     });
 
@@ -1627,10 +1823,6 @@
 
     $('annoColorPicker')?.addEventListener('input', (e) => (state.strokeColor = e.target.value));
     $('annoSizeInput')?.addEventListener('input', (e) => (state.strokeSize = +e.target.value));
-    $('annoOpacityInput')?.addEventListener(
-      'input',
-      (e) => (state.strokeOpacity = +e.target.value / 100)
-    );
 
     $('annoUndoBtn')?.addEventListener('click', () => {
       const p = state.currentPage;
@@ -1638,7 +1830,9 @@
       state.redoStackByPage[p] = state.redoStackByPage[p] || [];
       state.redoStackByPage[p].push(JSON.parse(JSON.stringify(getAnnots(p))));
       state.annotationsByPage[p] = state.undoStackByPage[p].pop();
-      renderActivePages();
+      const wrap = $(`page-wrap-${p}`);
+      redrawPageAnnotations(wrap?.querySelector('.annotation-canvas'), p);
+      syncDocMetadataToDB();
     });
 
     $('annoRedoBtn')?.addEventListener('click', () => {
@@ -1646,34 +1840,22 @@
       if (!state.redoStackByPage[p]?.length) return;
       state.undoStackByPage[p].push(JSON.parse(JSON.stringify(getAnnots(p))));
       state.annotationsByPage[p] = state.redoStackByPage[p].pop();
-      renderActivePages();
+      const wrap = $(`page-wrap-${p}`);
+      redrawPageAnnotations(wrap?.querySelector('.annotation-canvas'), p);
+      syncDocMetadataToDB();
     });
 
     $('annoClearPageBtn')?.addEventListener('click', () => {
-      saveUndoState(state.currentPage);
-      state.annotationsByPage[state.currentPage] = [];
-      renderActivePages();
+      const p = state.currentPage;
+      saveUndoState(p);
+      state.annotationsByPage[p] = [];
+      const wrap = $(`page-wrap-${p}`);
+      redrawPageAnnotations(wrap?.querySelector('.annotation-canvas'), p);
+      syncDocMetadataToDB();
     });
 
-    // AI Chat & 20 Study Tools
+    // AI Chat & 8 Study Capsules
     $('aiProviderSelect')?.addEventListener('change', populateAiModels);
-    $('testAiConnBtn')?.addEventListener('click', async () => {
-      const badge = $('aiConnectionBadge');
-      try {
-        await window.AhmedkoAI.testConnection(
-          $('aiProviderSelect').value,
-          $('aiModelSelect').value
-        );
-        if (badge) {
-          badge.textContent = '● Connected';
-          badge.className = 'conn-badge connected';
-        }
-        showToast('AI Connected!');
-      } catch (e) {
-        showToast(e.message, true);
-      }
-    });
-
     $('sendChatBtn')?.addEventListener('click', () => sendAiPrompt());
     $('chatPromptInput')?.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' && !e.shiftKey) {
@@ -1682,18 +1864,19 @@
       }
     });
     $('stopAiGenBtn')?.addEventListener('click', () => window.AhmedkoAI?.stopGeneration());
-
-    $('newChatSessionBtn')?.addEventListener('click', () => {
-      const id = 'chat_' + Date.now();
-      state.chatSessions.push({ id, title: `Chat ${state.chatSessions.length + 1}`, messages: [] });
-      state.activeChatId = id;
-      saveChats();
-      renderChatSessionsDropdown();
-    });
     $('clearChatSessionBtn')?.addEventListener('click', () => {
-      getActiveChatSession().messages = [];
-      saveChats();
+      state.chatMessages = [];
+      localStorage.removeItem('ahmedko_chat_msgs');
       renderChatMessages();
+    });
+
+    $('explainVisualPageBtn')?.addEventListener('click', () => {
+      const img = getActivePageImageBase64();
+      sendAiPrompt(
+        window.AhmedkoAI.STUDY_PROMPTS.explain_diagrams,
+        'page',
+        img
+      );
     });
 
     document.querySelectorAll('.study-tool-btn[data-study]').forEach((btn) => {
@@ -1702,66 +1885,72 @@
         const basePrompt = window.AhmedkoAI?.STUDY_PROMPTS[key] || key;
         const diff = $('studyDifficultySelect')?.value || 'Medium';
         const lang = $('studyLangSelect')?.value || 'Arabic';
-        const fullPrompt = `${basePrompt}\n(Difficulty Level: ${diff} | Output Language: ${lang})`;
-        sendAiPrompt(
-          fullPrompt,
-          key === 'summarize_doc' ? 'document' : 'page'
-        );
+        const img = key === 'explain_diagrams' ? getActivePageImageBase64() : null;
+        sendAiPrompt(`${basePrompt}\n(المستوى: ${diff} | اللغة: ${lang})`, 'page', img);
       });
     });
 
-    // Translator
+    // Translator & Notes
     $('runTranslateBtn')?.addEventListener('click', runTranslator);
-    $('transSelectionBtn')?.addEventListener('click', () => {
-      if ($('transSourceInput')) $('transSourceInput').value = window.getSelection().toString();
-      runTranslator();
-    });
     $('transPageBtn')?.addEventListener('click', () => {
-      if ($('transSourceInput'))
-        $('transSourceInput').value = (state.pageTexts[state.currentPage - 1] || '').slice(0, 1500);
+      if ($('transSourceInput')) {
+        $('transSourceInput').value = (state.pageTexts[state.currentPage - 1] || '').slice(
+          0,
+          1600
+        );
+      }
       runTranslator();
     });
     $('copyTransBtn')?.addEventListener('click', () => {
       navigator.clipboard.writeText($('transResultBox')?.textContent || '');
-      showToast('Copied!');
+      showToast('تم نسخ الترجمة!');
+    });
+    $('insertTransToNoteBtn')?.addEventListener('click', () => {
+      const txt = $('transResultBox')?.textContent || '';
+      if (!txt) return;
+      activateRightTab('notes');
+      if ($('noteRichEditor')) $('noteRichEditor').innerHTML += `<p>${txt}</p>`;
     });
 
-    // Notes
-    document.querySelectorAll('.rich-btn[data-cmd]').forEach((b) => {
-      b.addEventListener('click', () =>
-        document.execCommand(b.dataset.cmd, false, b.dataset.val || null)
-      );
-    });
     $('saveNoteBtn')?.addEventListener('click', () => {
-      const editor = $('noteRichEditor');
-      if (!editor || !editor.innerHTML.trim()) return;
+      const ed = $('noteRichEditor');
+      if (!ed || !ed.innerHTML.trim()) return;
       state.notes.unshift({
-        title: $('noteTitleInput')?.value || `Page ${state.currentPage} Note`,
-        folder: $('noteFolderAssign')?.value || 'General',
-        page: $('linkNoteToPageChk')?.checked ? state.currentPage : null,
-        html: editor.innerHTML
+        title: $('noteTitleInput')?.value || `ملاحظة صفحة ${state.currentPage}`,
+        page: $('linkNoteToPageChk')?.checked ? state.currentPage : 1,
+        html: ed.innerHTML
       });
-      editor.innerHTML = '';
+      ed.innerHTML = '';
       if ($('noteTitleInput')) $('noteTitleInput').value = '';
       localStorage.setItem('ahmedko_notes', JSON.stringify(state.notes));
       renderSavedNotes();
-      showToast('Note saved!');
+      showToast('تم حفظ الملاحظة!');
     });
-    $('notesFolderSelect')?.addEventListener('change', renderSavedNotes);
 
-    // Settings Modal Save
+    $('exportNoteTxtBtn')?.addEventListener('click', () => {
+      const txt = state.notes
+        .map((n) => `[${n.title} - P.${n.page}]\n${n.html.replace(/<[^>]+>/g, '')}`)
+        .join('\n\n');
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob([txt], { type: 'text/plain;charset=utf-8' }));
+      a.download = 'Ahmedko_Notes.txt';
+      a.click();
+    });
+
+    // Settings Save
     $('saveSettingsBtn')?.addEventListener('click', () => {
+      const existing = JSON.parse(localStorage.getItem('ahmedko_api_keys') || '{}');
       const keys = {
-        openai: $('settingOpenaiKey')?.value.trim() || '',
-        gemini: $('settingGeminiKey')?.value.trim() || '',
-        anthropic: $('settingAnthropicKey')?.value.trim() || ''
+        gemini: $('settingGeminiKey')?.value.trim() || existing.gemini || '',
+        openai: $('settingOpenaiKey')?.value.trim() || existing.openai || '',
+        anthropic: $('settingAnthropicKey')?.value.trim() || existing.anthropic || ''
       };
       localStorage.setItem('ahmedko_api_keys', JSON.stringify(keys));
       applyTheme($('settingThemeSelect')?.value || state.theme);
       applyLanguage($('settingLangSelect')?.value || state.lang);
       applyPaperTint($('settingPaperTint')?.value || 'default');
       $('settingsModal')?.classList.add('hidden');
-      showToast('Settings saved!');
+      showToast('تم حفظ الإعدادات بنجاح!');
     });
 
     $('resetAllDataBtn')?.addEventListener('click', async () => {
@@ -1773,47 +1962,81 @@
     // Projector HUD Controls
     $('projPrevBtn')?.addEventListener('click', () => goToPage(state.currentPage - 1));
     $('projNextBtn')?.addEventListener('click', () => goToPage(state.currentPage + 1));
-    $('projExitBtn')?.addEventListener('click', () => toggleProjector(false));
-    $('projLaserBtn')?.addEventListener('click', () => {
-      state.laserActive = !state.laserActive;
-      $('laserPointerDot')?.classList.toggle('hidden', !state.laserActive);
+    $('projZoomInBtn')?.addEventListener('click', () => {
+      state.projScale = Math.min(3, state.projScale + 0.25);
+      renderProjectorPage();
     });
+    $('projZoomOutBtn')?.addEventListener('click', () => {
+      state.projScale = Math.max(0.6, state.projScale - 0.25);
+      renderProjectorPage();
+    });
+    $('projFitBtn')?.addEventListener('click', () => {
+      state.projScale = 1.25;
+      renderProjectorPage();
+    });
+    $('projLaserBtn')?.addEventListener('click', () => {
+      state.projTool = 'laser';
+      $('projLaserBtn')?.classList.add('active');
+      $('projPenBtn')?.classList.remove('active');
+      $('laserPointerDot')?.classList.remove('hidden');
+      renderProjectorPage();
+    });
+    $('projPenBtn')?.addEventListener('click', () => {
+      state.projTool = 'pen';
+      state.activeTool = 'pen';
+      $('projPenBtn')?.classList.add('active');
+      $('projLaserBtn')?.classList.remove('active');
+      $('laserPointerDot')?.classList.add('hidden');
+      renderProjectorPage();
+    });
+    $('projBlackScreenBtn')?.addEventListener('click', () => toggleCurtain('black'));
+    $('projWhiteScreenBtn')?.addEventListener('click', () => toggleCurtain('white'));
+    $('projTimerToggleBtn')?.addEventListener('click', toggleProjTimer);
+    $('projTimerResetBtn')?.addEventListener('click', () => {
+      clearInterval(state.projTimerInterval);
+      state.projTimerRunning = false;
+      state.projTimerSeconds = 0;
+      if ($('projTimerDisplay')) $('projTimerDisplay').textContent = '00:00';
+      if ($('projTimerToggleBtn')) $('projTimerToggleBtn').textContent = '▶';
+    });
+    $('projExitBtn')?.addEventListener('click', () => toggleProjector(false));
+
     $('projectorOverlay')?.addEventListener('mousemove', (e) => {
-      if (!state.laserActive) return;
+      if (!state.projectorActive || state.projTool !== 'laser') return;
       const dot = $('laserPointerDot');
       if (dot) {
         dot.style.left = e.clientX + 'px';
         dot.style.top = e.clientY + 'px';
       }
     });
+
+    // Global Keyboard Shortcuts
+    window.addEventListener('keydown', (e) => {
+      if (['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName)) return;
+      if (e.key === 'ArrowRight') {
+        goToPage(state.lang === 'ar' ? state.currentPage - 1 : state.currentPage + 1);
+      } else if (e.key === 'ArrowLeft') {
+        goToPage(state.lang === 'ar' ? state.currentPage + 1 : state.currentPage - 1);
+      } else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') {
+        e.preventDefault();
+        $('annoUndoBtn')?.click();
+      } else if (state.projectorActive) {
+        if (e.key.toLowerCase() === 'b') toggleCurtain('black');
+        if (e.key.toLowerCase() === 'w') toggleCurtain('white');
+        if (e.key.toLowerCase() === 'l') $('projLaserBtn')?.click();
+        if (e.key === 'Escape') toggleProjector(false);
+      }
+    });
   }
 
-  function exportPagePng() {
-    const wrapper = document.querySelector('.page-wrapper');
-    if (!wrapper) return;
-    const canvases = wrapper.querySelectorAll('canvas');
-    if (!canvases.length) return;
-    const out = document.createElement('canvas');
-    out.width = canvases[0].width;
-    out.height = canvases[0].height;
-    const ctx = out.getContext('2d');
-    canvases.forEach((c) => ctx.drawImage(c, 0, 0));
-    const a = document.createElement('a');
-    a.download = `ahmedko_page_${state.currentPage}.png`;
-    a.href = out.toDataURL('image/png');
-    a.click();
-  }
-
-  // =========================================================================
-  // 15. INITIALIZE ON LOAD
-  // =========================================================================
   document.addEventListener('DOMContentLoaded', () => {
-    injectCompactUIStyles();
     populateAiModels();
     applyTheme(state.theme);
     applyLanguage(state.lang);
     bindAllEvents();
-    renderChatSessionsDropdown();
+    bindSelectionPopup();
+    initRightSidebarResizer();
+    renderChatMessages();
     renderTransHistory();
     renderSavedNotes();
     renderRecentFilesGrid();
